@@ -3,13 +3,13 @@
 $status = "none";
 $message = false;
 
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$verify_password = $_POST['verify_password'];
+$first_name = $_GET['first_name'];
+$last_name = $_GET['last_name'];
+$email = $_GET['email'];
+$password = $_GET['password'];
+$verify_password = $_GET['verify_password'];
 
-if($first_name == "" || $last_name == "" || $email == "" || $country == "" || $email == "" || $password == "" || $verify_password == "")
+if($first_name == "" || $last_name == "" || $email == "" || $password == "" || $verify_password == "")
 {
 	$status = "fail";
 	$message = "All fields are necessary!";
@@ -24,8 +24,7 @@ else if($password != $verify_password)
 	$status = "fail";
 	$message = "Passwords do not match!";
 }
-
-if($message == false)
+else
 {
 	$first_name = preg_replace('#[^A-Za-z0-9]#i', '', $first_name);
 	$last_name = preg_replace('#[^A-Za-z0-9]#i', '', $last_name);
@@ -39,18 +38,15 @@ if($message == false)
 	$exist_count = mysql_num_rows($check_email);
 	if($exist_count != 0)
 	{
-		$status = "fail"
+		$status = "fail";
 		$message = "Email ID already registered!";
 	}
 	else
 	{
 		mysql_query("INSERT INTO admins VALUES ('', '{$email}', '{$password}', '{$first_name}', '{$last_name}')");
+		$status = "success";
+		$message = "Successfully created new user!";
 	}
-}
-if($message != false)
-{
-	$status = "success";
-	$message = "Successfully created new user!";	
 }
 
 header("location: ../signup.php?status={$status}&message={$message}");
