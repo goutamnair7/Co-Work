@@ -34,7 +34,7 @@ else
 	
 	include "connect_to_mysql.php";
 	
-	$check_email = mysql_query("SELECT * FROM admins WHERE email='$email' OR email='$email' LIMIT 1");
+	$check_email = mysql_query("SELECT * FROM admins WHERE email='{$email}' LIMIT 1");
 	$exist_count = mysql_num_rows($check_email);
 	if($exist_count != 0)
 	{
