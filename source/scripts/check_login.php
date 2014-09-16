@@ -1,5 +1,5 @@
 <?php
-$error = false;
+$message = false;
 $email = $_GET['email'];
 $password = $_GET['password'];
 
@@ -8,7 +8,7 @@ $password = preg_replace('#[^A-Za-z0-9]#i', '', $password);
 
 if($email == "" || $password == "")
 {
-	$error = "Invalid Email ID or Password";
+	$message = "Invalid Email ID or Password";
 }
 else
 {
@@ -20,7 +20,7 @@ else
 
 	if($existCount == 0)
 	{
-		$error = "Invalid Email ID or Password";
+		$message = "Invalid Email ID or Password";
 	}
 	else
 	{
@@ -31,9 +31,9 @@ else
 	}
 }
 
-if ($error != false)
+if ($message != false)
 {
-	$url = "../login.php?login_failed=true&reason=" . $error;
+	$url = "../login.php?status=fail&message=" . $message;
 }
 else
 {
