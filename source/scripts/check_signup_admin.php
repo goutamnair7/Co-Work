@@ -49,5 +49,5 @@ else
 	}
 }
 
-header("location: ../signup.php?status={$status}&message={$message}");
+header("location: ../register_admin.php?status={$status}&message={$message}");
 ?>

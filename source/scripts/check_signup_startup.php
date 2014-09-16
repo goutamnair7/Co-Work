@@ -47,5 +47,5 @@ else
 	}
 }
 
-header("location: ../signup_startup.php?status={$status}&message={$message}");
+header("location: ../register_startup.php?status={$status}&message={$message}");
 ?>
