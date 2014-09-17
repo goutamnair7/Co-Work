@@ -18,19 +18,14 @@
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 
 </head>
-<body id="login-page-full">
-<div id="login-full-wrapper">
+
+<body id="login-page">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
 				<div id="login-box">
 					<div class="row">
 						<div class="col-xs-12">
-							<header id="login-header">
-								<div id="login-logo">
-									<img src="img/logo.png" alt=""/>
-								</div>
-							</header>
 							<div id="login-box-inner">
 							    <div id = "statusdiv" class="row">
 									<div class="col-xs-12">
@@ -63,7 +58,9 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12">
-											<button type="submit" class="btn btn-success col-xs-12">Login</button>
+											<div class="col-md-3 col-xs-3">	</div>
+											<button type="submit" class="btn btn-success col-xs-6 col-md-6">Login</button>
+											<div class="col-md-3 col-xs-3"></div>
 										</div>
 									</div>
 								</form>
@@ -73,7 +70,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </div>
 
 <script src="js/jquery.js"></script>
