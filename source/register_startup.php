@@ -3,52 +3,66 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Co-Work :: Register Startup</title>
+<title>Centaurus - Bootstrap Admin Template</title>
 
-<link href="css/bootstrap/bootstrap.css" rel="stylesheet"/>
+<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+
 
 <link href="css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/libs/nanoscroller.css" type="text/css"/>
+
 <link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
-<link rel="stylesheet" href="css/libs/datepicker.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/bootstrap-timepicker.css" type="text/css"/>
 
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/libs/fullcalendar.css" type="text/css"/>
+<link rel="stylesheet" href="css/libs/fullcalendar.print.css" type="text/css" media="print"/>
+<link rel="stylesheet" href="css/compiled/calendar.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="css/libs/morris.css" type="text/css"/>
+<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css"/>
+<link rel="stylesheet" href="css/libs/jquery-jvectormap-1.2.2.css" type="text/css"/>
 
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 
-<style>
-.input-group{
-	min-width:100%;
-}
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
-</style>
 </head>
+<body class="theme-blue-gradient fixed-header fixed-leftmenu">
 
-<body id="login-page-full">
-<div id="login-full-wrapper">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<div id="login-box" style="max-width:600px;">
-					<div class="row">
-						<div class="col-xs-12">
-							<div id="login-box-inner">
-							    <div id = "statusdiv" class="row">
-									<div class="col-xs-12">
-										<p id="status" class="alert fade in" style="padding:3px;"></p>
+<?php include_once 'navbar.php'; ?>
+
+<div id="page-wrapper" class="container">
+	<div class="row">
+		
+		<?php include_once 'navbar-col.php'; ?>
+
+		<div id="content-wrapper">
+			<div class="row">
+			
+				<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Startup Register</a>
+
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title">Register New Startup</h4>
+							</div>
+							<form role="form" action="scripts/check_signup_startup.php">
+								<div class="modal-body">
+									
+									 <div id = "statusdiv" class="row">
+										<div class="col-xs-12">
+											<p id="status" class="alert fade in" style="padding:3px;"></p>
+										</div>
 									</div>
-								</div>
-								
-								<form role="form" action="scripts/check_signup_startup.php">
-																		
-									<div class="input-group">
-										<input class="form-control" type="text" placeholder="Startup Name" name="name" required>
+										
+									<div class="form-group">
+										<label>Startup Name</label>
+											<input class="form-control" type="text" placeholder="Startup Name" name="name" required>
 									</div>
 
-									<div class="input-group">
-										<div class="col-md-6">
+									<div class="form-group">
+										<div class="col-md-6 form-group">
 											<label>Space</label>
 											<select class="form-control" name="space" required>
 												<option>Launchpad</option>
@@ -57,7 +71,7 @@
 											</select>
 										</div>
 
-										<div class="col-md-6">
+										<div class="col-md-6 form-group">
 											<label>Status</label>
 											<select class="form-control" name="startup_status" required>
 												<option>Present</option>
@@ -66,51 +80,62 @@
 										</div>
 									</div>
 									
-									<div class="input-group">
-										<div class="col-md-6">
+									<div class="form-group">
+										<div class="col-md-6 form-group">
 											<label for="datepickerDate">Joining Date</label>
 												<input type="text" class="form-control" id="datepickerjoin" name="joining_date" required>
 										</div>
 
-										<div class="col-md-6">
+										<div class="col-md-6 form-group">
 											<label for="datepickerDate">Ending Date</label>
 												<input type="text" class="form-control" id="datepickerend" name="ending_date">
 										</div>
 									</div>
 
-									<div class="input-group">
-										<div class="col-md-6" style="padding-left:0px;">
-											<input class="form-control" type="text" placeholder="Number of Employees" name="employees" style="height:45px;" required>
+									<div class="form-group">
+										<div class="col-md-6 form-group">
+											<label>Number of Employees</label>
+											<input class="form-control" type="text" placeholder="Number of Employees" name="employees" required>
 										</div>
 										
-										<div class="col-md-6" style="padding-right:0px;">
-											<input class="form-control" type="text" placeholder="Domain" name="domain" style="height:45px;"required>
+										<div class="col-md-6 form-group">
+											<label>Domain</label>
+											<input class="form-control" type="text" placeholder="Domain" name="domain" required>
 										</div>
 									</div>
 
-									<div class="input-group">
-										<input class="form-control" type="text" placeholder="Startup Description" name="description">
+									<div class="form-group">
+										<label>Startup Description</label>
+											<input class="form-control" type="text" placeholder="Startup Description" name="description">
 									</div>
 
-									<div class="input-group">
-										<input class="form-control" type="text" placeholder="Web Address" name="web_address">
+									<div class="form-group">
+										<label>Web Address</label>
+											<input class="form-control" type="text" placeholder="Web Address" name="web_address">
 									</div>
-									<div class="row">
-										<div class='col-xs-5'></div>
-										<div class="col-xs-2">
-											<button type="submit" class="btn btn-success col-xs-12" style='height:40px;'>Login</button>
-										</div>
-										<div class='col-xs-5'></div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
+
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="submit" class="btn btn-primary">Register</button>
+								</div>
+
+							</form>	
+						</div> 
+					</div> 
+				</div> 
+
 			</div>
+			<footer id="footer-bar" class="row">
+				<p id="footer-copyright" class="col-xs-12">
+				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
+				</p>
+			</footer>
 		</div>
 	</div>
 </div>
+
 
 <script src="js/demo-skin-changer.js"></script>  
 <script src="js/jquery.js"></script>
