@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
 
 
-<!--link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'-->
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 
