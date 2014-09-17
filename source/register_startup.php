@@ -3,19 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Co-Work :: Login</title>
+<title>Co-Work :: Register Startup</title>
 
 <link href="css/bootstrap/bootstrap.css" rel="stylesheet"/>
 
 <link href="css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-
 <link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
 <link rel="stylesheet" href="css/libs/datepicker.css" type="text/css"/>
 <link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css"/>
 <link rel="stylesheet" href="css/libs/bootstrap-timepicker.css" type="text/css"/>
 
-<!--link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'-->
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 
@@ -35,11 +34,6 @@
 				<div id="login-box" style="max-width:600px;">
 					<div class="row">
 						<div class="col-xs-12">
-							<header id="login-header">
-								<div id="login-logo">
-									<img src="img/logo.png" alt=""/>
-								</div>
-							</header>
 							<div id="login-box-inner">
 							    <div id = "statusdiv" class="row">
 									<div class="col-xs-12">
@@ -160,7 +154,7 @@
 		document.getElementById("status").className += " alert-warning";
 	}
 	else if(status.toLowerCase() == "success"){
-		document.getElementById("status").innerHTML = "<i class='fa fa-success fa-fw fa-lg'></i>"+msg;
+		document.getElementById("status").innerHTML = "<i class='fa fa-check-circle fa-fw fa-lg'></i>"+msg;
 		document.getElementById("status").className += " alert-success";
 
 	}
