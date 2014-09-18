@@ -15,8 +15,8 @@ else
 	$password = md5($password);
 	
 	include "connect_to_mysql.php";
-	$sql = mysql_query("SELECT * FROM admins WHERE email='{$email}' AND password='{$password}' LIMIT 1");
-	$existCount = mysql_num_rows($sql);
+	$sql = $mysqli->query("SELECT * FROM admins WHERE email='{$email}' AND password='{$password}' LIMIT 1");
+	$existCount = $sql->num_rows($sql);
 
 	if($existCount == 0)
 	{
@@ -24,7 +24,7 @@ else
 	}
 	else
 	{
-		$row = mysql_fetch_array($sql);
+		$row = $sql->fetch_array();
 		session_start();
 		$_SESSION['email'] = $row['email'];
 		$_SESSION['first_name'] = $row['first_name'];
@@ -39,6 +39,8 @@ else
 {
 	$url = "../dashboard.php";
 }
+
+$mysqli->close();
 
 header("location: " . $url);
 ?>
