@@ -25,6 +25,18 @@
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
+<style>
+#emp {
+	display : none;
+}
+#empbut {
+	display : none;
+}
+#back {
+	display : none;
+}
+</style>
+
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
 
@@ -38,7 +50,7 @@
 		<div id="content-wrapper">
 			<div class="row">
 			
-				<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Startup Register</a>
+				<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg" onclick="funcclear()">Startup Register</a>
 
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
@@ -55,74 +67,119 @@
 											<p id="status" class="alert fade in" style="padding:3px;"></p>
 										</div>
 									</div>
-										
-									<div class="form-group">
-										<label>Startup Name</label>
-											<input class="form-control" type="text" placeholder="Startup Name" name="name" required>
-									</div>
-
-									<div class="form-group">
-										<div class="col-md-6 form-group">
-											<label>Space</label>
-											<select class="form-control" name="space" required>
-												<option>Launchpad</option>
-												<option>Propel</option>
-												<option>Leased Spaces</option>
-											</select>
+									<div id='start'>	
+										<div class="form-group">
+											<label>Startup Name</label>
+												<input class="form-control" type="text" placeholder="Startup Name" name="name" required>
 										</div>
 
-										<div class="col-md-6 form-group">
-											<label>Status</label>
-											<select class="form-control" name="startup_status" required>
-												<option>Present</option>
-												<option>Left</option>
-											</select>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<div class="col-md-6 form-group">
-											<label for="datepickerDate">Joining Date</label>
-												<input type="text" class="form-control" id="datepickerjoin" name="joining_date" required>
-										</div>
+										<div class="form-group">
+											<div class="col-md-6 form-group">
+												<label>Space</label>
+												<select class="form-control" name="space" required>
+													<option>Launchpad</option>
+													<option>Propel</option>
+													<option>Leased Spaces</option>
+												</select>
+											</div>
 
-										<div class="col-md-6 form-group">
-											<label for="datepickerDate">Ending Date</label>
-												<input type="text" class="form-control" id="datepickerend" name="ending_date">
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-md-6 form-group">
-											<label>Number of Employees</label>
-											<input class="form-control" type="text" placeholder="Number of Employees" name="employees" required>
+											<div class="col-md-6 form-group">
+												<label>Status</label>
+												<select class="form-control" name="startup_status" required>
+													<option>Present</option>
+													<option>Left</option>
+												</select>
+											</div>
 										</div>
 										
-										<div class="col-md-6 form-group">
-											<label>Domain</label>
-											<input class="form-control" type="text" placeholder="Domain" name="domain" required>
+										<div class="form-group">
+											<div class="col-md-6 form-group">
+												<label for="datepickerDate">Joining Date</label>
+													<input type="text" class="form-control" id="datepickerjoin" name="joining_date" required>
+											</div>
+
+											<div class="col-md-6 form-group">
+												<label for="datepickerDate">Ending Date</label>
+													<input type="text" class="form-control" id="datepickerend" name="ending_date">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="col-md-6 form-group">
+												<label>Number of Employees</label>
+												<input class="form-control" type="text" placeholder="Number of Employees" name="employees" required>
+											</div>
+											
+											<div class="col-md-6 form-group">
+												<label>Domain</label>
+												<input class="form-control" type="text" placeholder="Domain" name="domain" required>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label>Startup Description</label>
+												<input class="form-control" type="text" placeholder="Startup Description" name="description">
+										</div>
+
+										<div class="form-group">
+											<label>Web Address</label>
+												<input class="form-control" type="text" placeholder="Web Address" name="web_address">
 										</div>
 									</div>
+									<div id = 'emp'>
+										<div class="form-group">
+											<div class="col-md-6 form-group">
+												<label>First Name</label>
+												<input class="form-control" type="text" placeholder="First Name" name="p1_first_name" required>
+											</div>
+											
+											<div class="col-md-6 form-group">
+												<label>Last Name</label>										
+												<input class="form-control" type="text" placeholder="Last Name" name="p1_last_name" required>
+											</div>
+										</div>
 
-									<div class="form-group">
-										<label>Startup Description</label>
-											<input class="form-control" type="text" placeholder="Startup Description" name="description">
+										<div class="form-group">
+											<label>Email Id</label>
+											<input class="form-control" type="text" placeholder="Email id" name="p1_email" required>
+										</div>
+
+										<div class="form-group">
+											<label>Contact Number</label>
+											<input class="form-control" type="text" placeholder="Contact Number" name="p1_contact" required>
+										</div>
+										<div class="form-group">
+											<div class="col-md-6 form-group">
+												<label>First Name</label>
+												<input class="form-control" type="text" placeholder="First Name" name="p2_first_name">
+											</div>
+											
+											<div class="col-md-6 form-group">
+												<label>Last Name</label>										
+												<input class="form-control" type="text" placeholder="Last Name" name="p2_last_name">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label>Email Id</label>
+											<input class="form-control" type="text" placeholder="Email id" name="p2_email">
+										</div>
+
+										<div class="form-group">
+											<label>Contact Number</label>
+											<input class="form-control" type="text" placeholder="Contact Number" name="p2_contact">
+										</div>
 									</div>
-
-									<div class="form-group">
-										<label>Web Address</label>
-											<input class="form-control" type="text" placeholder="Web Address" name="web_address">
-									</div>
-
 								</div>
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-									<button type="submit" class="btn btn-primary">Register</button>
+									<button type="button" class="btn btn-default" id = 'back' onclick="func()">Back</button>
+									<button id = "startbut" type="button" class="btn btn-primary start" onclick="myFunction()">Next</button>
+									<button id = 'empbut' type="submit" class="btn btn-primary">Register</button>
 								</div>
-
 							</form>	
-						</div> 
+						</div>
 					</div> 
 				</div> 
 
@@ -170,6 +227,32 @@
 	
 	});
 </script>
+
+<script type="text/javascript">
+	function myFunction() {
+		document.getElementById("start").style.display = "none";
+		document.getElementById("emp").style.display = "inline";
+		document.getElementById("startbut").style.display = "none";
+		document.getElementById("empbut").style.display = "inline";
+		document.getElementById("back").style.display = "inline";
+	}
+	function func() {
+		document.getElementById("start").style.display = "inline";
+		document.getElementById("emp").style.display = "none";
+		document.getElementById("startbut").style.display = "inline";
+		document.getElementById("empbut").style.display = "none";
+		document.getElementById("back").style.display = "none";	
+	}
+	function funcclear() {
+		var x = document.getElementsByTagName("input");
+		var i;
+		for(i=0;i<x.length;i++){
+			x[i].value="";
+		}
+		func();
+	}
+</script>
+
 <script type="text/javascript">
 	var status = "<?php echo $_GET['status'] ?>";
 	var msg = "<?php echo $_GET['message'] ?>";
