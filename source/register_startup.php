@@ -50,9 +50,9 @@
 		<div id="content-wrapper">
 			<div class="row">
 			
-				<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg" onclick="funcclear()">Startup Register</a>
+				<a data-toggle="modal" href="#startupModal" class="btn btn-primary btn-lg" onclick="funcclear()">Startup Register</a>
 
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="startupModal" tabindex="-1" role="dialog" aria-labelledby="startupModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -180,6 +180,62 @@
 								</div>
 							</form>	
 						</div>
+					</div> 
+				</div> 
+
+				
+				<a data-toggle="modal" href="#adminModal" class="btn btn-primary btn-lg">Admin Register</a>
+
+				<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title">Register New Admin</h4>
+							</div>
+							<form role="form" action="scripts/check_signup_admin.php">
+								<div class="modal-body">
+									
+									 <div id = "statusdiv" class="row">
+										<div class="col-xs-12">
+											<p id="status" class="alert fade in" style="padding:3px;"></p>
+										</div>
+									</div>
+										
+									<div class="form-group">
+										<label>Startup Name</label>
+										<input class="form-control" type="text" placeholder="First Name" name="first_name" required>
+									</div>
+
+									<div class="form-group">
+										<label>Last Name</label>
+										<input class="form-control" type="text" placeholder="Last Name" name="last_name" required>
+									</div>
+									
+									<div class="form-group">
+										<label>Email</label>
+										<input class="form-control" type="text" placeholder="Email" name="email" required>
+									</div>
+
+									<div class="form-group">
+										<label>Password</label>
+										<input class="form-control" type="password" placeholder="Password" name="password" required>
+									</div>
+
+									<div class="form-group">
+										<label>Confirm Password</label>
+										<input class="form-control" type="password" placeholder="Confirm Password" name="verify_password" required>
+									</div>
+
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="submit" class="btn btn-primary">Register</button>
+								</div>
+
+							</form>	
+						</div> 
 					</div> 
 				</div> 
 
