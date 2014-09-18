@@ -130,44 +130,44 @@
 										<div class="form-group">
 											<div class="col-md-6 form-group">
 												<label>First Name</label>
-												<input class="form-control" type="text" placeholder="First Name" name="first_name" required>
+												<input class="form-control" type="text" placeholder="First Name" name="p1_first_name" required>
 											</div>
 											
 											<div class="col-md-6 form-group">
 												<label>Last Name</label>										
-												<input class="form-control" type="text" placeholder="Last Name" name="last_name" required>
+												<input class="form-control" type="text" placeholder="Last Name" name="p1_last_name" required>
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label>Email Id</label>
-											<input class="form-control" type="text" placeholder="Email id" name="email" required>
+											<input class="form-control" type="text" placeholder="Email id" name="p1_email" required>
 										</div>
 
 										<div class="form-group">
 											<label>Contact Number</label>
-											<input class="form-control" type="text" placeholder="Contact Number" name="contact" required>
+											<input class="form-control" type="text" placeholder="Contact Number" name="p1_contact" required>
 										</div>
 										<div class="form-group">
 											<div class="col-md-6 form-group">
 												<label>First Name</label>
-												<input class="form-control" type="text" placeholder="First Name" name="first_name">
+												<input class="form-control" type="text" placeholder="First Name" name="p2_first_name">
 											</div>
 											
 											<div class="col-md-6 form-group">
 												<label>Last Name</label>										
-												<input class="form-control" type="text" placeholder="Last Name" name="last_name">
+												<input class="form-control" type="text" placeholder="Last Name" name="p2_last_name">
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label>Email Id</label>
-											<input class="form-control" type="text" placeholder="Email id" name="email">
+											<input class="form-control" type="text" placeholder="Email id" name="p2_email">
 										</div>
 
 										<div class="form-group">
 											<label>Contact Number</label>
-											<input class="form-control" type="text" placeholder="Contact Number" name="contact">
+											<input class="form-control" type="text" placeholder="Contact Number" name="p2_contact">
 										</div>
 									</div>
 								</div>
@@ -230,7 +230,6 @@
 
 <script type="text/javascript">
 	function myFunction() {
-		if()
 		document.getElementById("start").style.display = "none";
 		document.getElementById("emp").style.display = "inline";
 		document.getElementById("startbut").style.display = "none";
