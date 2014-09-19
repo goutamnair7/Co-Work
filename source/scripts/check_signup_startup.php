@@ -1,5 +1,16 @@
 <?php
 
+function sendmail($to, $subject, $body, $from)
+{
+	$headers = "MIME-Version: 1.0\r\n";
+	$headers .= "Content-type:text/html;charset=iso-8859-1\r\n";
+	$headers .= "From: {$from}\r\n";
+	$headers .= "X-Mailer: PHP/".phpversion();
+	if(mail($to, $subject, $body, $headers))
+		return true;
+	return false;
+}
+
 $status = "none";
 $message = "";
 
@@ -62,18 +73,18 @@ else
 	}
 	else
 	{
-//		session_start();
+		session_start();
 		$status = "success";
 		$message = "Successfully created new startup!";
 		$subject = "You have been Registered on CIE SITE";
-		$msg = "";
-//		$msg = "Your Startup(".$name.") has been registered on CIE Website by ".$_SESSION['first_name']." ".$_SESSION['last_name'].".\r\nYour login id is: ".$p1_email."\r\nYour password is: ".$p1_email;
-		$headers = "From: noreply.cie@gmail.com";
+		$msg = "Congratulations!";
+		$msg = "Your Startup(".$name.") has been registered on CIE Website by ".$_SESSION['row']['first_name']." ".$_SESSION['row']['last_name'].".Your login id is '".$p1_email."' and password is '".$p1_email."'";
+		$from = "noreply.cie@gmail.com";
 
-		mail($p1_email, $subject, $msg, $headers);
+		sendmail($p1_email, $subject, $msg, $from);
 
 		if($p2_email != "")
-			mail($p2_email, $subject, $msg, $headers);
+			sendmail($p2_email, $subject, $msg, $from);
 	}
 }
 

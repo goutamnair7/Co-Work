@@ -16,9 +16,8 @@ else
 	
 	include "connect_to_mysql.php";
 	$sql = $mysqli->query("SELECT * FROM admins WHERE email='{$email}' AND password='{$password}' LIMIT 1");
-	$existCount = $sql->num_rows($sql);
-
-	if($existCount == 0)
+	
+	if($sql->num_rows == 0)
 	{
 		$message = "Invalid Email ID or Password";
 	}
@@ -26,8 +25,8 @@ else
 	{
 		$row = $sql->fetch_array();
 		session_start();
-		$_SESSION['email'] = $row['email'];
-		$_SESSION['first_name'] = $row['first_name'];
+		$_SESSION['user'] = $row;
+		$_SESSION['user_type'] = 'admin';
 	}
 }
 
@@ -37,10 +36,8 @@ if ($message != false)
 }
 else
 {
-	$url = "../dashboard.php";
+	$url = "../register_startup.php";
 }
-
-$mysqli->close();
 
 header("location: " . $url);
 ?>
