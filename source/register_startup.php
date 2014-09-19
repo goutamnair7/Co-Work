@@ -203,7 +203,7 @@
 									</div>
 										
 									<div class="form-group">
-										<label>Startup Name</label>
+										<label>First Name</label>
 										<input class="form-control" type="text" placeholder="First Name" name="first_name" required>
 									</div>
 
