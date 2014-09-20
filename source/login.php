@@ -1,4 +1,22 @@
 <!DOCTYPE html>
+<?php
+
+session_start();
+
+if(isset($_SESSION['user_type']))
+{
+	$url = "";
+	if($_SESSION['user_type']=="admin")
+		$url = "./dashboard.php";
+	else if($_SESSION['user_type']=="startup")
+		$url = "./startup_home.php";
+	if($url == "")
+		session_destroy();
+	else
+		header("location: ".$url);
+}
+?>
+
 <html>
 <head>
 <meta charset="UTF-8"/>
