@@ -15,19 +15,18 @@ else
 	$password = md5($password);
 	
 	include "connect_to_mysql.php";
-	$sql = mysql_query("SELECT * FROM admins WHERE email='{$email}' AND password='{$password}' LIMIT 1");
-	$existCount = mysql_num_rows($sql);
-
-	if($existCount == 0)
+	$sql = $mysqli->query("SELECT * FROM admins WHERE email='{$email}' AND password='{$password}' LIMIT 1");
+	
+	if($sql->num_rows == 0)
 	{
 		$message = "Invalid Email ID or Password";
 	}
 	else
 	{
-		$row = mysql_fetch_array($sql);
+		$row = $sql->fetch_array();
 		session_start();
-		$_SESSION['email'] = $row['email'];
-		$_SESSION['first_name'] = $row['first_name'];
+		$_SESSION['user'] = $row;
+		$_SESSION['user_type'] = 'admin';
 	}
 }
 
@@ -37,7 +36,7 @@ if ($message != false)
 }
 else
 {
-	$url = "../dashboard.php";
+	$url = "../register_startup.php";
 }
 
 header("location: " . $url);
