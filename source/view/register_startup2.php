@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-Work :: Register Startup</title>
 
-<link href="css/bootstrap/bootstrap.css" rel="stylesheet"/>
+<link href="../asset/css/bootstrap/bootstrap.css" rel="stylesheet"/>
 
-<link href="css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
-<link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
-<link rel="stylesheet" href="css/libs/datepicker.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/bootstrap-timepicker.css" type="text/css"/>
+<link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
+<link rel="stylesheet" href="../asset/css/libs/datepicker.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/daterangepicker.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/bootstrap-timepicker.css" type="text/css"/>
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
@@ -40,7 +40,7 @@
 									</div>
 								</div>
 								
-								<form role="form" action="scripts/check_signup_startup.php">
+								<form role="form" action="../controller/check_signup_startup.php">
 																		
 									<div class="input-group">
 										<input class="form-control" type="text" placeholder="Startup Name" name="name" required>
@@ -107,23 +107,23 @@
 		</div>
 </div>
 
-<script src="js/demo-skin-changer.js"></script>  
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.nanoscroller.min.js"></script>
-<script src="js/demo.js"></script>  
+<script src="../asset/js/demo-skin-changer.js"></script>  
+<script src="../asset/js/jquery.js"></script>
+<script src="../asset/js/bootstrap.js"></script>
+<script src="../asset/js/jquery.nanoscroller.min.js"></script>
+<script src="../asset/js/demo.js"></script>  
  
-<script src="js/jquery.maskedinput.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/moment.min.js"></script>
-<script src="js/daterangepicker.js"></script>
-<script src="js/bootstrap-timepicker.min.js"></script>
-<script src="js/select2.min.js"></script>
-<script src="js/hogan.js"></script>
-<script src="js/typeahead.min.js"></script>
-<script src="js/jquery.pwstrength.js"></script>
+<script src="../asset/js/jquery.maskedinput.min.js"></script>
+<script src="../asset/js/bootstrap-datepicker.js"></script>
+<script src="../asset/js/moment.min.js"></script>
+<script src="../asset/js/daterangepicker.js"></script>
+<script src="../asset/js/bootstrap-timepicker.min.js"></script>
+<script src="../asset/js/select2.min.js"></script>
+<script src="../asset/js/hogan.js"></script>
+<script src="../asset/js/typeahead.min.js"></script>
+<script src="../asset/js/jquery.pwstrength.js"></script>
  
-<script src="js/scripts.js"></script>
+<script src="../asset/js/scripts.js"></script>
 <script>
 	$(function($) {
 		

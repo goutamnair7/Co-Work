@@ -23,12 +23,12 @@ if(isset($_SESSION['user_type']))
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-Work :: Login</title>
 
-<link href="css/bootstrap/bootstrap.css" rel="stylesheet"/>
+<link href="../asset/css/bootstrap/bootstrap.css" rel="stylesheet"/>
 
-<link href="css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
+<link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
 
-<link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
-<link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
 
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
@@ -50,7 +50,7 @@ if(isset($_SESSION['user_type']))
 										<p id="status" class="alert fade in" style="padding:3px;"></p>
 									</div>
 								</div>
-								<form role="form" action="scripts/check_login.php">
+								<form role="form" action="../controller/check_login.php">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-user"></i></span>
 										<input class="form-control" type="text" placeholder="Email address" name="email">
@@ -90,8 +90,8 @@ if(isset($_SESSION['user_type']))
 		</div>
 </div>
 
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="../asset/js/jquery.js"></script>
+<script src="../asset/js/bootstrap.js"></script>
 
 <script type="text/javascript">
 	var status = "<?php echo $_GET['status'] ?>";
@@ -107,7 +107,7 @@ if(isset($_SESSION['user_type']))
 
 </script>
 
-<script src="js/scripts.js"></script>
+<script src="../asset/js/scripts.js"></script>
 
 </body>
 </html>
