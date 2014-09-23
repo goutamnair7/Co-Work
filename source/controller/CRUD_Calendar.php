@@ -1,5 +1,6 @@
 <?php
-	include "connect_to_mysql.php";
+
+	require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
 	
 	$operation = $_GET["operation"];
 	

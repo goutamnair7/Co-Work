@@ -1,5 +1,7 @@
 <?php
 
+require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
+
 $status = "none";
 $message = false;
 
@@ -32,8 +34,6 @@ else
 	$password = preg_replace('#[^A-Za-z0-9]#i', '', $password);
 	$password = md5($password);
 	
-	include "connect_to_mysql.php";
-	
 	$sql = $mysqli->query("SELECT * FROM admins WHERE email='{$email}' LIMIT 1");
 	$exist_count = $sql->num_rows($check_email);
 	if($exist_count != 0)
@@ -58,6 +58,6 @@ else
 
 $mysqli->close();
 
-header("location: ../register_startup.php?status={$status}&message={$message}");
+header("location: ../view/register_startup.php?status={$status}&message={$message}");
 
 ?>
