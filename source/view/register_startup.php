@@ -13,6 +13,7 @@
 
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
+<link rel="stylesheet" href="../asset/css/libs/datepicker.css" type="text/css"/>
 
 <link rel="stylesheet" href="../asset/css/libs/fullcalendar.css" type="text/css"/>
 <link rel="stylesheet" href="../asset/css/libs/fullcalendar.print.css" type="text/css" media="print"/>
@@ -280,7 +281,7 @@
 		});
 
 		$('#datepickerend').datepicker({
-		  format: 'mm-dd-yyyy'
+		  format: 'mm-dd-yyyy';
 		});
 
 		$('#datepickerDateComponent').datepicker();
