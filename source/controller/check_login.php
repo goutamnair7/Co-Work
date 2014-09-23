@@ -1,4 +1,7 @@
 <?php
+
+require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
+
 $message = false;
 $email = $_GET['email'];
 $password = $_GET['password'];
@@ -13,31 +16,29 @@ if($email == "" || $password == "")
 else
 {
 	$password = md5($password);
-	
-	include "connect_to_mysql.php";
-	$sql = mysql_query("SELECT * FROM admins WHERE email='{$email}' AND password='{$password}' LIMIT 1");
-	$existCount = mysql_num_rows($sql);
 
-	if($existCount == 0)
+	$sql = $mysqli->query("SELECT * FROM admins WHERE email='{$email}' AND password='{$password}' LIMIT 1");
+	
+	if($sql->num_rows == 0)
 	{
 		$message = "Invalid Email ID or Password";
 	}
 	else
 	{
-		$row = mysql_fetch_array($sql);
+		$row = $sql->fetch_array();
 		session_start();
-		$_SESSION['email'] = $row['email'];
-		$_SESSION['first_name'] = $row['first_name'];
+		$_SESSION['user'] = $row;
+		$_SESSION['user_type'] = 'admin';
 	}
 }
 
 if ($message != false)
 {
-	$url = "../login.php?status=fail&message=" . $message;
+	$url = "../view/login.php?status=fail&message=" . $message;
 }
 else
 {
-	$url = "../dashboard.php";
+	$url = "../view/register_startup.php";
 }
 
 header("location: " . $url);

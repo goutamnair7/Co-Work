@@ -1,5 +1,7 @@
 <?php
 
+require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
+
 $status = "none";
 $message = false;
 
@@ -32,10 +34,8 @@ else
 	$password = preg_replace('#[^A-Za-z0-9]#i', '', $password);
 	$password = md5($password);
 	
-	include "connect_to_mysql.php";
-	
-	$check_email = mysql_query("SELECT * FROM admins WHERE email='{$email}' LIMIT 1");
-	$exist_count = mysql_num_rows($check_email);
+	$sql = $mysqli->query("SELECT * FROM admins WHERE email='{$email}' LIMIT 1");
+	$exist_count = $sql->num_rows($check_email);
 	if($exist_count != 0)
 	{
 		$status = "fail";
@@ -43,11 +43,21 @@ else
 	}
 	else
 	{
-		mysql_query("INSERT INTO admins VALUES ('', '{$email}', '{$password}', '{$first_name}', '{$last_name}')");
-		$status = "success";
-		$message = "Successfully created new user!";
+		if($mysqli->query("INSERT INTO admins VALUES ('', '{$email}', '{$password}', '{$first_name}', '{$last_name}')"))
+		{
+			$status = "success";
+			$message = "Successfully created new user!";
+		}
+		else
+		{
+			$status = "fail";
+			$message = "Database Error! Contact Developers ASAP."
+		}
 	}
 }
 
-header("location: ../register_admin.php?status={$status}&message={$message}");
+$mysqli->close();
+
+header("location: ../view/register_startup.php?status={$status}&message={$message}");
+
 ?>

@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-Work :: Register Startup</title>
 
-<link href="css/bootstrap/bootstrap.css" rel="stylesheet"/>
+<link href="../asset/css/bootstrap/bootstrap.css" rel="stylesheet"/>
 
-<link href="css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
-<link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
-<link rel="stylesheet" href="css/libs/datepicker.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/bootstrap-timepicker.css" type="text/css"/>
+<link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
+<link rel="stylesheet" href="../asset/css/libs/datepicker.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/daterangepicker.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/bootstrap-timepicker.css" type="text/css"/>
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
@@ -40,7 +40,7 @@
 									</div>
 								</div>
 								
-								<form role="form" action="scripts/check_signup_startup.php">
+								<form role="form" action="../controller/check_signup_startup.php">
 																		
 									<div class="input-group">
 										<input class="form-control" type="text" placeholder="Startup Name" name="name" required>
