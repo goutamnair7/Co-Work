@@ -2,7 +2,7 @@
 			<section id="col-left" class="col-left-nano">
 				<div id="col-left-inner" class="col-left-nano-content">
 					<div id="user-left-box" class="clearfix hidden-sm hidden-xs">
-						<img alt="" src="img/samples/scarlet-159.png"/>
+						<img alt="" src="../asset/img/samples/scarlet-159.png"/>
 						<div class="user-box">
 							<span class="name">
 								Welcome<br/>

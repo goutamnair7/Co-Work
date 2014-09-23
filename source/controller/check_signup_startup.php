@@ -1,5 +1,7 @@
 <?php
 
+require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
+
 function sendmail($to, $subject, $body, $from)
 {
 	$headers = "MIME-Version: 1.0\r\n";
@@ -61,8 +63,6 @@ else
 	$p2_email = preg_replace('#[^A-Za-z0-9@._]#i', '', $p2_email);
 	$p1_contact = preg_replace('#[^0-9]#i', '', $p1_contact);
 	$p2_contact = preg_replace('#[^0-9]#i', '', $p2_contact);
-
-	include "connect_to_mysql.php";
 	
 	$stat = $mysqli->query("INSERT INTO startup_details VALUES ('', '{$name}', '{$space}', '{$startup_status}', '{$joining_date}', '{$ending_date}', '{$employees}', '{$domain}', '{$description}', '{$web_address}', '{$p1_first_name}', '{$p1_last_name}', '{$p1_email}', '{$p1_contact}', '{$p2_first_name}', '{$p2_last_name}', '{$p2_email}', '{$p2_contact}')");
 
@@ -88,5 +88,5 @@ else
 	}
 }
 
-header("location: ../register_startup.php?status={$status}&message={$message}");
+header("location: ../view/register_startup.php?status={$status}&message={$message}");
 ?>
