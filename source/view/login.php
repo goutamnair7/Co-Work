@@ -94,8 +94,8 @@ if(isset($_SESSION['user_type']))
 <script src="../asset/js/bootstrap.js"></script>
 
 <script type="text/javascript">
-	var status = "<?php echo $_GET['status'] ?>";
-	var msg = "<?php echo $_GET['message'] ?>";
+	var status = "<?php echo @$_GET['status'] ?>";
+	var msg = "<?php echo @$_GET['message'] ?>";
 	
 	if(status.toLowerCase() == "fail"){
 		document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
