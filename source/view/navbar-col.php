@@ -2,7 +2,7 @@
 			<section id="col-left" class="col-left-nano">
 				<div id="col-left-inner" class="col-left-nano-content">
 					<div id="user-left-box" class="clearfix hidden-sm hidden-xs">
-						<img alt="" src="img/samples/scarlet-159.png"/>
+						<img alt="" src="../asset/img/samples/scarlet-159.png"/>
 						<div class="user-box">
 							<span class="name">
 								Welcome<br/>
@@ -15,7 +15,7 @@
 					</div>
 					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
 						<ul class="nav nav-pills nav-stacked">
-							<li class="active">
+							<li>
 							<a href="index.php">
 								<i class="fa fa-dashboard"></i>
 								<span>Dashboard</span>
@@ -291,6 +291,13 @@
 								</li>
 							</ul>
 							</li>
+							<li>
+							<a href="spaces.php">
+								<i class="fa fa-building-o"></i>
+								<span>Spaces</span>
+							</a>
+							</li>
+							
 						</ul>
 					</div>
 				</div>

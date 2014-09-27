@@ -5,21 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Centaurus - Bootstrap Admin Template</title>
 
-<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+<link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
 
-<link href="css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="css/libs/nanoscroller.css" type="text/css"/>
+<link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="../asset/css/libs/nanoscroller.css" type="text/css"/>
 
-<link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
-<link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
+<link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
+<link rel="stylesheet" href="../asset/css/libs/datepicker.css" type="text/css"/>
 
-<link rel="stylesheet" href="css/libs/fullcalendar.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/fullcalendar.print.css" type="text/css" media="print"/>
-<link rel="stylesheet" href="css/compiled/calendar.css" type="text/css" media="screen"/>
-<link rel="stylesheet" href="css/libs/morris.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css"/>
-<link rel="stylesheet" href="css/libs/jquery-jvectormap-1.2.2.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/fullcalendar.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/fullcalendar.print.css" type="text/css" media="print"/>
+<link rel="stylesheet" href="../asset/css/compiled/calendar.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="../asset/css/libs/morris.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/daterangepicker.css" type="text/css"/>
+<link rel="stylesheet" href="../asset/css/libs/jquery-jvectormap-1.2.2.css" type="text/css"/>
 
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 
@@ -40,12 +41,16 @@
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
 
-<?php include_once 'navbar.php'; ?>
+<?php
+	require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
+?>
 
 <div id="page-wrapper" class="container">
 	<div class="row">
 		
-		<?php include_once 'navbar-col.php'; ?>
+		<?php
+			require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar-col.php" );
+		?>
 
 		<div id="content-wrapper">
 			<div class="row">
@@ -59,7 +64,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Register New Startup</h4>
 							</div>
-							<form role="form" action="scripts/check_signup_startup.php">
+							<form role="form" action="../controller/check_signup_startup.php">
 								<div class="modal-body">
 									
 									 <div id = "statusdiv" class="row">
@@ -193,7 +198,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Register New Admin</h4>
 							</div>
-							<form role="form" action="scripts/check_signup_admin.php">
+							<form role="form" action="../controller/check_signup_admin.php">
 								<div class="modal-body">
 									
 									 <div id = "statusdiv" class="row">
@@ -250,23 +255,23 @@
 </div>
 
 
-<script src="js/demo-skin-changer.js"></script>  
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.nanoscroller.min.js"></script>
-<script src="js/demo.js"></script>  
+<script src="../asset/js/demo-skin-changer.js"></script>  
+<script src="../asset/js/jquery.js"></script>
+<script src="../asset/js/bootstrap.js"></script>
+<script src="../asset/js/jquery.nanoscroller.min.js"></script>
+<script src="../asset/js/demo.js"></script>  
  
-<script src="js/jquery.maskedinput.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/moment.min.js"></script>
-<script src="js/daterangepicker.js"></script>
-<script src="js/bootstrap-timepicker.min.js"></script>
-<script src="js/select2.min.js"></script>
-<script src="js/hogan.js"></script>
-<script src="js/typeahead.min.js"></script>
-<script src="js/jquery.pwstrength.js"></script>
+<script src="../asset/js/jquery.maskedinput.min.js"></script>
+<script src="../asset/js/bootstrap-datepicker.js"></script>
+<script src="../asset/js/moment.min.js"></script>
+<script src="../asset/js/daterangepicker.js"></script>
+<script src="../asset/js/bootstrap-timepicker.min.js"></script>
+<script src="../asset/js/select2.min.js"></script>
+<script src="../asset/js/hogan.js"></script>
+<script src="../asset/js/typeahead.min.js"></script>
+<script src="../asset/js/jquery.pwstrength.js"></script>
  
-<script src="js/scripts.js"></script>
+<script src="../asset/js/scripts.js"></script>
 <script>
 	$(function($) {
 		
@@ -276,7 +281,7 @@
 		});
 
 		$('#datepickerend').datepicker({
-		  format: 'mm-dd-yyyy'
+		  format: 'mm-dd-yyyy';
 		});
 
 		$('#datepickerDateComponent').datepicker();
