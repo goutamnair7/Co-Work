@@ -43,9 +43,16 @@
 			<div class="row">				
 
 				<!--INCLUDE CODE HERE-->
-
-				
-					 
+				<div class="form-group col-md-3 col-xs-12">
+					<label>Select Space</label>
+					<select class="form-control">
+						<option>Select Space</option>
+						<option onclick="viewspace(this.value)">Leased Spaces</option>
+						<option onclick="viewspace(this.value)">Propel</option>
+						<option onclick="viewspace(this.value)">Launchpad</option>
+					</select>
+					<a data-toggle="modal"></a>
+				</div>
 
 				<script src="../asset/js/demo-skin-changer.js"></script>  
 				<script src="../asset/js/jquery.js"></script>
@@ -112,6 +119,12 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+	function viewspace(x)
+	{
+		alert(x);
+	}
+</script>
 <!--script src="js/demo-skin-changer.js"></script-->  
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
