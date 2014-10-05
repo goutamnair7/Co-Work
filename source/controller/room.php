@@ -1,22 +1,22 @@
 <?php
 
-include 'connect_to_mysql.php';
+require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
 
 $action = @$_GET['action'];
 
 if($action == "create")
 {
-	$space = @$_GET['space'];
-	$side = @$_GET['side'];
-	$length = @$_GET['length'];
-	$breadth = @$_GET['breadth'];
+	$length = $_GET['length'];
+	$width = $_GET['width'];
+	$area = $_GET['area'];
+	$desks = $_GET['desks'];
+	$space = $_GET['space'];
+	$side = $_GET['side'];
+	$leased_to = $_GET['leased_to'];
 
-	if($space=="" || $side=="" || $length=="" || $breadth=="")
-		die();
-	$status = $mysqli->query("INSERT INTO rooms values ('', '{$space}', '{$side}', '{$length}', '{$breadth}');");
-	if($status==false)
+	$status = $mysqli->query("INSERT INTO rooms values ('', '{$length}', '{$width}', '{$area}', {$desks}, '{$space}', '{$side}', {$leased_to});");
+	if($status == false)
 		die("ERROR: ".$mysqli->error);
-#	$status = $mysqli->query("ALTER TABLE room_schedule ADD 'room_ INT NOT NULL AFTER `year` ;
 }
 else if($action == "show")
 {
