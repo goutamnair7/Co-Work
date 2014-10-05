@@ -9,7 +9,6 @@
 
 
 <link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="../asset/css/libs/nanoscroller.css" type="text/css"/>
 
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
@@ -18,7 +17,6 @@
 <link rel="stylesheet" href="../asset/css/libs/fullcalendar.css" type="text/css"/>
 <link rel="stylesheet" href="../asset/css/libs/fullcalendar.print.css" type="text/css" media="print"/>
 <link rel="stylesheet" href="../asset/css/compiled/calendar.css" type="text/css" media="screen"/>
-<link rel="stylesheet" href="../asset/css/libs/morris.css" type="text/css"/>
 <link rel="stylesheet" href="../asset/css/libs/daterangepicker.css" type="text/css"/>
 <link rel="stylesheet" href="../asset/css/libs/jquery-jvectormap-1.2.2.css" type="text/css"/>
 
@@ -255,20 +253,14 @@
 </div>
 
 
-<script src="../asset/js/demo-skin-changer.js"></script>  
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
-<script src="../asset/js/jquery.nanoscroller.min.js"></script>
 <script src="../asset/js/demo.js"></script>  
  
 <script src="../asset/js/jquery.maskedinput.min.js"></script>
 <script src="../asset/js/bootstrap-datepicker.js"></script>
-<script src="../asset/js/moment.min.js"></script>
 <script src="../asset/js/daterangepicker.js"></script>
 <script src="../asset/js/bootstrap-timepicker.min.js"></script>
-<script src="../asset/js/select2.min.js"></script>
-<script src="../asset/js/hogan.js"></script>
-<script src="../asset/js/typeahead.min.js"></script>
 <script src="../asset/js/jquery.pwstrength.js"></script>
  
 <script src="../asset/js/scripts.js"></script>
@@ -315,8 +307,8 @@
 </script>
 
 <script type="text/javascript">
-	var status = "<?php echo @$_GET['status'] ?>";
-	var msg = "<?php echo @$_GET['message'] ?>";
+	var status = "<?php echo $_GET['status'] ?>";
+	var msg = "<?php echo $_GET['message'] ?>";
 	
 	if(status.toLowerCase() == "fail"){
 		document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
@@ -331,6 +323,9 @@
 		document.getElementById("statusdiv").style.display = "none";
 	}
 
+</script>
+<script type="text/javascript">
+	$("#register_startup").addClass("active");
 </script>
 </body>
 </html>
