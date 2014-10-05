@@ -2,15 +2,15 @@
 
 require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'connect_to_mysql.php');
 
-$action = $_GET['action'];
+$action = @$_GET['action'];
 
 if($action == 'create')
 {
-	$space = $_GET['space'];
-	$side = $_GET['side'];
-	$row_no = $_GET['row_no'];
-	$desk_no = $_GET['desk_no'];
-	$leased_to = $_GET['leased_to'];
+	$space = @$_GET['space'];
+	$side = @$_GET['side'];
+	$row_no = @$_GET['row_no'];
+	$desk_no = @$_GET['desk_no'];
+	$leased_to = @$_GET['leased_to'];
 
 	$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$}space', '{$side}', {$row_no}, {$desk_no}, {$leased_to})");
 

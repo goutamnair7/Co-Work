@@ -2,15 +2,21 @@
 
 require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'connect_to_mysql.php');
 
+$result = array();
+$result['status'] = false;
+$result['msg'] = "UNKNOWN ERROR!";
+
 $action = @$_GET['action'];
 
 if($action == 'create')
 {
-	$first_name = $_GET['first_name'];
-	$last_name = $_GET['last_name'];
-	$email = $_GET['email'];
-	$contact = $_GET['contact'];
-	$startup_id = $_GET['startup_id'];
+	$first_name = @$_GET['first_name'];
+	$last_name = @$_GET['last_name'];
+	$email = @$_GET['email'];
+	$contact = @$_GET['contact'];
+	$startup_id = @$_GET['startup_id'];
+
+	$primary = @$_GET['primary'];
 
 	$password = substr(md5($email), 5, 6);
 	$password = md5($password);
@@ -18,7 +24,18 @@ if($action == 'create')
 	$status = $mysqli->query("INSERT INTO startup_members VALUES ('', '{$first_name}', '{$last_name}', '{$email}', '{$password}', '{$contact}', {$startup_id})");
 
 	if($status == false)
-		die('ERROR: '.$mysqli->error);
+		$result['msg'] = "ERROR: ".$mysqli->error;
+	else
+	{
+		$result['status'] = true;
+		$result['msg'] = "Successfully added new member!";
+		if($primary == 1)
+			$mysqli->query("UPDATE startups SET p1_id={$mysqli->insert_id} WHERE startup_id={$startup_id}");
+		else if($primary == 2)
+			$mysqli->query("UPDATE startups SET p2_id={$mysqli->insert_id} WHERE startup_id={$startup_id}");
+	}
+
+	echo json_encode($result);
 }
 else if($action == 'show')
 {
