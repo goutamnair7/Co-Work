@@ -24,10 +24,15 @@
 							<li id='register_startup'>
 							<a href="register_startup.php">
 								<i class="fa fa-building-o"></i>
-								<span>Register</span>
+								<span>Register Startup</span>
 							</a>
 							</li>
-							
+							<li id='register_admin'>
+							<a href="register_admin.php">
+								<i class="fa fa-building-o"></i>
+								<span>Register Admin</span>
+							</a>
+							</li>
 							<li id='spaces'>
 							<a href="spaces.php">
 								<i class="fa fa-building-o"></i>
