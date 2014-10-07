@@ -22,13 +22,14 @@ else {
 	$password = md5($password);
 	$status = $mysqli->query("UPDATE startup_members SET password = '{$newpass}' WHERE email = '{$email}'");
 	if($status == false)
-		$result['msg'] = "ERROR" . $mysqli->error;
+		$result['msg'] = "ERROR: " . $mysqli->error;
 	else
 	{
 		$result['msg'] = "Successfully changed";
 		$result['status'] = true;
 	}
 }
+
 echo json_encode($result);
 
 ?>
