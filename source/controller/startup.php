@@ -52,7 +52,6 @@ if($action == 'create')
 			$result['msg'] = "Successfully created new startup!";
 			$result['id'] = $mysqli->insert_id;
 /*			$subject = "You have been Registered on CIE SITE";
-			$msg = "Congratulations!";
 			$msg = "Your Startup(".$name.") has been registered on CIE Website by ".$_SESSION['row']['first_name']." ".$_SESSION['row']['last_name'].".Your login id is '".$p1_email."' and password is '".$p1_email."'";
 			$from = "noreply.cie@gmail.com";
 
@@ -66,7 +65,17 @@ else if($action=='show')
 {
 	$id = @$_GET['id'];
 	$row = $mysqli->query("SELECT * FROM startups WHERE id=$id LIMIT 1")->fetch_assoc();
-	echo json_encode($row);
+	
+	if($row != NULL)
+	{
+		$result['status'] = true;
+		$result['msg'] = "";
+		$result['row'] = $row;
+	}
+	else
+		$result['msg'] = "Record Not Found!";
+	
+	echo json_encode($result);
 }
 
 ?>
