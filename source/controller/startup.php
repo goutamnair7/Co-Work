@@ -29,16 +29,7 @@ if($action == 'create')
 	}
 	else
 	{
-		$name = preg_replace('#[^A-Za-z0-9 ]#i', '', $name);
-		$space = preg_replace('#[^A-Za-z0-9]#i', '', $space);
-		$startup_status = preg_replace('#[^A-Za-z0-9]#i', '', $startup_status);
-		$joining_date = preg_replace('#[^A-Za-z0-9]#i', '', $joining_date);
-		$ending_date = preg_replace('#[^A-Za-z0-9]#i', '', $ending_date);
-		$employees = preg_replace('#[^A-Za-z0-9]#i', '', $employees);
-		$domain = preg_replace('#[^A-Za-z0-9]#i', '', $domain);
-		$description = preg_replace('#[^A-Za-z0-9, ]#i', '', $description);
-		$web_address = preg_replace('#[^A-Za-z0-9/.]#i', '', $web_address);
-		
+	
 		$stat = $mysqli->query("INSERT INTO startups VALUES ('', '{$name}', '{$space}', '{$startup_status}', '{$joining_date}', '{$ending_date}', '{$employees}', '{$domain}', '{$description}', '{$web_address}', '', '')");
 
 		if($stat == false)
@@ -75,6 +66,11 @@ else if($action=='show')
 	else
 		$result['msg'] = "Record Not Found!";
 	
+	echo json_encode($result);
+}
+else
+{
+	$result['action'] = $action;
 	echo json_encode($result);
 }
 

@@ -29,10 +29,10 @@ if($action == 'create')
 	{
 		$result['status'] = true;
 		$result['msg'] = "Successfully added new member!";
-		if($primary == 1)
-			$mysqli->query("UPDATE startups SET p1_id={$mysqli->insert_id} WHERE startup_id={$startup_id}");
-		else if($primary == 2)
-			$mysqli->query("UPDATE startups SET p2_id={$mysqli->insert_id} WHERE startup_id={$startup_id}");
+		if($primary == "1")
+			$mysqli->query("UPDATE startups SET p1_id={$mysqli->insert_id} WHERE id={$startup_id}");
+		else if($primary == "2")
+			$mysqli->query("UPDATE startups SET p2_id={$mysqli->insert_id} WHERE id={$startup_id}");
 	}
 
 	echo json_encode($result);
@@ -59,6 +59,11 @@ else if($action == 'show_by_startup_id')
 	while($row = $sql->fetch_assoc())
 		$result['all'][] = $row['id'];
 	$result['status'] = true;
+	echo json_encode($result);
+}
+else
+{
+	$result['action'] = $action;
 	echo json_encode($result);
 }
 

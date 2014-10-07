@@ -57,6 +57,11 @@ else if($action == "show_by_startup_id")
 
 	echo json_encode($result);
 }
+else
+{
+	$result['action'] = $action;
+	echo json_encode($result);
+}
 
 
 ?>

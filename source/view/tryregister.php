@@ -56,12 +56,11 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										<li data-target="#step3" id='step3'><span class="badge" id='step3_1'>3</span>Step 3<span class="chevron"></span></li>
 										<li data-target="#step4" id='step4'><span class="badge" id='step4_1'>4</span>Step 4<span class="chevron"></span></li>
 									</ul>
-									
 								</div>
 								<div class="step-content">
 									<div class = 'col-md-2'></div>
 									<div class="step-pane active col-md-8 col-xs-12" id="step1">
-										<form role="form" id = "start_up" action="">
+										<form role="form" id = "start_up" action="" onsubmit="">
 											<div class="modal-body">
 												<div id = "statusdiv" class="row">
 													<div class="col-xs-12">
@@ -140,6 +139,9 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 														<p id="status2" class="alert fade in" style="padding:3px;"></p>
 													</div>
 												</div>
+												
+												<input name='action' value='create' type='hidden'>
+												
 												<div class="form-group">
 													<div class="col-md-6 form-group">
 														<label>First Name</label>
@@ -215,18 +217,23 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 	var obj;
 	$("#start_up").on('submit',(function(e) {
 		e.preventDefault();
-	    $.ajax({
+		var formData = $(this).serializeArray();
+		for (var i = formData.length - 1; i >= 0; i--) {
+			formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
+		};
+		formData = formData.join('&')
+        $.ajax({
 		    url: "../controller/startup.php",
 		    type: 'GET',
-		    data: new FormData(this),
+		    data: formData,
 		    contentType: false,
     		cache: false,
     		processData:false,
 		    
 		    success: function(msg){
-		    	obj = JSON.parse(msg);
+				obj = JSON.parse(msg);
 		       	if(obj['status'] == false){
-					document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
+					document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
 					document.getElementById("status").className += " alert-warning";
 				}
 		        else {
@@ -238,22 +245,29 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 					document.getElementById("step1").className = "";
 					document.getElementById("step2").className = "active";
 					document.getElementById("step1_1").className = "badge badge-success";
-					document.getElementById("step2_1").className = "badge badge-primary";
+					document.getElementById("step2_1").className = "badge badge-primary";	
+		  			num = total = document.getElementById('employee_num').value;
 		  		}
 		    },
 		    error: function(){
 		    	alert("Connection Error");
+
 		    }
-		});
+		});		
 	}));
 
 	$("#employee_reg").on('submit',(function(e) {
 		generate(num, total);
 		e.preventDefault();
-	    $.ajax({
+	    var formData = $(this).serializeArray();
+		for (var i = formData.length - 1; i >= 0; i--) {
+			formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
+		};
+		formData = formData.join('&')
+        $.ajax({
 		    url: "../controller/startup_member.php",
 		    type: 'GET',
-		    data: new FormData(this),
+		    data: formData,
 		    contentType: false,
     		cache: false,
     		processData:false,
@@ -261,7 +275,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		    success: function(msg){
 		    	var obj = JSON.parse(msg);
 		       	if(obj['status'] == false){
-					document.getElementById("status2").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
+					document.getElementById("status2").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
 					document.getElementById("status2").className += " alert-warning";
 				}
 		        else {
