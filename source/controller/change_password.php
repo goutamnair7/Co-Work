@@ -6,10 +6,10 @@ $result = array();
 $result['status'] = false;
 $result['msg'] = "UNKNOWN ERROR";
 
-$oldpass = $_GET['old_pass'];
-$newpass = $_GET['new_pass'];
-$confirmpass = $_GET['confirm_pass'];
-$email = $_GET['email'];
+$oldpass = @$_GET['old_pass'];
+$newpass = @$_GET['new_pass'];
+$confirmpass = @$_GET['confirm_pass'];
+$email = @$_GET['email'];
 
 $status = $mysqli->query("SELECT * FROM startup_members WHERE password = '{oldpass}' AND email = '{email}' LIMIT 1");
 if($status->num_rows == 0) {
