@@ -53,60 +53,7 @@
 					</select>
 					<a data-toggle="modal"></a>
 				</div>
-
-				<script src="../asset/js/demo-skin-changer.js"></script>  
-				<script src="../asset/js/jquery.js"></script>
-				<script src="../asset/js/bootstrap.js"></script>
-				<script src="../asset/js/jquery.nanoscroller.min.js"></script>
-				<script src="../asset/js/demo.js"></script>  
-				 
-				<script src="../asset/js/jquery.maskedinput.min.js"></script>
-				<script src="../asset/js/bootstrap-datepicker.js"></script>
-				<script src="../asset/js/moment.min.js"></script>
-				<script src="../asset/js/daterangepicker.js"></script>
-				<script src="../asset/js/bootstrap-timepicker.min.js"></script>
-				<script src="../asset/js/select2.min.js"></script>
-				<script src="../asset/js/hogan.js"></script>
-				<script src="../asset/js/typeahead.min.js"></script>
-				<script src="../asset/js/jquery.pwstrength.js"></script>
-				 
-				<script src="../asset/js/scripts.js"></script>
-				<script>
-					$(function($) {
-						
-						//datepicker
-						$('#datepickerjoin').datepicker({
-						  format: 'mm-dd-yyyy'
-						});
-
-						$('#datepickerend').datepicker({
-						  format: 'mm-dd-yyyy'
-						});
-
-						$('#datepickerDateComponent').datepicker();
-					
-					});
-				</script>
-				<script type="text/javascript">
-					var status = "<?php echo $_GET['status'] ?>";
-					var msg = "<?php echo $_GET['message'] ?>";
-					
-					if(status.toLowerCase() == "fail"){
-						document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
-						document.getElementById("status").className += " alert-warning";
-					}
-					else if(status.toLowerCase() == "success"){
-						document.getElementById("status").innerHTML = "<i class='fa fa-check-circle fa-fw fa-lg'></i>"+msg;
-						document.getElementById("status").className += " alert-success";
-
-					}
-					else{
-						document.getElementById("statusdiv").style.display = "none";
-					}
-
-				</script>
-
-				
+			
 			</div>
 
 
@@ -125,12 +72,13 @@
 		alert(x);
 	}
 </script>
-<!--script src="js/demo-skin-changer.js"></script-->  
+
+<script src="../asset/js/demo-skin-changer.js"></script>  
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
 <script src="../asset/js/jquery.nanoscroller.min.js"></script>
 <script src="../asset/js/demo.js"></script>  
-<script src="js/bootstrap-datepicker.js"></script>
+<script src="../asset/js/bootstrap-datepicker.js"></script>
 
 <script src="../asset/js/jquery-ui.custom.min.js"></script>
 <script src="../asset/js/fullcalendar.min.js"></script>
