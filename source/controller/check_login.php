@@ -3,8 +3,8 @@
 require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
 
 $message = false;
-$email = $_GET['email'];
-$password = $_GET['password'];
+$email = @$_GET['email'];
+$password = @$_GET['password'];
 
 $email = preg_replace('#[^A-Za-z0-9@.]#i', '', $email); 
 $password = preg_replace('#[^A-Za-z0-9]#i', '', $password);
