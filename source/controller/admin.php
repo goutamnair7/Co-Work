@@ -70,5 +70,10 @@ else if($action=='show')
 	$row = $mysqli->query("SELECT * FROM admins WHERE id=$id LIMIT 1")->fetch_assoc();
 	echo json_encode($row);
 }
+else
+{
+	$result['action'] = $action;
+	echo json_encode($result);
+}
 
 ?>

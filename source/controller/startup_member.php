@@ -29,10 +29,10 @@ if($action == 'create')
 	{
 		$result['status'] = true;
 		$result['msg'] = "Successfully added new member!";
-		if($primary == 1)
-			$mysqli->query("UPDATE startups SET p1_id={$mysqli->insert_id} WHERE startup_id={$startup_id}");
-		else if($primary == 2)
-			$mysqli->query("UPDATE startups SET p2_id={$mysqli->insert_id} WHERE startup_id={$startup_id}");
+		if($primary == "1")
+			$mysqli->query("UPDATE startups SET p1_id={$mysqli->insert_id} WHERE id={$startup_id}");
+		else if($primary == "2")
+			$mysqli->query("UPDATE startups SET p2_id={$mysqli->insert_id} WHERE id={$startup_id}");
 	}
 
 	echo json_encode($result);
@@ -41,14 +41,30 @@ else if($action == 'show')
 {
 	$id = @$_GET['id'];
 	$row = $mysqli->query("SELECT * FROM startup_members WHERE id=$id LIMIT 1")->fetch_assoc();
-	echo json_encode($row);
+	if($row != NULL)
+	{
+		$result['status'] = true;
+		$result['msg'] = "";
+		$result['row'] = $row;
+	}
+	else
+		$result['msg'] = "Record Not Found!";
+	echo json_encode($result);
 }
 else if($action == 'show_by_startup_id')
 {
 	$startup_id = @$_GET['startup_id'];
 	$sql = $mysqli->query("SELECT id FROM startup_members WHERE startup_id=$startup_id");
-	$all = array();
+	$result['all'] = array();
 	while($row = $sql->fetch_assoc())
-		$all[] = $row['id'];
-	echo json_encode($all);
+		$result['all'][] = $row['id'];
+	$result['status'] = true;
+	echo json_encode($result);
 }
+else
+{
+	$result['action'] = $action;
+	echo json_encode($result);
+}
+
+?>
