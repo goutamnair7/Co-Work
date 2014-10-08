@@ -33,9 +33,9 @@ if($action=='create')
 	}
 	else
 	{
-		$first_name = preg_replace('#[^A-Za-z0-9]#i', '', $first_name);
-		$last_name = preg_replace('#[^A-Za-z0-9]#i', '', $last_name);
-		$email = preg_replace('#[^A-Za-z0-9@.]#i', '', $email);
+		$first_name = preg_replace('#[^A-Za-z]#i', '', $first_name);
+		$last_name = preg_replace('#[^A-Za-z]#i', '', $last_name);
+		$email = preg_replace('#[^A-Za-z0-9@._]#i', '', $email);
 		$password = preg_replace('#[^A-Za-z0-9]#i', '', $password);
 		$password = md5($password);
 		
