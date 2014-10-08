@@ -12,10 +12,17 @@ if($action == 'create')
 	$desk_no = @$_GET['desk_no'];
 	$leased_to = @$_GET['leased_to'];
 
-	$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$}space', '{$side}', {$row_no}, {$desk_no}, {$leased_to})");
+	$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$space}', '{$side}', '{$row_no}', '{$desk_no}', '{$leased_to}')");
 
 	if($status == false)
-		die("ERROR: " . $mysqli->error);
+		$result['msg'] = "ERROR: ".$mysqli->error;
+	else
+	{
+		$result['status'] = true;
+		$result['msg'] = "Successfully added new desk";
+	}
+
+	echo json_encode($result);
 }
 else if($action == 'show')
 {
@@ -43,7 +50,7 @@ else if($action == "book")
 else if($action == "show_by_startup_id")
 {
 	$startup_id = @$_GET['startup_id'];
-	$sql = $mysqli->query("SELECT id FROM dekss WHERE leased_to={$startup_id");
+	$sql = $mysqli->query("SELECT id FROM dekss WHERE leased_to={$startup_id}");
 
 	if($sql->num_rows == 0)
 		$result['msg'] = "No desks alloted";
