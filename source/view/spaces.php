@@ -4,59 +4,35 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Centaurus - Bootstrap Admin Template</title>
-
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
-
+<!--Common Styles -->
 <link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="../asset/css/libs/nanoscroller.css" type="text/css"/>
-
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
-
-<link rel="stylesheet" href="../asset/css/libs/fullcalendar.css" type="text/css"/>
-<link rel="stylesheet" href="../asset/css/libs/fullcalendar.print.css" type="text/css" media="print"/>
-<link rel="stylesheet" href="../asset/css/compiled/calendar.css" type="text/css" media="screen"/>
-<link rel="stylesheet" href="../asset/css/libs/morris.css" type="text/css"/>
-<link rel="stylesheet" href="../asset/css/libs/daterangepicker.css" type="text/css"/>
-<link rel="stylesheet" href="../asset/css/libs/jquery-jvectormap-1.2.2.css" type="text/css"/>
-
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
-
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+<!-- Page specific Styles -->
 
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
 
 <?php
-	require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
+require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 ?>
 
 <div id="page-wrapper" class="container">
 	<div class="row">
-		
+
 		<?php
-			require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar-col.php" );
+		require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar-col.php" );
 		?>
 
 		<div id="content-wrapper">
-			<div class="row">				
-
-				<!--INCLUDE CODE HERE-->
-				<div class="form-group col-md-3 col-xs-12">
-					<label>Select Space</label>
-					<select class="form-control">
-						<option>Select Space</option>
-						<option onclick="viewspace(this.value)">Leased Spaces</option>
-						<option onclick="viewspace(this.value)">Propel</option>
-						<option onclick="viewspace(this.value)">Launchpad</option>
-					</select>
-					<a data-toggle="modal"></a>
-				</div>
-			
+			<div class="row" id="main">
+					<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
 			</div>
-
-
 			<footer id="footer-bar" class="row">
 				<p id="footer-copyright" class="col-xs-12">
 				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
@@ -65,40 +41,58 @@
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	function viewspace(x)
-	{
-		alert(x);
-	}
-</script>
-
-<script src="../asset/js/demo-skin-changer.js"></script>  
+<!--Common js-->
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
-<script src="../asset/js/jquery.nanoscroller.min.js"></script>
 <script src="../asset/js/demo.js"></script>  
-<script src="../asset/js/bootstrap-datepicker.js"></script>
-
-<script src="../asset/js/jquery-ui.custom.min.js"></script>
-<script src="../asset/js/fullcalendar.min.js"></script>
-<script src="../asset/js/jquery.slimscroll.min.js"></script>
-<script src="../asset/js/raphael-min.js"></script>
-<script src="../asset/js/morris.min.js"></script>
-<script src="../asset/js/moment.min.js"></script>
-<script src="../asset/js/daterangepicker.js"></script>
-<script src="../asset/js/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="../asset/js/jquery-jvectormap-world-merc-en.js"></script>
-<script src="../asset/js/gdp-data.js"></script>
-<script src="../asset/js/flot/jquery.flot.js"></script>
-<script src="../asset/js/flot/jquery.flot.min.js"></script>
-<script src="../asset/js/flot/jquery.flot.pie.min.js"></script>
-<script src="../asset/js/flot/jquery.flot.stack.min.js"></script>
-<script src="../asset/js/flot/jquery.flot.resize.min.js"></script>
-<script src="../asset/js/flot/jquery.flot.time.min.js"></script>
-<script src="../asset/js/flot/jquery.flot.threshold.js"></script>
-
 <script src="../asset/js/scripts.js"></script>
+<script src="../asset/js/demo-skin-changer.js"></script>
+<script src="../asset/js/jquery.nanoscroller.min.js"></script> 
+<script src="../asset/js/jquery.maskedinput.min.js"></script>
+<!--Page specific js-->
+<script type="text/javascript">
+	$("#page").addClass("active");
+</script>
 
+
+<script type="text/javascript">
+	var bookedImage = new Image();
+	bookedImage.src = "../asset/img/booked.png";
+
+	var selectedImage = new Image();
+	selectedImage.src = "../asset/img/selected.png";
+
+	var notSelectedImage = new Image();
+	notSelectedImage.src = "../asset/img/not_selected.png";
+
+/*	var a="";
+	for(i=1;i<=12;i++){
+		
+		for(j=1;j<=6;j++){
+			var b=100*i+j;
+			b=String(b);
+			a=a+'<img src="'+notSelectedImage.src+'" class="not_selected" onclick="changeimage('+b+')" id='+b+'></img>';
+		}
+		a=a+'&nbsp&nbsp';
+		for(j=7;j<=12;j++){
+			var b=100*i+j;
+			b=String(b);
+			a=a+'<img src="'+notSelectedImage.src+'" class="booked" onclick="changeimage('+b+')"id='+b+'></img>';
+		}
+		a=a+'<br>';
+	}
+	document.getElementById('main').innerHTML=a;
+*/
+	function changeimage(id){
+		if(document.getElementById(id).src==notSelectedImage.src){
+			document.getElementById(id).src=selectedImage.src;
+		}
+		else{
+			document.getElementById(id).src=notSelectedImage.src;
+		}
+
+	}
+
+</script>
 </body>
 </html>
