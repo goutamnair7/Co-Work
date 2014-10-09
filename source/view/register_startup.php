@@ -45,7 +45,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 				<div class="col-lg-12">
 					<div class="main-box clearfix" style="min-height: 820px;">
 						<header class="main-box-header clearfix">
-							<h2>Try the demo wizard bellow</h2>
+							<h2></h2>
 						</header>
 						<div class="main-box-body clearfix">
 							<div id="myWizard" class="wizard">
@@ -62,6 +62,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 									<div class="step-pane active col-md-8 col-xs-12" id="step1">
 										<form role="form" id = "start_up" action="" onsubmit="">
 											<div class="modal-body">
+												<div class = 'col-md-12 col-xs-12'><h1>Startup Details</h1></div> 
 												<div id = "statusdiv" class="row">
 													<div class="col-xs-12">
 														<p id="status" class="alert fade in" style="padding:3px;"></p>
@@ -76,7 +77,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 													<div class="form-group">
 														<div class="col-md-6 form-group">
 															<label>Space</label>
-															<select class="form-control" name="space" required>
+															<select class="form-control" id = 'spacename' name="space" required>
 																<option>Launchpad</option>
 																<option>Propel</option>
 																<option>Leased Spaces</option>
@@ -134,6 +135,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 									
 										<form role="form" id = "employee_reg"  action="">		
 											<div id = 'emp' style='dislay:none;'>
+												<div class = 'col-md-12 col-xs-12'><h1>Employee Details</h1></div> 
 												<div id = "statusdiv2" class="row">
 													<div class="col-xs-12">
 														<p id="status2" class="alert fade in" style="padding:3px;"></p>
@@ -171,12 +173,25 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										</form>	
 									</div>
 							
-									<div id='booking' class='col-md-12 col-xs-12'style="display:none">
+									<div id='booking_launchpad' class='col-md-12 col-xs-12' style="display:none">
 										<br>
 										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
 										<div id='col-md-4 col-xs-2'></div>
 										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
 									</div>
+									<div id='booking_leased' class='col-md-12 col-xs-12' style="display:none">
+										<br>
+										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
+										<div id='col-md-4 col-xs-2'></div>
+										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
+									</div>
+									<div id='booking_propel' class='col-md-12 col-xs-12' style="display:none">
+										<br>
+										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
+										<div id='col-md-4 col-xs-2'></div>
+										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
+									</div>
+								
 								</div>
 							</div>
 						</div>
@@ -223,85 +238,95 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 			formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
 		};
 		formData = formData.join('&')
-        $.ajax({
-		    url: "../controller/startup.php",
-		    type: 'GET',
-		    data: formData,
-		    contentType: false,
-    		cache: false,
-    		processData:false,
-		    
-		    success: function(msg){
-				obj = JSON.parse(msg);
-		       	if(obj['status'] == false){
-					document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
-					document.getElementById("status").className += " alert-warning";
-				}
-		        else {
-		        	//Success of this function
-		    	    startupid = obj['id'];
-		    	    document.getElementById('startup_id').value = obj['id'];
-		  	 	    document.getElementById('start_up').style.display = "none"; 
-		    	    document.getElementById('employee_reg').style.display = "inline"; 
-					document.getElementById("step1").className = "";
-					document.getElementById("step2").className = "active";
-					document.getElementById("step1_1").className = "badge badge-success";
-					document.getElementById("step2_1").className = "badge badge-primary";	
-		  			num = total = document.getElementById('employee_num').value;
-		  		}
-		    },
-		    error: function(){
-		    	alert("Connection Error");
+		$.ajax({
+			url: "../controller/startup.php",
+			type: 'GET',
+			data: formData,
+			contentType: false,
+			cache: false,
+			processData:false,
 
-		    }
+			success: function(msg){
+			obj = JSON.parse(msg);
+				if(obj['status'] == false){
+				document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
+				document.getElementById("status").className += " alert-warning";
+				}
+				else {
+				//Success of this function
+				startupid = obj['id'];
+				document.getElementById('startup_id').value = obj['id'];
+				document.getElementById('start_up').style.display = "none"; 
+				document.getElementById('employee_reg').style.display = "inline"; 
+				document.getElementById("step1").className = "";
+				document.getElementById("step2").className = "active";
+				document.getElementById("step1_1").className = "badge badge-success";
+				document.getElementById("step2_1").className = "badge badge-primary";	
+					num = total = document.getElementById('employee_num').value;
+				}
+			},
+			error: function(){
+			alert("Connection Error");
+
+			}
 		});		
 	}));
 
 	$("#employee_reg").on('submit',(function(e) {
 		generate(num, total);
 		e.preventDefault();
-	    var formData = $(this).serializeArray();
+		var formData = $(this).serializeArray();
+		
 		for (var i = formData.length - 1; i >= 0; i--) {
 			formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
 		};
+		
 		formData = formData.join('&')
-        $.ajax({
-		    url: "../controller/startup_member.php",
-		    type: 'GET',
-		    data: formData,
-		    contentType: false,
-    		cache: false,
-    		processData:false,
-		    
-		    success: function(msg){
-		    	var obj = JSON.parse(msg);
-		       	if(obj['status'] == false){
+		
+		$.ajax({
+			url: "../controller/startup_member.php",
+			type: 'GET',
+			data: formData,
+			contentType: false,
+			cache: false,
+			processData:false,
+
+			success: function(msg){
+				var obj = JSON.parse(msg);
+				if(obj['status'] == false){
 					document.getElementById("status2").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
 					document.getElementById("status2").className += " alert-warning";
 				}
-		        else {
-        	    	if(num>1){
-			    		document.getElementById('first_name').value = "";
-			    		document.getElementById('last_name').value = "";
-			    		document.getElementById("email").value = "";
-			    		document.getElementById('contact').value = "";
-			    		num -= 1;
-    				}
-				    else{
-					   	document.getElementById("step2").className = "";
+				else {
+					if(num>1){
+						document.getElementById('first_name').value = "";
+						document.getElementById('last_name').value = "";
+						document.getElementById("email").value = "";
+						document.getElementById('contact').value = "";
+						num -= 1;
+					}
+					else{
+						document.getElementById("step2").className = "";
 						document.getElementById("step3").className = "active";
 						document.getElementById("step2_1").className = "badge badge-success";
 						document.getElementById("step3_1").className = "badge badge-primary";
-		    		    document.getElementById('employee_reg').style.display = "none";
-		    		    document.getElementById('booking').style.display='inline';
-		    		 //   document.getElementById('booking').innerHTML="<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>";
-
-    				}
-		  		}
-		    },
-		    error: function(){
-		    	alert("Connection Error");
-		    }
+						document.getElementById('employee_reg').style.display = "none";
+						var s = document.getElementById('spacename').value;
+						if(s == 'Launchpad') {
+							document.getElementById('booking_launchpad').style.display='inline';
+						}
+						else if(s == 'Propel') {
+							document.getElementById('booking_propel').style.display='inline';
+						}
+						else if(s == 'Leased Spaces') {
+							document.getElementById('booking_leased').style.display='inline';
+						}
+					}
+				}
+			},
+			error: function(){
+				alert("Connection Error");
+			}
 		});
 	}));
 	function generate(num,total) {
@@ -314,9 +339,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		else{
 			document.getElementById('primary').value='0';	
 		}
-
-
-  	    document.getElementById('startup_id').value = obj['id'];
+		document.getElementById('startup_id').value = obj['id'];
 	}
 </script>
 <!-- JS of date picker-->
@@ -338,50 +361,6 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 	});
 </script>
 
-<script type="text/javascript">
-	var bookedImage = new Image();
-	bookedImage.src = "../asset/img/booked.png";
 
-	var selectedImage = new Image();
-	selectedImage.src = "../asset/img/selected.png";
-
-	var notSelectedImage = new Image();
-	notSelectedImage.src = "../asset/img/not_selected.png";
-
-	var counter=0;
-	
-	function changeimage(id){
-		if(document.getElementById(id).src==notSelectedImage.src){
-			if(counter<total){
-				document.getElementById(id).src=selectedImage.src;
-				counter++;
-			}
-		}
-		else{
-			document.getElementById(id).src=notSelectedImage.src;
-			counter--;
-		}
-
-	}
-</script>
-<script>
-$("#booking_submit").onclick(function(e) {
-	e.preventDefault();
-
-    $.ajax({
-	    url: "../controller/.php",
-	    type: 'GET',
-	    data: formData,
-	    contentType: false,
-		cache: false,
-		processData:false,
-
-	    success: function(msg){
-	    },
-	    error: function(){
-	    }
-	});
-});
-</script>
 </body>
 </html>
