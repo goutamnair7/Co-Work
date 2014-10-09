@@ -32,6 +32,8 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		<div id="content-wrapper">
 			<div class="row" id="main">
 					<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
+					<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
+
 			</div>
 			<footer id="footer-bar" class="row">
 				<p id="footer-copyright" class="col-xs-12">
@@ -65,34 +67,55 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 	var notSelectedImage = new Image();
 	notSelectedImage.src = "../asset/img/not_selected.png";
 
-/*	var a="";
-	for(i=1;i<=12;i++){
-		
-		for(j=1;j<=6;j++){
-			var b=100*i+j;
-			b=String(b);
-			a=a+'<img src="'+notSelectedImage.src+'" class="not_selected" onclick="changeimage('+b+')" id='+b+'></img>';
-		}
-		a=a+'&nbsp&nbsp';
-		for(j=7;j<=12;j++){
-			var b=100*i+j;
-			b=String(b);
-			a=a+'<img src="'+notSelectedImage.src+'" class="booked" onclick="changeimage('+b+')"id='+b+'></img>';
-		}
-		a=a+'<br>';
-	}
-	document.getElementById('main').innerHTML=a;
-*/
+	var counter=0;
+	
 	function changeimage(id){
 		if(document.getElementById(id).src==notSelectedImage.src){
-			document.getElementById(id).src=selectedImage.src;
+			if(counter<10){
+				document.getElementById(id).src=selectedImage.src;
+				document.getElementById(id).className='selected';
+				counter++;
+			}
 		}
 		else{
 			document.getElementById(id).src=notSelectedImage.src;
+			document.getElementById(id).className='not_selected';
+			counter--;
 		}
 
 	}
+</script>
+<script>
+	$("#booking_submit").on('click',(function() {
+		//e.preventDefault();
 
+		var bookings=document.getElementsByClassName('selected');
+		var booking_id=new Array();
+		for(i=0;i<bookings.length;i++){
+			booking_id[i]=bookings[i].id;
+		}
+		/*for(i=0;i<booking_id.length;i++){
+			console.log(booking_id[i]);
+		}
+*/
+		$.ajax({
+			url: "../controller/.php",
+			type: 'GET',
+			data: {
+				booking_id:JSON.stringify(booking_id);
+			},
+			contentType: false,
+			cache: false,
+			processData:false,
+		});
+	}));
+
+			success: function(msg){
+		
+			},
+			error: function(){
+				alert("containerction Error");
+			}
 </script>
 </body>
 </html>
