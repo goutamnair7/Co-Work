@@ -39,6 +39,12 @@
 								<span>Spaces</span>
 							</a>
 							</li>
+							<li id='newspace'>
+							<a href="add_new_space.php">
+								<i class="fa fa-building-o"></i>
+								<span>Add Space</span>
+							</a>
+							</li>
 						</ul>
 					</div>
 				</div>

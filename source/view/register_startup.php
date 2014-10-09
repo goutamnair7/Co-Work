@@ -45,7 +45,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 				<div class="col-lg-12">
 					<div class="main-box clearfix" style="min-height: 820px;">
 						<header class="main-box-header clearfix">
-							<h2>Try the demo wizard bellow</h2>
+							<h2></h2>
 						</header>
 						<div class="main-box-body clearfix">
 							<div id="myWizard" class="wizard">
@@ -62,6 +62,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 									<div class="step-pane active col-md-8 col-xs-12" id="step1">
 										<form role="form" id = "start_up" action="" onsubmit="">
 											<div class="modal-body">
+												<div class = 'col-md-12 col-xs-12'><h1>Startup Details</h1></div> 
 												<div id = "statusdiv" class="row">
 													<div class="col-xs-12">
 														<p id="status" class="alert fade in" style="padding:3px;"></p>
@@ -76,7 +77,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 													<div class="form-group">
 														<div class="col-md-6 form-group">
 															<label>Space</label>
-															<select class="form-control" name="space" required>
+															<select class="form-control" id = 'spacename' name="space" required>
 																<option>Launchpad</option>
 																<option>Propel</option>
 																<option>Leased Spaces</option>
@@ -134,6 +135,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 									
 										<form role="form" id = "employee_reg"  action="">		
 											<div id = 'emp' style='dislay:none;'>
+												<div class = 'col-md-12 col-xs-12'><h1>Employee Details</h1></div> 
 												<div id = "statusdiv2" class="row">
 													<div class="col-xs-12">
 														<p id="status2" class="alert fade in" style="padding:3px;"></p>
@@ -171,12 +173,25 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										</form>	
 									</div>
 							
-									<div id='booking' class='col-md-12 col-xs-12'style="display:none">
+									<div id='booking_launchpad' class='col-md-12 col-xs-12' style="display:none">
 										<br>
 										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
 										<div id='col-md-4 col-xs-2'></div>
 										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
 									</div>
+									<div id='booking_leased' class='col-md-12 col-xs-12' style="display:none">
+										<br>
+										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
+										<div id='col-md-4 col-xs-2'></div>
+										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
+									</div>
+									<div id='booking_propel' class='col-md-12 col-xs-12' style="display:none">
+										<br>
+										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
+										<div id='col-md-4 col-xs-2'></div>
+										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
+									</div>
+								
 								</div>
 							</div>
 						</div>
@@ -296,8 +311,16 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 						document.getElementById("step2_1").className = "badge badge-success";
 						document.getElementById("step3_1").className = "badge badge-primary";
 						document.getElementById('employee_reg').style.display = "none";
-						document.getElementById('booking').style.display='inline';
-
+						var s = document.getElementById('spacename').value;
+						if(s == 'Launchpad') {
+							document.getElementById('booking_launchpad').style.display='inline';
+						}
+						else if(s == 'Propel') {
+							document.getElementById('booking_propel').style.display='inline';
+						}
+						else if(s == 'Leased Spaces') {
+							document.getElementById('booking_leased').style.display='inline';
+						}
 					}
 				}
 			},

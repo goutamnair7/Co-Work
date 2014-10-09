@@ -114,7 +114,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		
 			},
 			error: function(){
-				alert("containerction Error");
+				alert("connection Error");
 			}
 </script>
 </body>
