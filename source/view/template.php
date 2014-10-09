@@ -25,6 +25,9 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 <div id="page-wrapper" class="container">
 	<div class="row">
 
+		<?php
+			require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar-col.php" );
+		?>
 		<!--INCLUDE CODE HERE-->
 			<footer id="footer-bar" class="row">
 				<p id="footer-copyright" class="col-xs-12">

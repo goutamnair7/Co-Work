@@ -51,8 +51,10 @@
 		?>
 
 		<div id="content-wrapper">
-			<div class = 'col-md-3'></div>
-			<div class="row col-md-6 col-xs-12">
+			<div class="main-box clearfix" style="min-height: 820px;">
+				
+				<div class = 'col-md-2'></div>
+				<div class="row col-md-8 col-xs-12">
 			
 				
 				
@@ -66,6 +68,9 @@
 								<h4 class="modal-title">Register New Admin</h4>
 							</div>-->
 							<form role="form" action="../controller/check_signup_admin.php">
+								<br /><br />
+								<div class = 'col-md-12 col-xs-12'><h1>Admin Details</h1></div> 
+								<br />
 								<div class="modal-body">
 									
 									 <div id = "statusdiv" class="row">
@@ -110,7 +115,7 @@
 						<!--</div> 
 					</div> 
 				</div>--> 
-
+				</div>
 			</div>
 			<footer id="footer-bar" class="row">
 				<p id="footer-copyright" class="col-xs-12">
