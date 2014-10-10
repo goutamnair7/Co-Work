@@ -66,6 +66,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 														</select>
 												</div>
 											
+												<input name="action" value="create" hidden>
 												<div class="form-group" id='namediv'>
 													<label>Name Of Space</label>
 													<input class="form-control" type="text" placeholder="Space Name" id='name' name="name">
@@ -82,7 +83,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										</form>	
 
 										<form role="form" id = "columns" action="" onsubmit="" style='display:none;'>
-											<input name='row_id' value='' type='hidden' id='row_id'>
+											<input name='space_id' value='' type='hidden' id='space_id'>
 
 										</form>
 
@@ -192,16 +193,15 @@ $("#add_space").on('submit',(function(e) {
 				}
 				else {
 				//Success of this function
-					startupid = obj['id'];
 					document.getElementById('add_space').style.display = "none";
 
-					document.getElementById('column_id').value = obj['id'];
-
+					document.getElementById('space_id').value = obj['space_id'];
+					console.log(obj);
 					document.getElementById('columns').style.display = ""; 
 					num = total = document.getElementById('rows').value;
 					var i;
 					for(i=1;i<=num;i++){
-						document.getElementById('columns').innerHTML += '<div id="row'+i+'" class="form-group"><label>Number of columns in Row '+i+'</label><input class="form-control" type="text" placeholder="Columns" name="columns" required></div>';
+						document.getElementById('columns').innerHTML += '<div class="form-group"><label>Number of columns in Row '+i+'</label><input class="form-control" type="text" placeholder="Columns" name="columns" id="row'+i+'" required></div>';
 					}
 					document.getElementById('columns').innerHTML += '<button type="submit" class="col-md-4 col-xs-8 btn btn-success"> <i class="icon-arrow-left"></i>Submit</button>';
 
@@ -223,16 +223,16 @@ $("#add_space").on('submit',(function(e) {
 
 $("#columns").on('submit',(function(e) {
 	e.preventDefault();
-	var formData = $(this).serializeArray();
-	for (var i = formData.length - 1; i >= 0; i--) {
-		formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
-	};
-
-	formData = formData.join('&')
+	var i, num = document.getElementById('rows').value, spaceid=document.getElementById('space_id').value;
+	var arr = [];
+	for(i=1;i<=num;i++)
+		{arr[i-1] = document.getElementById('row'+i).value;
+			console.log(document.getElementById('row'+i))
+		}
 	$.ajax({
-		url: "../controller/room.php",
+		url: "../controller/desk.php",
 		type: 'GET',
-		data: formData,
+		data: "action=create&space_id="+spaceid+"&desk_count_array="+JSON.stringify(arr),
 		contentType: false,
 		cache: false,
 		processData:false,
@@ -240,6 +240,7 @@ $("#columns").on('submit',(function(e) {
 		success: function(msg){
 			
 			obj = JSON.parse(msg);
+			console.log(obj);
 			if(obj['status'] == false){
 				document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
 				document.getElementById("status").className += " alert-warning";
@@ -265,7 +266,7 @@ $("#columns").on('submit',(function(e) {
 
 $("#dimensions").on('submit',(function(e) {
 	e.preventDefault();
-	var i, num = document.getElementById('rows'), spaceid=document.getElementById('row_id').value;
+	var i, num = document.getElementById('rows'), spaceid=document.getElementById('space_id').value;
 	var arr = [];
 	for(i=1;i<=num;i++)
 		arr[i-1] = document.getElementById('row'+i).value;

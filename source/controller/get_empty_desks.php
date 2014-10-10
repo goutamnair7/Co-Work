@@ -6,76 +6,35 @@ function print_layout($space, $sp_id)
 {
 	global $mysqli;
 
-	$sql_left = $mysqli->query("SELECT * FROM desks WHERE space='{$space}' AND side ='left'");
-	$sql_right = $mysqli->query("SELECT * FROM desks WHERE space='{$space}' AND side ='right'");
+	$sql = $mysqli->query("SELECT * FROM desks WHERE space='{$space}'");
 
-	$free_left = array();
-	$free_right = array();
+	$free = array();
 
-	$rmax = 0;
-	$cmax_left = 0;
-	$cmax_right = 0;
+	$max = 0;
 
-	while($row = $sql_left->fetch_assoc())
+	while($row = $sql->fetch_assoc())
 	{
-		$rno = $row['row_no'];
-		$cno = $row['desk_no'];
-
-		if(!isset($free_left[$rno]))
-			$free_left[$rno] = array();
-		if($row['leased_to'] == 0)
-			$free_left[$rno][$cno] = 1;
-		else
-			$free_left[$rno][$cno] = 0;
+		$number = $row['desk_no'];
 		
-		$rmax = max($rmax, $rno);
-		$cmax_left = max($cmax_left, $cno);
+		if($row['leased_to'] == 0)
+			$free[$number] = 1;
+		else
+			$free[$number] = 0;
+		
+		$max = max($max, $number);
 	}
 
-	while($row = $sql_right->fetch_assoc())
+	for($i=1; $i<=$max; $i++)
 	{
-		$rno = $row['row_no'];
-		$cno = $row['desk_no'];
-
-		if(!isset($free_right[$rno]))
-			$free_right[$rno] = array();
-		if($row['leased_to'] == 0)
-			$free_right[$rno][$cno] = 1;
+		if(!isset($free[$i]))
+		{
+			$free[$i] = -1;
+			echo "NOT AVAILABLE ";
+		}
+		else if($free[$i])
+			echo "FREE ";
 		else
-			$free_right[$rno][$cno] = 0;
-		
-		$rmax = max($rmax, $rno);
-		$cmax_right = max($cmax_right, $cno);
-	}
-
-
-	for($i=1; $i<=$rmax; $i++)
-	{
-		for($j=1; $j<=$cmax_left; $j++)
-		{
-			$id = $sp_id."-left-".$i."-".$j;
-			if(!isset($free_left[$i][$j]))
-				echo '<img src="../asset/img/not_available.png" class="not_available" id="'.$id.'"></img>';
-			else if($free_left[$i][$j] == 1)
-				echo '<img src="../asset/img/not_selected.png" class="not_selected" onclick="changeimage(\''.$id.'\')" id="'.$id.'"></img>';
-			else
-				echo '<img src="../asset/img/booked.png" class="booked" id="'.$id.'"></img>';
-		}
-		
-		echo "&nbsp&nbsp&nbsp&nbsp";
-
-		for($j=1; $j<=$cmax_right; $j++)
-		{
-			$id = $sp_id."-right-".$i."-".$j;;
-			if(!isset($free_right[$i][$j]))
-				echo '<img src="../asset/img/not_available.png" class="not_available" id="'.$id.'"></img>';
-			else if($free_right[$i][$j] == 1)
-				echo '<img src="../asset/img/not_selected.png" class="not_selected" onclick="changeimage(\''.$id.'\')" id="'.$id.'"></img>';
-			else
-				echo '<img src="../asset/img/booked.png" class="booked" id="'.$id.'"></img>';
-		}
-		echo "<br />";
-
+			echo "OCCUPIED ";
 	}
 }
 

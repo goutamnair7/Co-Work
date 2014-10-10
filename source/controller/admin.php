@@ -47,7 +47,7 @@ if($action=='create')
 		}
 		else
 		{
-			$status = $mysqli->query("INSERT INTO admins VALUES ('', '{$email}', '{$password}', '{$first_name}', '{$last_name}')")
+			$status = $mysqli->query("INSERT INTO admins VALUES ('', '{$email}', '{$password}', '{$first_name}', '{$last_name}')");
 
 			if($status != false)
 			{
