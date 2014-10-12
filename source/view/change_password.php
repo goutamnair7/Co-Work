@@ -17,18 +17,6 @@
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
-<style>
-#emp {
-	display : none;
-}
-#empbut {
-	display : none;
-}
-#back {
-	display : none;
-}
-</style>
-
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
 
@@ -49,7 +37,7 @@
 				<div class = 'col-md-2'></div>
 				<div class="row col-md-8 col-xs-12">
 
-					<form role="form" action="../controller/change_password.php">
+					<form id='changepass' role="form" action="../controller/change_password.php">
 						<br /><br />
 						<div class = 'col-md-12 col-xs-12'><h1>Reset Password</h1></div> 
 						<br />
@@ -109,23 +97,40 @@
 <script src="../asset/js/jquery.maskedinput.min.js"></script>
 <script src="../asset/js/jquery.pwstrength.js"></script> 
 <script src="../asset/js/scripts.js"></script>
-
 <script type="text/javascript">
-	var status = "<?php echo $_GET['status'] ?>";
-	var msg = "<?php echo $_GET['message'] ?>";
-	
-	if(status.toLowerCase() == "fail"){
-		document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
-		document.getElementById("status").className += " alert-warning";
-	}
-	else if(status.toLowerCase() == "success"){
-		document.getElementById("status").innerHTML = "<i class='fa fa-check-circle fa-fw fa-lg'></i>"+msg;
-		document.getElementById("status").className += " alert-success";
+	$("#changepass").on('submit',(function(e) {
+		e.preventDefault();
+		var formData = $(this).serializeArray();
+		for (var i = formData.length - 1; i >= 0; i--) {
+			formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
+		};
+		formData = formData.join('&')
+		$.ajax({
+			url: "../controller/change_password.php",
+			type: 'GET',
+			data: formData,
+			contentType: false,
+			cache: false,
+			processData:false,
 
-	}
-	else{
-		document.getElementById("statusdiv").style.display = "none";
-	}
+			success: function(msg){
+				console.log(msg);
+				obj = JSON.parse(msg);
+				if(obj['status'] == false){
+					document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
+					document.getElementById("status").className = "alert fade in alert-warning";
+				}
+				else {
+				//Success of this function
+					document.getElementById("status").innerHTML = "<i class='fa fa-check-circle fa-fw fa-lg'></i>"+obj['msg'];
+					document.getElementById("status").className = "alert fade in alert-success";
+				}
+			},
+			error: function(){
+				alert("Connection Error");
+			}
+		});		
+	}));
 
 </script>
 <script type="text/javascript">

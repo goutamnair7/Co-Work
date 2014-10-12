@@ -16,7 +16,7 @@
 					<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
 						<ul class="nav nav-pills nav-stacked">
 							<li id="dashboard">
-							<a href="index.php">
+							<a href="dashboard.php">
 								<i class="fa fa-dashboard"></i>
 								<span>Dashboard</span>
 							</a>
