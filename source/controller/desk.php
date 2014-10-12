@@ -1,27 +1,26 @@
 <?php
 
-require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'connect_to_mysql.php');
+require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
 $action = @$_GET['action'];
 
 if($action == 'create')
 {
-	$space = @$_GET['space'];
-	$side = @$_GET['side'];
-	$row_no = @$_GET['row_no'];
-	$desk_no = @$_GET['desk_no'];
-	$leased_to = @$_GET['leased_to'];
+	$space_id = @$_GET['space_id'];
+	$desk_count_array = json_decode(@$_GET['desk_count_array']);
+	
+	$row = count($desk_count_array);
 
-	$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$space}', '{$side}', '{$row_no}', '{$desk_no}', '{$leased_to}')");
-
-	if($status == false)
-		$result['msg'] = "ERROR: ".$mysqli->error;
-	else
+	for($r = 1; $r<=$row; $r++)
 	{
-		$result['status'] = true;
-		$result['msg'] = "Successfully added new desk";
+		$desk_count = $desk_count_array[$r-1];
+		for ($i=1; $i <= $desk_count; $i++)
+			$mysqli->query("INSERT INTO desks VALUES ('', '{$space_id}', '{$r}', '{$i}', '')");
 	}
 
+	$result['status'] = true;
+	$result['msg'] = "Successfully added new desk";
+	
 	echo json_encode($result);
 }
 else if($action == 'show')
@@ -50,7 +49,7 @@ else if($action == "book")
 else if($action == "show_by_startup_id")
 {
 	$startup_id = @$_GET['startup_id'];
-	$sql = $mysqli->query("SELECT id FROM dekss WHERE leased_to={$startup_id}");
+	$sql = $mysqli->query("SELECT id FROM desks WHERE leased_to={$startup_id}");
 
 	if($sql->num_rows == 0)
 		$result['msg'] = "No desks alloted";
