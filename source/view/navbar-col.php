@@ -45,6 +45,12 @@
 								<span>Add Space</span>
 							</a>
 							</li>
+							<li id='chpasswd'>
+							<a href="change_password.php">
+								<i class="fa fa-building-o"></i>
+								<span>Reset Password</span>
+							</a>
+							</li>
 						</ul>
 					</div>
 				</div>

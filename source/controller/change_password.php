@@ -11,7 +11,8 @@ $newpass = @$_GET['new_pass'];
 $confirmpass = @$_GET['confirm_pass'];
 $email = @$_GET['email'];
 
-$status = $mysqli->query("SELECT * FROM startup_members WHERE password = '{oldpass}' AND email = '{email}' LIMIT 1");
+$oldpass = md5($oldpass);
+$status = $mysqli->query("SELECT * FROM startup_members WHERE password = '{$oldpass}' AND email = '{$email}' LIMIT 1");
 if($status->num_rows == 0) {
 	$result['msg'] = "Incorrect Password";
 }
@@ -19,7 +20,7 @@ else if($newpass != $confirmpass) {
 	$result['msg'] = "Passwords don't match";
 }
 else {
-	$password = md5($password);
+	$newpass = md5($newpass);
 	$status = $mysqli->query("UPDATE startup_members SET password = '{$newpass}' WHERE email = '{$email}'");
 	if($status == false)
 		$result['msg'] = "ERROR: " . $mysqli->error;
