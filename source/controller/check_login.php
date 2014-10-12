@@ -38,7 +38,7 @@ if ($message != false)
 }
 else
 {
-	$url = "../view/register_startup.php";
+	$url = "../view/dashboard.php";
 }
 
 header("location: " . $url);
