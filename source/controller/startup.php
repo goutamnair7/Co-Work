@@ -1,6 +1,6 @@
 <?php
 
-require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'connect_to_mysql.php' );
+require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
 require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mailer.php');
 

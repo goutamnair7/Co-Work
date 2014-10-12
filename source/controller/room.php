@@ -1,6 +1,6 @@
 <?php
 
-require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
+require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
 $result = array();
 $result['status'] = false;
@@ -64,7 +64,7 @@ else if($action == "book")
 else if($action == "show_by_startup_id")
 {
 	$startup_id = @$_GET['startup_id'];
-	$sql = $mysqli->query("SELECT id FROM rooms WHERE leased_to={$startup_id");
+	$sql = $mysqli->query("SELECT id FROM rooms WHERE leased_to={$startup_id}");
 
 	if($sql->num_rows == 0)
 		$result['msg'] = "No rooms alloted";

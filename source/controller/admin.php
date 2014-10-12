@@ -1,6 +1,6 @@
 <?php
 
-require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "connect_to_mysql.php" );
+require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
 $result = array();
 $result['status'] = false;
@@ -47,7 +47,7 @@ if($action=='create')
 		}
 		else
 		{
-			$status = $mysqli->query("INSERT INTO admins VALUES ('', '{$email}', '{$password}', '{$first_name}', '{$last_name}')")
+			$status = $mysqli->query("INSERT INTO admins VALUES ('', '{$email}', '{$password}', '{$first_name}', '{$last_name}')");
 
 			if($status != false)
 			{
