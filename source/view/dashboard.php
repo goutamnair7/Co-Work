@@ -64,7 +64,7 @@
 <script src="../asset/js/scripts.js"></script>
 
 <script type="text/javascript">
-	$("#chpasswd").addClass("active");
+	$("#dashboard").addClass("active");
 </script>
 </body>
 </html>
