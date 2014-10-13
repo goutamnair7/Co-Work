@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Co-Work :: Space</title>
+<title>Centaurus - Bootstrap Admin Template</title>
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
 <!--Common Styles -->
