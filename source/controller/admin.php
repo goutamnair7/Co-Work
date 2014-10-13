@@ -19,17 +19,17 @@ if($action=='create')
 	if($first_name == "" || $last_name == "" || $email == "" || $password == "" || $verify_password == "")
 	{
 		$result['status'] = false;
-		$result['message'] = "All fields are necessary!";
+		$result['msg'] = "All fields are necessary!";
 	}
 	else if(filter_var($email, FILTER_VALIDATE_EMAIL) == false)
 	{
 		$result['status'] = false;
-		$result['message'] = "Email format incorrect!";
+		$result['msg'] = "Email format incorrect!";
 	}
 	else if($password != $verify_password)
 	{
 		$result['status'] = false;
-		$result['message'] = "Passwords do not match!";
+		$result['msg'] = "Passwords do not match!";
 	}
 	else
 	{
@@ -43,7 +43,7 @@ if($action=='create')
 		if($sql->num_rows != 0)
 		{
 			$result['status'] = false;
-			$result['message'] = "Email ID already registered!";
+			$result['msg'] = "Email ID already registered!";
 		}
 		else
 		{
@@ -57,7 +57,7 @@ if($action=='create')
 			else
 			{
 				$result['status'] = false;
-				$result['message'] = "ERROR: ".$mysqli->error;
+				$result['msg'] = "ERROR: ".$mysqli->error;
 			}
 		}
 	}
