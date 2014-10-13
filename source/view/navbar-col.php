@@ -51,6 +51,12 @@
 								<span>Reset Password</span>
 							</a>
 							</li>
+							<li id='logoutsession'>
+							<a href="../controller/logout.php">
+								<i class="fa fa-building-o"></i>
+								<span>Logout</span>
+							</a>
+							</li>
 						</ul>
 					</div>
 				</div>
