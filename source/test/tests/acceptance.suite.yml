@@ -12,4 +12,4 @@ modules:
         - Db
     config:
         PhpBrowser:
-            url: 'http://localhost:8888/view/'
+            url: 'http://localhost/ssad32/source/view/'

@@ -98,7 +98,7 @@ function display()
 						str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
 					}
 					else if(obj[i][j]==-1){
-						str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
+					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
 						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
