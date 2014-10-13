@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centaurus - Bootstrap Admin Template</title>
+<title>Co-Work :: Register Admin</title>
 
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
@@ -60,7 +60,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Register New Admin</h4>
 							</div>-->
-							<form role="form" action="../controller/check_signup_admin.php">
+							<form role="form" action="../controller/admin.php">
 								<br /><br />
 								<div class = 'col-md-12 col-xs-12'><h1>Admin Details</h1></div> 
 								<br />
@@ -95,7 +95,11 @@
 									<div class="form-group">
 										<label>Confirm Password</label>
 										<input class="form-control" type="password" placeholder="Confirm Password" name="verify_password" required>
-									</div>
+                                    </div>
+
+                                    <div class="form-group">
+										<input class="form-control" type="hidden" value="create" name="action" required hidden>
+                                    </div>
 
 								</div>
 
