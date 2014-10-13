@@ -1271,12 +1271,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Codeception/Codeception.git",
-            "reference": "3ffb9c13fc7298def2a25ed7d851f54c83af44a6"
+            "reference": "3cace7dc54401c685293827c2e20f74eb0bb0504"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Codeception/Codeception/zipball/3ffb9c13fc7298def2a25ed7d851f54c83af44a6",
-            "reference": "3ffb9c13fc7298def2a25ed7d851f54c83af44a6",
+            "url": "https://api.github.com/repos/Codeception/Codeception/zipball/3cace7dc54401c685293827c2e20f74eb0bb0504",
+            "reference": "3cace7dc54401c685293827c2e20f74eb0bb0504",
             "shasum": ""
         },
         "require": {
@@ -1296,6 +1296,7 @@
         },
         "require-dev": {
             "codeception/specify": "~0.3",
+            "codegyre/robo-ci": "@dev",
             "facebook/php-sdk": "~3.2",
             "monolog/monolog": "~1.8",
             "pda/pheanstalk": "~2.0",
@@ -1309,11 +1310,16 @@
             "monolog/monolog": "Log test steps",
             "phpseclib/phpseclib": "Extension required to use the SFTP option in the FTP Module."
         },
-        "time": "2014-09-27 02:27:22",
+        "time": "2014-10-11 21:44:44",
         "bin": [
             "codecept"
         ],
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1-dev"
+            }
+        },
         "installation-source": "source",
         "autoload": {
             "psr-0": {
