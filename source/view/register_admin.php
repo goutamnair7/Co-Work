@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centaurus - Bootstrap Admin Template</title>
+<title>Co-Work :: Register Admin</title>
 
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
@@ -16,18 +16,6 @@
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
-
-<style>
-#emp {
-	display : none;
-}
-#empbut {
-	display : none;
-}
-#back {
-	display : none;
-}
-</style>
 
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
@@ -60,7 +48,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Register New Admin</h4>
 							</div>-->
-							<form role="form" action="../controller/check_signup_admin.php">
+							<form id='reg_admin' role="form" action="../controller/admin.php">
 								<br /><br />
 								<div class = 'col-md-12 col-xs-12'><h1>Admin Details</h1></div> 
 								<br />
@@ -95,7 +83,11 @@
 									<div class="form-group">
 										<label>Confirm Password</label>
 										<input class="form-control" type="password" placeholder="Confirm Password" name="verify_password" required>
-									</div>
+                                    </div>
+
+                                    <div class="form-group">
+										<input class="form-control" type="hidden" value="create" name="action" required hidden>
+                                    </div>
 
 								</div>
 
@@ -129,22 +121,41 @@
 <script src="../asset/js/scripts.js"></script>
 
 <script type="text/javascript">
-	var status = "<?php echo $_GET['status'] ?>";
-	var msg = "<?php echo $_GET['message'] ?>";
-	
-	if(status.toLowerCase() == "fail"){
-		document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
-		document.getElementById("status").className += " alert-warning";
-	}
-	else if(status.toLowerCase() == "success"){
-		document.getElementById("status").innerHTML = "<i class='fa fa-check-circle fa-fw fa-lg'></i>"+msg;
-		document.getElementById("status").className += " alert-success";
 
-	}
-	else{
-		document.getElementById("statusdiv").style.display = "none";
-	}
+	$("#reg_admin").on('submit',(function(e) {
+		e.preventDefault();
+		var formData = $(this).serializeArray();
+		for (var i = formData.length - 1; i >= 0; i--) {
+			formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
+		};
+		formData = formData.join('&')
+		$.ajax({
+			url: "../controller/admin.php",
+			type: 'GET',
+			data: formData,
+			contentType: false,
+			cache: false,
+			processData:false,
 
+			success: function(msg){
+				console.log(msg);
+				obj = JSON.parse(msg);
+				if(obj['status'] == false){
+					document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
+					document.getElementById("status").className += " alert-warning";
+				}
+				else {
+				//Success of this function
+					document.getElementById("status").innerHTML = "<i class='fa fa-check-circle fa-fw fa-lg'></i>"+obj['msg'];
+					document.getElementById("status").className = "alert fade in alert-success";
+				}
+			},
+			error: function(){
+			alert("Connection Error");
+
+			}
+		});		
+	}));
 </script>
 <script type="text/javascript">
 	$("#register_admin").addClass("active");

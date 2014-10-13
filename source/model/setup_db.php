@@ -9,6 +9,7 @@ $tbl_name4="rooms"; //tablename 4.
 $tbl_name5="room_log"; //tablename 5.
 $tbl_name6="startups"; //tablename 6.
 $tbl_name7="startup_members"; //tablename 7.
+$tbl_name8="spaces"; //tablename 8.
 
 //Creating table "admins".
 $sql_tbl_1 = "CREATE TABLE `$tbl_name1` (
@@ -21,13 +22,15 @@ $sql_tbl_1 = "CREATE TABLE `$tbl_name1` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_1 = $mysqli->query( $sql_tbl_1 );
 
+$pass = md5('password');
+$mysqli->query("INSERT INTO admins values ('', 'admin@example.com', '{$pass}', 'Test', 'User')");
+
 //Creating table "desks".
 $sql_tbl_2 = "CREATE TABLE `$tbl_name2` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `space` varchar(20) NOT NULL,
-  `side` varchar(15) NOT NULL,
-  `row_no` int(11) NOT NULL,
-  `desk_no` int(11) NOT NULL,
+  `row` int(11) NOT NULL,
+  `column` int(11) NOT NULL,
   `leased_to` int(11) NOT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
@@ -68,6 +71,16 @@ $sql_tbl_5 = "CREATE TABLE `$tbl_name5` (
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_5 = $mysqli->query( $sql_tbl_5 );
+
+//Creating table "spaces".
+$sql_tbl_8 = "CREATE TABLE `$tbl_name8` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `rows` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+$result_tbl_8 = $mysqli->query( $sql_tbl_8 );
 
 //Creating table "startups".
 $sql_tbl_6 = "CREATE TABLE `$tbl_name6` (

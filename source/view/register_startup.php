@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centaurus - Bootstrap Admin Template</title>
+<title>Co-Work :: Register Startup</title>
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
 <!--Common Styles -->
@@ -366,11 +366,11 @@ function display()
 					if(obj[i][j]==0){
 						var id = "'" + i + '-' + j + "'";
 						str += "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' class='not_selected'";
-						str += " onclick="change_image('+id+')" />";
+						str += ' onclick="change_image('+id+')" />';
 						console.log(str);
 					}
 					else if(obj[i][j]==-1){
-						str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' class='not_available'/>";
+		//				str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' class='not_available'/>";
 					}
 					else {
 						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' class='booked'/>";

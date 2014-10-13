@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centaurus - Bootstrap Admin Template</title>
+<title>Co-Work :: Reset Password</title>
 
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
@@ -51,22 +51,22 @@
 								
 							<div class="form-group">
 								<label>Email</label>
-								<input class="form-control" type="text" name="email" required>
+								<input class="form-control" id="reset_email" type="text" name="email" required>
 							</div>
 
 							<div class="form-group">
 								<label>Old Password</label>
-								<input class="form-control" type="password" name="old_pass" required>
+								<input class="form-control" id="reset_old_password" type="password" name="old_pass" required>
 							</div>
 							
 							<div class="form-group">
 								<label>New Password</label>
-								<input class="form-control" type="password" name="new_pass" required>
+								<input class="form-control" id="reset_new_password" type="password" name="new_pass" required>
 							</div>
 
 							<div class="form-group">
 								<label>Confirm Password</label>
-								<input class="form-control" type="password" name="confirm_pass" required>
+								<input class="form-control" id="reset_confirm_password" type="password" name="confirm_pass" required>
 							</div>
 							<div class='col-md-4 col-xs-2'></div>
 							<button type="submit" class="col-xs-8 col-md-4 btn btn-primary">Reset Password</button>

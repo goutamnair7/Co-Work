@@ -1,21 +1,4 @@
 <!DOCTYPE html>
-<?php
-
-session_start();
-
-if(isset($_SESSION['user_type']))
-{
-	$url = "";
-	if($_SESSION['user_type']=="admin")
-		$url = "./dashboard.php";
-	else if($_SESSION['user_type']=="startup")
-		$url = "./startup_home.php";
-	if($url == "")
-		session_destroy();
-	else
-		header("location: ".$url);
-}
-?>
 
 <html>
 <head>
@@ -89,8 +72,8 @@ if(isset($_SESSION['user_type']))
 <script src="../asset/js/bootstrap.js"></script>
 
 <script type="text/javascript">
-	var status = "<?php echo @$_GET['status'] ?>";
-	var msg = "<?php echo @$_GET['message'] ?>";
+	var status = "";
+	var msg = "";
 	
 	if(status.toLowerCase() == "fail"){
 		document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+msg;
