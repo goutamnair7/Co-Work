@@ -33,13 +33,12 @@
 								<span>Register Admin</span>
 							</a>
 							</li>
-							<!--
 							<li id='spaces'>
 							<a href="spaces.php">
-								<i class="fa fa-building-o"></i>
+								<i class="fa fa-tree"></i>
 								<span>Spaces</span>
 							</a>
-							</li>-->
+							</li>
 							<li id='newspace'>
 							<a href="add_new_space.php">
 								<i class="fa fa-sitemap"></i>

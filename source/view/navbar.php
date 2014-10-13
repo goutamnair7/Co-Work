@@ -1,6 +1,6 @@
 <header class="navbar" id="header-navbar">
 	<div class="container">
-		<a href="index.php" id="logo" class="navbar-brand">
+		<a href="../index.php" id="logo" class="navbar-brand">
 			<img src="../asset/img/logo.png" alt="" class="normal-logo logo-white"/>
 			<img src="../asset/img/logo-black.png" alt="" class="normal-logo logo-black"/>
 			<img src="../asset/img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
@@ -162,14 +162,14 @@
 						<span class="hidden-xs">Scarlett Johansson</span> <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="user-profile.php"><i class="fa fa-user"></i>Profile</a></li>
+						<li><a href="#"><i class="fa fa-user"></i>Profile</a></li>
 						<li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
 						<li><a href="#"><i class="fa fa-envelope-o"></i>Messages</a></li>
-						<li><a href="#"><i class="fa fa-power-off"></i>Logout</a></li>
+						<li><a href="../controller/logout.php"><i class="fa fa-power-off"></i>Logout</a></li>
 					</ul>
 					</li>
 					<li class="hidden-xxs">
-					<a class="btn">
+					<a class="btn" href="../controller/logout.php">
 						<i class="fa fa-power-off"></i>
 					</a>
 					</li>
