@@ -126,7 +126,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										<div class="alert alert-success fade in" id="success_display" style="margin: 100px 0; display:none;">
 											<i class="fa fa-check-circle fa-fw fa-lg"></i>
 											<strong>Congratulations!</strong> You have successfully added a new space.
-										</div>	
+										</div>
 									</div>
 								</div>
 							</div>
