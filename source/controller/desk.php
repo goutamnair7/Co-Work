@@ -44,9 +44,9 @@ else if($action == "book")
 	$end_month = $end_date[0];
 	$end_year = $end_date[2];
 
-	foreach ($desks as $desk_id)
+	while(($start_month + 100*$start_year) <= ($end_month + 100*$end_year))
 	{
-		while(($start_month + 100*$start_year) <= ($end_month + 100*$end_year))
+		foreach ($desks as $desk_id)
 		{
 			$status = $mysqli->query("INSERT INTO desk_log VALUES ('', '{$desk_id}', '{$start_year}', '{$start_month}', '{$startup_id}')");
 			if(!$status)
@@ -54,12 +54,12 @@ else if($action == "book")
 				$result['msg'] = "Error: ".$mysqli->error;
 				break;
 			}
-			$start_month++;
-			if($start_month > 12)
-			{
-				$start_month -= 12;
-				$start_year += 1;
-			}
+		}
+		$start_month++;
+		if($start_month > 12)
+		{
+			$start_month -= 12;
+			$start_year += 1;
 		}
 	}
 	if($status)
