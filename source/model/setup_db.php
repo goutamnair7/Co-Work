@@ -31,7 +31,6 @@ $sql_tbl_2 = "CREATE TABLE `$tbl_name2` (
   `space` varchar(20) NOT NULL,
   `row` int(11) NOT NULL,
   `column` int(11) NOT NULL,
-  `leased_to` int(11) NOT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_2 = $mysqli->query( $sql_tbl_2 );
@@ -56,12 +55,11 @@ $sql_tbl_4 = "CREATE TABLE `$tbl_name4` (
   `desks` int(11) NOT NULL,
   `space` varchar(20) NOT NULL,
   `side` varchar(20) NOT NULL,
-  `leased_to` int(11) NOT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_4 = $mysqli->query( $sql_tbl_4 );
 
-//Creating table "rooms_log".
+//Creating table "room_log".
 $sql_tbl_5 = "CREATE TABLE `$tbl_name5` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_id` int(11) NOT NULL,
