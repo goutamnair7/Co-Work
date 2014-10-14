@@ -31,18 +31,39 @@ else if($action == 'show')
 }
 else if($action == "book")
 {
-	$id = @$_GET['id'];
+	$desk_id = @$_GET['desk_id'];
 	$startup_id = @$_GET['startup_id'];
-	
-	$status = $mysqli->query("UPDATE desks SET leased_to={$startup_id} WHERE id={$id}");
-	
+	$start_date = @$_GET['start_date'];
+	$end_date = @$_GET['end_date'];
+
+	$start_date = explode('-', $start_date);
+	$start_month = $start_date[0];
+	$start_year = $start_date[2];
+
+	$end_date = explode('-', $end_date);
+	$end_month = $end_date[0];
+	$end_year = $end_date[2];
+
+	while($start_month <= $end_month or $start_year <= $end_year)
+	{
+		$status = $mysqli->query("INSERT INTO desk_log VALUES ('', '{$desk_id}', '{$start_year}', '{$start_month}', '{$startup_id}')");
+		if(!$status)
+		{
+			$result['msg'] = "Error: ".$mysqli->error;
+			break;
+		}
+		$start_month++;
+		if($start_month > 12)
+		{
+			$start_date -= 12;
+			$start_year += 1;
+		}
+	}
 	if($status)
 	{
 		$result['status'] = true;
 		$result['msg'] = "Successfully alloted desk";
 	}
-	else
-		$result['msg'] = "Error: ".$mysqli->error;
 
 	echo json_encode($result);
 }
