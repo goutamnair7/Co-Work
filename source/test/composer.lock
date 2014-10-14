@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e9435acb7cfa73e72de17c9c09d49618",
+    "hash": "af1164146be46b329338c30264ffb1cd",
     "packages": [],
     "packages-dev": [
         {
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "3ffb9c13fc7298def2a25ed7d851f54c83af44a6"
+                "reference": "3cace7dc54401c685293827c2e20f74eb0bb0504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/3ffb9c13fc7298def2a25ed7d851f54c83af44a6",
-                "reference": "3ffb9c13fc7298def2a25ed7d851f54c83af44a6",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/3cace7dc54401c685293827c2e20f74eb0bb0504",
+                "reference": "3cace7dc54401c685293827c2e20f74eb0bb0504",
                 "shasum": ""
             },
             "require": {
@@ -38,6 +38,7 @@
             },
             "require-dev": {
                 "codeception/specify": "~0.3",
+                "codegyre/robo-ci": "@dev",
                 "facebook/php-sdk": "~3.2",
                 "monolog/monolog": "~1.8",
                 "pda/pheanstalk": "~2.0",
@@ -55,6 +56,11 @@
                 "codecept"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Codeception": "src"
@@ -80,7 +86,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2014-09-27 02:27:22"
+            "time": "2014-10-11 21:44:44"
         },
         {
             "name": "doctrine/instantiator",
