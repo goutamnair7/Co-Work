@@ -118,13 +118,23 @@ function display()
 				for (var j = 0; j < obj[i].length; j++) {
 					obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j]==0){
-						str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						if(spacename == ''){
+							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
+						else{
+							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
 					}
 					else if(obj[i][j]==-1){
 					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
-						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						if(spacename == ''){
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						}
+						else{
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						}
 					}
 
 				};
