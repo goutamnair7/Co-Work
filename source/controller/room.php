@@ -18,7 +18,7 @@ if($action == "create")
 	$side = @$_GET['side'];
 	$leased_to = @$_GET['leased_to'];
 
-	$status = $mysqli->query("INSERT INTO rooms values ('', '{$length}', '{$width}', '{$area}', {$desks}, '{$space}', '{$side}', {$leased_to});");
+	$status = $mysqli->query("INSERT INTO rooms values ('', '{$length}', '{$width}', '{$area}', '{$desks}', '{$space}', '{$side}', '{$leased_to}');");
 	
 	if($status == false)
 		$result['msg'] = "ERROR: ".$mysqli->error;

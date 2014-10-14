@@ -49,9 +49,10 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 					<div id='display_space' class='col-md-6'>
 					</div>
-					<div id='display_room' class='col-md-6'>
+					<div id='display_cowork' class='col-md-6'>
 					</div>
 				</div>
+				
 			<footer id="footer-bar" class="row">
 				<p id="footer-copyright" class="col-xs-12">
 				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
@@ -109,7 +110,7 @@ function display()
 
 			};
 			document.getElementById('display_space').innerHTML=str;
-			document.getElementById('display_room').innerHTML='';
+			document.getElementById('display_cowork').innerHTML='';
 		},
 		error: function(){
 			alert("Connection Error");
@@ -133,7 +134,7 @@ function show_details(id){
 			var obj = JSON.parse(msg);
 			if(obj['status']) {
 				var startup = obj['row'];
-				document.getElementById('display_room').innerHTML = "Startup Name : " + startup['name'];
+				document.getElementById('display_cowork').innerHTML = "Startup Name : " + startup['name'];
 			//	console.log(obj);
 			}
 			else

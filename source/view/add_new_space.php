@@ -88,6 +88,12 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										</form>
 
 										<form role="form" id = "dimensions" action="" onsubmit="" style='display:none;' required>
+											<div id = "statusdiv" class="row">
+												<div class="col-xs-12">
+													<p id="status" class="alert fade in" style="padding:3px;"></p>
+												</div>
+											</div>	
+										
 											<div class="form-group">
 												<label>Length</label>
 												<input class="form-control" type="text" placeholder="Length" name="length" required>
@@ -106,16 +112,21 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 											</div>
 											<div class="form-group">
 												<label>Side</label>
-												<select class="form-control" id = 'typeofspace' name="type" required>
+												<select class="form-control" id = 'typeofspace' name="side" required>
 													<option>Left</option>
 													<option>Right</option>
 												</select>
 											</div>
-											<input name='room_id' value='' type='hidden' id='room_id'>
+											<input name='space' value='' type='hidden' id='space'>
 
+											<input name="action" value="create" hidden>
 											<button type="submit" class="col-md-4 col-xs-8 btn btn-success"> <i class="icon-arrow-left"></i>Submit</button>
 
-										</form>	
+										</form>
+										<div class="alert alert-success fade in" id="success_display" style="margin: 100px 0; display:none;">
+											<i class="fa fa-check-circle fa-fw fa-lg"></i>
+											<strong>Congratulations!</strong> You have successfully added a new space.
+										</div>	
 									</div>
 								</div>
 							</div>
@@ -168,13 +179,56 @@ $("#add_space").on('submit',(function(e) {
 	};
 	formData = formData.join('&')
 	console.log("submitted");
-	if(document.getElementById('type') == 'Room'){
+	
+	if(document.getElementById('type').value == 'Room'){
+
 		document.getElementById('add_space').style.display = "none";
 		document.getElementById('dimensions').style.display = ""; 	
 		document.getElementById("step1").className = "";
 		document.getElementById("step2").className = "active";
 		document.getElementById("step1_1").className = "badge badge-success";
-		document.getElementById("step2_1").className = "badge badge-primary";				
+		document.getElementById("step2_1").className = "badge badge-primary";	
+		document.getElementById('space').value = "Propel"; 	
+		
+
+		$("#dimensions").on('submit',(function(e) {
+			e.preventDefault();
+			var formData = $(this).serializeArray();
+			for (var i = formData.length - 1; i >= 0; i--) {
+				formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
+			};
+			formData = formData.join('&')
+
+			$.ajax({
+				url: "../controller/room.php",
+				type: 'GET',
+				data: formData,
+				contentType: false,
+				cache: false,
+				processData:false,
+
+				success: function(msg){
+					console.log(msg);
+					obj = JSON.parse(msg);
+					if(obj['status'] == false){
+						document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
+						document.getElementById("status").className += " alert-warning";
+					}
+					else {
+					//Success of this function
+						document.getElementById('dimensions').style.display = "none";
+						document.getElementById('success_display').style.display = ""; 
+						document.getElementById("step2").className = "";
+						document.getElementById("step3").className = "active";
+						document.getElementById("step2_1").className = "badge badge-success";
+						document.getElementById("step3_1").className = "badge badge-primary";
+					}
+				},
+				error: function(){
+					alert("Connection Error");
+				}
+			});
+		}));
 	}
 	else{
 		$.ajax({
@@ -201,7 +255,7 @@ $("#add_space").on('submit',(function(e) {
 					num = total = document.getElementById('rows').value;
 					var i;
 					for(i=1;i<=num;i++){
-						document.getElementById('columns').innerHTML += '<div class="form-group"><label>Number of columns in Row '+i+'</label><input class="form-control" type="text" placeholder="Columns" name="columns" id="row'+i+'" required></div>';
+						document.getElementById('columns').innerHTML += '<div class="form-group"><label>Number of columns in Row ' + i + '</label><input class="form-control" type="text" placeholder="Columns" name="columns" id="row'+i+'" required></div>';
 					}
 					document.getElementById('columns').innerHTML += '<button type="submit" class="col-md-4 col-xs-8 btn btn-success"> <i class="icon-arrow-left"></i>Submit</button>';
 
@@ -248,11 +302,12 @@ $("#columns").on('submit',(function(e) {
 			else {
 			//Success of this function
 				startupid = obj['id'];
-				document.getElementById('dimensions').style.display = "none";
+				document.getElementById('columns').style.display = "none";
 				document.getElementById("step2").className = "";
 				document.getElementById("step3").className = "active";
 				document.getElementById("step2_1").className = "badge badge-success";
 				document.getElementById("step3_1").className = "badge badge-primary";
+				document.getElementById("success_display").style.display = "";
 			}
 		},
 		error: function(){
