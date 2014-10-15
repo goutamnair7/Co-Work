@@ -48,7 +48,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 <script src="../asset/js/bootstrap.js"></script>
 <script src="../asset/js/demo.js"></script>  
 <script src="../asset/js/scripts.js"></script>
-<script src="../asset/js/demo-skin-changer.js"></script>
+<!--<script src="../asset/js/demo-skin-changer.js"></script>-->
 <script src="../asset/js/jquery.nanoscroller.min.js"></script> 
 <script src="../asset/js/jquery.maskedinput.min.js"></script>
 <!--Page specific js-->

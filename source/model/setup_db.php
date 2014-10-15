@@ -9,6 +9,7 @@ $tbl_name4="rooms"; //tablename 4.
 $tbl_name5="room_log"; //tablename 5.
 $tbl_name6="startups"; //tablename 6.
 $tbl_name7="startup_members"; //tablename 7.
+$tbl_name8="spaces"; //tablename 8.
 
 //Creating table "admins".
 $sql_tbl_1 = "CREATE TABLE `$tbl_name1` (
@@ -101,6 +102,16 @@ $sql_tbl_7 = "CREATE TABLE `$tbl_name7` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_7 = $mysqli->query( $sql_tbl_7 );
 
+//Creating table "spaces".
+$sql_tbl_8 = "CREATE TABLE `$tbl_name8` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `rows` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+$result_tbl_8 = $mysqli->query( $sql_tbl_8 );
+
 if ($result_tbl_1) {
 	echo "Table $tbl_name1 succesfully created. \r\n";
 } else {
@@ -141,5 +152,11 @@ if ($result_tbl_7) {
 	echo "Table $tbl_name7 succesfully created. \r\n";
 } else {
 	echo "Table $tbl_name7 couldnt be created. Check the hostname,username,password,database_name. Maybe another table of the same name already exists \r\n";
+}
+
+if ($result_tbl_8) {
+	echo "Table $tbl_name8 succesfully created. \r\n";
+} else {
+	echo "Table $tbl_name8 couldnt be created. Check the hostname,username,password,database_name. Maybe another table of the same name already exists \r\n";
 }
 ?>

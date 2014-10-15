@@ -39,7 +39,7 @@
 						<i class="fa fa-warning"></i>
 						<span class="count">8</span>
 					</a>
-					<ul class="dropdown-menu notifications-list">
+					<!--<ul class="dropdown-menu notifications-list">
 						<li class="pointer">
 						<div class="pointer-inner">
 							<div class="arrow"></div>
@@ -86,14 +86,14 @@
 							View all notifications
 						</a>
 						</li>
-					</ul>
+					</ul>-->
 					</li>
 					<li class="dropdown hidden-xs">
 					<a class="btn dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-envelope-o"></i>
 						<span class="count">16</span>
 					</a>
-					<ul class="dropdown-menu notifications-list messages-list">
+					<!--<ul class="dropdown-menu notifications-list messages-list">
 						<li class="pointer">
 						<div class="pointer-inner">
 							<div class="arrow"></div>
@@ -149,7 +149,7 @@
 							View all messages
 						</a>
 						</li>
-					</ul>
+					</ul>-->
 					</li>
 					<li class="hidden-xs">
 					<a class="btn">

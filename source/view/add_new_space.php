@@ -212,7 +212,7 @@ $("#add_space").on('submit',(function(e) {
 				}
 			},
 			error: function(){
-				alert("Connection Error");
+				console.error("Connection Error");
 			}
 		});
 	}
@@ -256,7 +256,7 @@ $("#columns").on('submit',(function(e) {
 			}
 		},
 		error: function(){
-			alert("Connection Error");
+			console.log("Connection Error");
 		}
 	});
 }));
@@ -296,7 +296,7 @@ $("#dimensions").on('submit',(function(e) {
 			}
 		},
 		error: function(){
-			alert("Connection Error");
+		    console.log("Connection Error");
 		}
 	});
 }));

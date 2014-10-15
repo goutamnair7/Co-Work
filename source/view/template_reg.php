@@ -190,7 +190,7 @@
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
 <script src="../asset/js/jquery.nanoscroller.min.js"></script>
-<script src="../asset/js/demo.js"></script>  
+<!--<script src="../asset/js/demo.js"></script>-->
 
 <script src="../asset/js/jquery-ui.custom.min.js"></script>
 <script src="../asset/js/fullcalendar.min.js"></script>

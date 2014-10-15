@@ -266,7 +266,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 				}
 			},
 			error: function(){
-			alert("Connection Error");
+			console.log("Connection Error");
 
 			}
 		});		
