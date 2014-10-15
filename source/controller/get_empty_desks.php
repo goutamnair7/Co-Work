@@ -5,22 +5,16 @@ require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECT
 function print_layout($space, $sp_id)
 {
 	global $mysqli;
-
 	$sql = $mysqli->query("SELECT * FROM desks WHERE space='{$space}'");
-
 	$free = array();
-
 	$max = 0;
-
 	while($row = $sql->fetch_assoc())
 	{
 		$number = $row['desk_no'];
-		
 		if($row['leased_to'] == 0)
 			$free[$number] = 1;
 		else
 			$free[$number] = 0;
-		
 		$max = max($max, $number);
 	}
 
