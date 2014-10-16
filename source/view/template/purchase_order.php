@@ -1,19 +1,72 @@
 <?php
 
-//require_once( dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "dompdf" . DIRECTORY_SEPARATOR . "dompdf_config.inc.php" );
-require_once("../../vendor/dompdf/dompdf_config.inc.php");
+require_once("../../vendor/html2pdf_v4.03/html2pdf.class.php");
 
-$hello = "hello";
+$name = $_POST['name'];
+$designation = $_POST['desig'];
+$company = $_POST['company'];
+$address = $_POST['add'];
 
-$html =
-  "<html><body style='padding: 20px 30px;'>".
-  "<img src='../../asset/img/cie-image.jpg' style='float:left; height:100px; width:100px;'></img> ".
-  "<center><h1 style='font-size:10px;'><strong>BANYAN INTELLECTUAL INITIATIVES</strong></h1></center>".
-  "<center><h2>(The IIIT-H Foundation)$hello</h2></center>".
-  "</body></html>";
-$dompdf = new DOMPDF();
-$dompdf->load_html($html);
-$dompdf->render();
-$dompdf->stream("sample.pdf");
+$date = "15th October 2014";
+$PurchaseOrder = $_POST['purchaseorder'];
 
+$checkto = $_POST['checkto'];
+
+$desc=$_POST['description'];
+$noofunits=$_POST['noofunits'];
+$rate=$_POST['rate'];
+$total = $rate*$noofunits;
+
+$content = "<page>
+			<div style='padding:30px 50px;'>
+			<img src='cie-image.jpg' style='height:148px; float:left;'>
+			<h1 style='text-align:center;'>BANYAN INTELLECTUAL INITIATIVES</h1>
+			<h3 style='text-align:center;'>(The IIIT-H Foundation)</h3><br>
+			</div>
+			<div style='padding:0px 50px; font-size:16px; text-align:right; position:absolute; top:221px; right:50px;'>
+			<strong>Date:</strong> $date<br>
+			<strong>Purchase Order:</strong> $PurchaseOrder
+			</div>
+			<div style='padding:0px 50px; font-size:16px;'>
+			<strong>To:</strong><br>
+			$name, $designation,<br>
+			$company,<br>
+			$address<br>
+			</div><br>
+			<div style='padding:0px 50px; font-size:16px;'>
+			<table style='border:1px solid black;'>
+			<tr>
+			<td style='width:70px; border:1px solid; text-align:center;'><strong>S.No</strong></td>
+			<td style='width:170px; border:1px solid; text-align:center;'><strong>Description</strong></td>
+			<td style='width:100px; border:1px solid; text-align:center;'><strong>No. of units</strong></td>
+			<td style='width:150px; border:1px solid; text-align:center;'><strong>Rate per unit (Rs)</strong></td>
+			<td style='width:130px; border:1px solid; text-align:center;'><strong>Amount (Rs)</strong></td>
+			</tr>
+			<tr>
+			<td style='width:70px; border:1px solid; text-align:center;'>1.</td>
+			<td style='width:170px; border:1px solid; text-align:center;'>$desc</td>
+			<td style='width:100px; border:1px solid; text-align:center;'>$noofunits</td>
+			<td style='width:150px; border:1px solid; text-align:center;'>$rate</td>
+			<td style='width:130px; border:1px solid; text-align:center;'>$total</td>
+			</tr>
+			</table>
+			</div><br><br>
+			<div style='padding:0px 50px; font-size:16px;'>
+			<strong>Payment Terms & Conditions:</strong>
+			<ol>
+			<li>Payment of Rounded Amount to be made within 30 days of receipt of invoice.</li>
+			<li>Mode of Payment will be by cheque to \"<strong>$checkto</strong>\". A receipt will be required<br>after receiving the funds.</li>
+			</ol>
+			</div><br><br>
+			<div style='padding:0px 50px; font-size:16px;'>
+			Regards,<br><br>
+			Raghu Prodduturi<br>
+			Manager<br>
+			Banyan Intellectual Initiatives<br>
+			</div>
+			</page>";
+
+$html2pdf = new HTML2PDF('P','A4','en');
+$html2pdf->WriteHTML($content);
+$html2pdf->Output('purchase_order.pdf');
 ?>
