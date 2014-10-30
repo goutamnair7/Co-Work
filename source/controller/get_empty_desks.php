@@ -2,35 +2,36 @@
 
 require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
-function print_layout($space, $sp_id)
+$space = @$_GET['space'];
+
+function print_layout($space)
 {
 	global $mysqli;
 	$sql = $mysqli->query("SELECT * FROM desks WHERE space='{$space}'");
 	$free = array();
-	$max = 0;
-	while($row = $sql->fetch_assoc())
+	if($sql)
 	{
-		$number = $row['desk_no'];
-		if($row['leased_to'] == 0)
-			$free[$number] = 1;
-		else
-			$free[$number] = 0;
-		$max = max($max, $number);
-	}
-
-	for($i=1; $i<=$max; $i++)
-	{
-		if(!isset($free[$i]))
+		$rmax = 0;
+		$cmax = 0;
+		while($row = $sql->fetch_assoc())
 		{
-			$free[$i] = -1;
-			echo "NOT AVAILABLE ";
+			$r = $row['row'];
+			$c = $row['column'];
+
+			if(!isset($free[$r-1]))
+				$free[$r-1] = array();
+
+			$free[$r-1][$c-1] = $row['leased_to'];
+
+			$rmax = max($rmax, $r);
+			$cmax = max($cmax, $c);
 		}
-		else if($free[$i])
-			echo "FREE ";
-		else
-			echo "OCCUPIED ";
+
+		for($i=0; $i<$rmax; $i++)
+			for($j=0; $j<$cmax; $j++)
+				if(!isset($free[$i][$j]))
+					$free[$i][$j] = -1;		//Not available
 	}
-}
 
 print_layout('Launchpad A', 1);
 echo "<br />";

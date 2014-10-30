@@ -48,11 +48,11 @@ if(isset($_SESSION['user_type']))
 								<form role="form" action="../controller/check_login.php">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										<input class="form-control" type="text" placeholder="Email address" name="email">
+										<input id="email" class="form-control" type="text" placeholder="Email address" name="email">
 									</div>
 									<div class="input-group">
 										<span class="input-group-addon"><i class="fa fa-key"></i></span>
-										<input type="password" class="form-control" placeholder="Password" name="password">
+										<input id="password" type="password" class="form-control" placeholder="Password" name="password">
 									</div>
 									<div id="remember-me-wrapper">
 										<div class="row">

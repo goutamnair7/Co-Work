@@ -60,7 +60,7 @@ else if($action=='show')
 	if($row != NULL)
 	{
 		$result['status'] = true;
-		$result['msg'] = "";
+		$result['msg'] = "Success";
 		$result['row'] = $row;
 	}
 	else

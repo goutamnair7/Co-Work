@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centaurus - Bootstrap Admin Template</title>
+<title>Co-Work :: Register Startup</title>
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
 <!--Common Styles -->
@@ -61,6 +61,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 									<div class = 'col-md-2'></div>
 									<div class="step-pane active col-md-8 col-xs-12" id="step1">
 										<form role="form" id = "start_up" action="" onsubmit="">
+										<br />
 											<div class="modal-body">
 												<div class = 'col-md-12 col-xs-12'><h1>Startup Details</h1></div> 
 												<div id = "statusdiv" class="row">
@@ -78,9 +79,14 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 														<div class="col-md-6 form-group">
 															<label>Space</label>
 															<select class="form-control" id = 'spacename' name="space" required>
-																<option>Launchpad</option>
-																<option>Propel</option>
-																<option>Leased Spaces</option>
+																<?php
+																	require_once("../model/config_sql.php" );
+																	
+																	$sql = $mysqli->query("SELECT name FROM spaces");
+
+																	while($row = $sql->fetch_assoc())
+																		echo "<option>".$row['name']."</option>";
+																?>
 															</select>
 														</div>
 
@@ -172,26 +178,15 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 											</div>
 										</form>	
 									</div>
-							
-									<div id='booking_launchpad' class='col-md-12 col-xs-12' style="display:none">
-										<br>
-										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
-										<div id='col-md-4 col-xs-2'></div>
-										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
+									<br />
+									<div id='desks_view'>
+										<form action="#" id='desk_selection'>
+										</form>
 									</div>
-									<div id='booking_leased' class='col-md-12 col-xs-12' style="display:none">
-										<br>
-										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
-										<div id='col-md-4 col-xs-2'></div>
-										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
+									<div class="alert alert-success fade in" id="success_display" style="margin: 100px 0; display:none;">
+										<i class="fa fa-check-circle fa-fw fa-lg"></i>
+										<strong>Congratulations!</strong> You have successfully added a new space.
 									</div>
-									<div id='booking_propel' class='col-md-12 col-xs-12' style="display:none">
-										<br>
-										<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
-										<div id='col-md-4 col-xs-2'></div>
-										<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
-									</div>
-								
 								</div>
 							</div>
 						</div>
@@ -247,7 +242,8 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 			processData:false,
 
 			success: function(msg){
-			obj = JSON.parse(msg);
+				console.log(msg);
+				obj = JSON.parse(msg);
 				if(obj['status'] == false){
 				document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
 				document.getElementById("status").className += " alert-warning";
@@ -262,7 +258,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 				document.getElementById("step2").className = "active";
 				document.getElementById("step1_1").className = "badge badge-success";
 				document.getElementById("step2_1").className = "badge badge-primary";	
-					num = total = document.getElementById('employee_num').value;
+				num = total = document.getElementById('employee_num').value;
 				}
 			},
 			error: function(){
@@ -293,6 +289,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 			success: function(msg){
 				var obj = JSON.parse(msg);
+				console.msg(msg);
 				if(obj['status'] == false){
 					document.getElementById("status2").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
 					document.getElementById("status2").className += " alert-warning";
@@ -311,16 +308,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 						document.getElementById("step2_1").className = "badge badge-success";
 						document.getElementById("step3_1").className = "badge badge-primary";
 						document.getElementById('employee_reg').style.display = "none";
-						var s = document.getElementById('spacename').value;
-						if(s == 'Launchpad') {
-							document.getElementById('booking_launchpad').style.display='inline';
-						}
-						else if(s == 'Propel') {
-							document.getElementById('booking_propel').style.display='inline';
-						}
-						else if(s == 'Leased Spaces') {
-							document.getElementById('booking_leased').style.display='inline';
-						}
+						display();
 					}
 				}
 			},
@@ -361,6 +349,151 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 	});
 </script>
 
+
+<script type="text/javascript">
+
+var global_obj;
+
+function display()
+{		
+	var d = new Date();
+	$.ajax({
+		url: "../controller/desk.php",
+		type: 'GET',
+		data: "action=show_by_space_name&space="+document.getElementById('spacename').value+"&month="+(d.getMonth()+1)+"&year="+(d.getYear()+1900),
+
+		contentType: false,
+		cache: false,
+		processData:false,
+
+		success: function(msg){
+			console.log(msg);
+			var obj = JSON.parse(msg);
+			global_obj = msg;
+			var length = obj.length;
+			var str='';
+			for (var i = 0; i < length; i++) {
+				for (var j = 0; j < obj[i].length; j++) {
+					obj[i][j] = obj[i][j].startup_id;
+					if(obj[i][j]==0){
+						var id = "'" + i + '-' + j + "'";
+						str += "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' class='not_selected'";
+						str += ' onclick="change_image('+id+')" />';
+			//			console.log(str);
+					}
+					else if(obj[i][j]==-1){
+		//				str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' class='not_available'/>";
+					}
+					else {
+						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' class='booked'/>";
+					}
+ 
+				};
+				str+="<br />";
+
+			};
+			str+='<button id="desk_submit"> Submit </button>'
+			document.getElementById('desk_selection').innerHTML=str;
+		//	document.getElementById('display_room').innerHTML='';
+		},
+		error: function(){
+			alert("Connection Error");
+		}
+	});
+
+}
+</script>
+
+<script type="text/javascript">
+
+counter = 0;
+var bookedImage = new Image();
+bookedImage.src = "../asset/img/booked.png";
+
+var selectedImage = new Image();
+selectedImage.src = "../asset/img/selected.png";
+
+var notSelectedImage = new Image();
+notSelectedImage.src = "../asset/img/not_selected.png";
+
+function change_image(id){
+
+	if(document.getElementById(id).src == notSelectedImage.src){
+		if(counter < total){
+			document.getElementById(id).src = selectedImage.src;
+			document.getElementById(id).className = 'selected';
+			counter++;
+		}
+	}
+	else{
+		document.getElementById(id).src = notSelectedImage.src;
+		document.getElementById(id).className = 'not_selected';
+		counter--;
+	}
+}	
+</script>
+
+<script type="text/javascript">
+
+	$("#desk_selection").on('submit',(function() {
+		if(counter !=total){
+			alert("Please select " + total + " desk(s)");
+		}
+		else{
+	
+			var obj = JSON.parse(global_obj);
+			console.log(obj);
+			var form_data = [];
+			for (var i = 0; i < obj.length; i++) {
+				for (var j = 0; j < obj[i].length; j++) {
+					var id = i + '-' + j;
+					console.log(id);
+					if( document.getElementById(id).src == selectedImage.src) {
+						form_data.push(obj[i][j].desk_id);
+						console.log("INSIDE");
+					}
+	 			};
+			};
+			form_data = "desks=" + JSON.stringify(form_data);
+			form_data +='&action=book';
+			form_data +='&start_date=' + document.getElementById('datepickerjoin').value;
+			form_data +='&end_date=' + document.getElementById('datepickerend').value;
+			form_data +='&startup_id=' + document.getElementById('startup_id').value;
+
+			console.log(form_data);
+
+			$.ajax({
+				url: "../controller/desk.php",
+				type: 'GET',
+				data: form_data,
+				contentType: false,
+				cache: false,
+				processData:false,
+
+				success: function(msg){
+					console.log(msg);
+					obj = JSON.parse(msg);
+					if(obj['status'] == false){
+						document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
+						document.getElementById("status").className += " alert-warning";
+					}
+					else {
+					//Success of this function
+						document.getElementById('desk_selection').style.display = "none";
+						document.getElementById("step3").className = "";
+						document.getElementById("step4").className = "active";
+						document.getElementById("step3_1").className = "badge badge-success";
+						document.getElementById("step4_1").className = "badge badge-primary";
+						document.getElementById("success_display").style.display = "";
+					}
+				},
+				error: function(){
+					alert("Connection Error");
+				}
+			});
+		}
+	}));
+</script>
 
 </body>
 </html>

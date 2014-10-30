@@ -19,6 +19,7 @@ if($action == 'create')
 	$primary = @$_GET['primary'];
 
 	$password = substr(md5($email), 5, 6);
+	$result['password'] = $password;
 	$password = md5($password);
 
 	$status = $mysqli->query("INSERT INTO startup_members VALUES ('', '{$first_name}', '{$last_name}', '{$email}', '{$password}', '{$contact}', {$startup_id})");

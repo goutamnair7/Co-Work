@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centaurus - Bootstrap Admin Template</title>
+<title>Co-Work :: Space</title>
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
 <!--Common Styles -->
@@ -31,10 +31,45 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 		<div id="content-wrapper">
 			<div class="row" id="main">
-					<?php echo file_get_contents('http://localhost/ssad/source/controller/get_empty_desks.php?space=Launchpad+A&side=left');?>
-					<button type="button" class="col-md-4 col-xs-8 btn btn-success" id='booking_submit'> <i class="icon-arrow-left"></i>Submit</button>
 
-			</div>
+				<div class="col-md-6 form-group">
+
+					<label>Month</label>
+					<select class="form-control" id = 'month' name="month" required>
+						<option value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select><br />
+					<label>Year</label>
+					<select class="form-control" id = 'year' name="year" required>
+					</select><br />
+					<label>Space</label>
+					<select class="form-control" id = 'spacename' name="space" required>
+					<?php
+					require_once("../model/config_sql.php" );
+					
+					$sql = $mysqli->query("SELECT name FROM spaces");
+
+					while($row = $sql->fetch_assoc())
+						echo "<option>".$row['name']."</option>";
+					?>
+					</select>
+					<br/>
+
+					<div id='display_space' class='col-md-6'>
+					</div>
+					<div id='display_cowork' class='col-md-6'>
+					</div>
+				</div>
 			<footer id="footer-bar" class="row">
 				<p id="footer-copyright" class="col-xs-12">
 				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
@@ -52,70 +87,93 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 <script src="../asset/js/jquery.nanoscroller.min.js"></script> 
 <script src="../asset/js/jquery.maskedinput.min.js"></script>
 <!--Page specific js-->
-<script type="text/javascript">
-	$("#page").addClass("active");
-</script>
-
 
 <script type="text/javascript">
-	var bookedImage = new Image();
-	bookedImage.src = "../asset/img/booked.png";
+var space = document.getElementById('spacename');
+var month = document.getElementById('month');
+var year = document.getElementById('year');
+space.addEventListener('change', display);
+month.addEventListener('change', display);
+year.addEventListener('change', display);
 
-	var selectedImage = new Image();
-	selectedImage.src = "../asset/img/selected.png";
+window.onload=display();
 
-	var notSelectedImage = new Image();
-	notSelectedImage.src = "../asset/img/not_selected.png";
+function display()
+{		
+	$.ajax({
+		url: "../controller/desk.php",
+		type: 'GET',
+		data: "action=show_by_space_name&space="+document.getElementById('spacename').value+'&month='+document.getElementById('month').value+'&year='+document.getElementById('year').value,
 
-	var counter=0;
-	
-	function changeimage(id){
-		if(document.getElementById(id).src==notSelectedImage.src){
-			if(counter<10){
-				document.getElementById(id).src=selectedImage.src;
-				document.getElementById(id).className='selected';
-				counter++;
+		contentType: false,
+		cache: false,
+		processData:false,
+
+		success: function(msg){
+			console.log(msg);
+			var obj = JSON.parse(msg);
+			var length = obj.length;
+			var str='';
+			for (var i = 0; i < length; i++) {
+				for (var j = 0; j < obj[i].length; j++) {
+					obj[i][j] = obj[i][j].startup_id;
+					if(obj[i][j]==0){
+						str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+					}
+					else if(obj[i][j]==-1){
+					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
+					}
+					else {
+						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+					}
+
+				};
+				str+="<br />";
+
+			};
+			document.getElementById('display_space').innerHTML=str;
+			document.getElementById('display_cowork').innerHTML='';
+		},
+		error: function(){
+			alert("Connection Error");
+		}
+	});
+
+}
+
+function show_details(id){
+	$.ajax({
+		url: "../controller/startup.php",
+		type: 'GET',
+		data: "action=show&id=" + id,
+
+		contentType: false,
+		cache: false,
+		processData:false,
+
+		success: function(msg){
+			//console.log(msg);
+			var obj = JSON.parse(msg);
+			if(obj['status']) {
+				var startup = obj['row'];
+				document.getElementById('display_cowork').innerHTML = "Startup Name : " + startup['name'];
+			//	console.log(obj);
 			}
+			else
+				alert("There is some major problem. Contact developers ASAP");
+		},
+		error: function(){
+			alert("Connection Error");
 		}
-		else{
-			document.getElementById(id).src=notSelectedImage.src;
-			document.getElementById(id).className='not_selected';
-			counter--;
-		}
+	});
 
-	}
+}
+for(var i=2010;i<2016;i++)
+    document.getElementById('year').innerHTML += '<option>'+i+'</option>'
 </script>
-<script>
-	$("#booking_submit").on('click',(function() {
-		//e.preventDefault();
 
-		var bookings=document.getElementsByClassName('selected');
-		var booking_id=new Array();
-		for(i=0;i<bookings.length;i++){
-			booking_id[i]=bookings[i].id;
-		}
-		/*for(i=0;i<booking_id.length;i++){
-			console.log(booking_id[i]);
-		}
-*/
-		$.ajax({
-			url: "../controller/.php",
-			type: 'GET',
-			data: {
-				booking_id:JSON.stringify(booking_id);
-			},
-			contentType: false,
-			cache: false,
-			processData:false,
-		});
-	}));
-
-			success: function(msg){
-		
-			},
-			error: function(){
-				alert("connection Error");
-			}
+<script type="text/javascript">
+	$("#spaces").addClass("active");
 </script>
 </body>
 </html>
