@@ -7,7 +7,7 @@ $designation = $_POST['desig'];
 $company = $_POST['company'];
 $address = $_POST['add'];
 
-$date = "15th October 2014";
+$date = "16th October 2014";
 $PurchaseOrder = $_POST['purchaseorder'];
 
 $checkto = $_POST['checkto'];

@@ -1,43 +1,46 @@
-<!DOCTYPE HTML>
-<html>
-<link href="../../asset/css/bootstrap/bootstrap.css" rel="stylesheet"/>
-<body>
-    <a href="../../controller/receipt.php">Convert to PDF</a>
-    <div class="container" style="padding-top:2em;padding-left:15em;padding-right:12em;">
-        <div class="col-xs-12">
-            <div class="col-xs-6">
-                <img src="../../asset/img/cie-image.jpg" width="148px" height="148px"></img>
-            </div>
-            <div class="col-xs-6">
-                <p style="margin-top:3em;font-size:1.4em;"><b>BANYAN INTELLECTUAL INITIATIVES</b></p><br>
-                <p style="margin-top:-1em;font-size:1.2em;">(The IIIT-H Foundation)</p>
-            </div>
-        </div>
-        <div class="col-xs-12" style="margin-top:3em;font-size:1.3em;">
-            <center><p><b><u>Receipt</u></b></p></center>
-        </div>
-        <div class="col-xs-12" style="margin-top:1em;">
-            <div class="col-xs-6">
-                <p><b>To:</b></p>
-                <p>Name, Designation</p>
-                <p>Company, </p>
-                <p>Address</p>
-            </div>
-            <div class="col-xs-6">
-                <p style="float:right;"><b>Date:</b>31st, Feb 2014</p>
-            </div>
-        </div>
-        <div class="col-xs-12" style="margin-top:2em;">
-            Received from John the sum of Rs. Three Thousand Two Hundred and Fifty, which is the rent for using the Events Room from 6:30 PM to 8:30 PM.
-        </div>
-        <div class="col-xs-12" style="margin-top:3em;">
-            <p>Regards, </p>
-        </div>
-        <div class="col-xs-12" style="margin-top:2em;">
-            <p>Raghu Prodduturi</p>
-            <p>Manager</p>
-            <p>Banyan Intellectual Initiatives</p>
-        </div>
-    </div>
-</body>
-</html>
+<?php
+
+require_once("../../vendor/html2pdf_v4.03/html2pdf.class.php");
+
+$name = $_POST['name'];
+$designation = $_POST['desig'];
+$company = $_POST['company'];
+$address = $_POST['add'];
+
+$date = $_POST['date'];
+
+$from = $_POST['from'];
+$sum = $_POST['sum'];
+$start = $_POST['start'];
+$end = $_POST['end'];
+
+$content = "<page>
+			<div style='padding:30px 50px;'>
+			<img src='cie-image.jpg' style='height:148px; float:left;'>
+			<h1 style='text-align:center;'>BANYAN INTELLECTUAL INITIATIVES</h1>
+			<h3 style='text-align:center;'>(The IIIT-H Foundation)</h3><br>
+			</div>
+			<div style='padding:0px 50px; font-size:16px; text-align:right; position:absolute; top:221px; right:50px;'>
+			<strong>Date:</strong> $date<br>
+			</div>
+			<div style='padding:0px 50px; font-size:16px;'>
+			<strong>To:</strong><br>
+			$name, $designation,<br>
+			$company,<br>
+			$address<br>
+			</div><br><br>
+            <div style='padding:0px 50px; font-size:16px;'>
+            Received from <b><u>$from</u></b> the sum of Rs. <b><u>$sum</u></b> which is rent for using the Events Room from <b><u>$start</u></b> to <b><u>$end</u></b>.
+            </div><br>
+			<div style='padding:0px 50px; font-size:16px;'>
+			Regards,<br><br>
+			Raghu Prodduturi<br>
+			Manager<br>
+			Banyan Intellectual Initiatives<br>
+			</div>
+			</page>";
+
+$html2pdf = new HTML2PDF('P','A4','en');
+$html2pdf->WriteHTML($content);
+$html2pdf->Output('purchase_order.pdf');
+?>
