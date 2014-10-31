@@ -2,14 +2,15 @@
 
 require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "config_sql.php" );
 
-$tbl_name1="admins"; //tablename 1.
-$tbl_name2="desks"; //tablename 2.
-$tbl_name3="desk_log"; //tablename 3.
-$tbl_name4="rooms"; //tablename 4.
-$tbl_name5="room_log"; //tablename 5.
-$tbl_name6="startups"; //tablename 6.
-$tbl_name7="startup_members"; //tablename 7.
-$tbl_name8="spaces"; //tablename 8.
+$tbl_name1 = "admins"; //tablename 1.
+$tbl_name2 = "desks"; //tablename 2.
+$tbl_name3 = "desk_log"; //tablename 3.
+$tbl_name4 = "rooms"; //tablename 4.
+$tbl_name5 = "room_log"; //tablename 5.
+$tbl_name6 = "startups"; //tablename 6.
+$tbl_name7 = "startup_members"; //tablename 7.
+$tbl_name8 = "spaces"; //tablename 8.
+$tbl_name9 = "sign_auth"; //tablename 9.
 
 // Delete table "admins"
 $sql_tbl_1 = "DROP TABLE `$tbl_name1`";
@@ -41,6 +42,9 @@ $result_tbl_7 = $mysqli->query( $sql_tbl_7 );
 
 $sql_tbl_8 = "DROP TABLE `$tbl_name8`";
 $result_tbl_8 = $mysqli->query( $sql_tbl_8 );
+
+$sql_tbl_9 = "DROP TABLE `$tbl_name9`";
+$result_tbl_9 = $mysqli->query( $sql_tbl_9 );
 
 if ($result_tbl_1) {
 	echo "Table $tbl_name1 succesfully deleted. \r\n";
@@ -88,6 +92,12 @@ if ($result_tbl_8) {
 	echo "Table $tbl_name8 succesfully deleted. \r\n";
 } else {
 	echo "Table $tbl_name8 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
+}
+
+if ($result_tbl_9) {
+	echo "Table $tbl_name9 succesfully deleted. \r\n";
+} else {
+	echo "Table $tbl_name9 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
 }
 
 ?>

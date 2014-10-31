@@ -33,7 +33,7 @@ $content = "<page>
             Received from <b><u>$from</u></b> the sum of Rs. <b><u>$sum</u></b> which is rent for using the Events Room from <b><u>$start</u></b> to <b><u>$end</u></b>.
             </div><br>
 			<div style='padding:0px 50px; font-size:16px;'>
-			Regards,<br><br>
+			Regards,<br><br><br>
 			Raghu Prodduturi<br>
 			Manager<br>
 			Banyan Intellectual Initiatives<br>
