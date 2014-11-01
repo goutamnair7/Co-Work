@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../vendor/html2pdf_v4.03/html2pdf.class.php");
+require( dirname(dirname( dirname( __FILE__ ) ) ). DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
 $name = $_POST['name'];
 $designation = $_POST['desig'];
@@ -17,6 +18,40 @@ $noofunits=$_POST['noofunits'];
 $rate=$_POST['rate'];
 $total = $rate*$noofunits;
 
+$left_auth = $_POST['leftauth'];
+$right_auth = $_POST['rightauth'];
+$leftsign = '';
+$rightsign = '';
+
+if (isset( $left_auth )) {
+	
+	if ( $left_auth == 'none') {
+		$leftsign = ""; 
+	} else {
+		$lname = $mysqli->query("select * from sign_auth where name='$left_auth';");
+		$rows = mysqli_fetch_array($lname);
+		$nameofperson = $rows['name'];
+		$desigofperson = $rows['designation'];
+		$companyofperson = $rows['company'];
+		$leftsign = "$nameofperson<br>$desigofperson<br>$companyofperson<br>";
+	}
+
+}
+
+if (isset( $right_auth )) {
+
+	if ( $right_auth == 'none') {
+		$rightsign = ""; 
+	} else {
+		$rname = $mysqli->query("select * from sign_auth where name='$right_auth';");
+		$rows = mysqli_fetch_array($rname);
+		$nameofperson = $rows['name'];
+		$desigofperson = $rows['designation'];
+		$companyofperson = $rows['company'];
+		$rightsign = "$nameofperson<br>$desigofperson<br>$companyofperson<br>";
+	}
+
+}
 $content = "<page>
 			<div style='padding:30px 50px;'>
 			<img src='cie-image.jpg' style='height:148px; float:left;'>
@@ -57,12 +92,23 @@ $content = "<page>
 			<li>Payment of Rounded Amount to be made within 30 days of receipt of invoice.</li>
 			<li>Mode of Payment will be by cheque to \"<strong>$checkto</strong>\". A receipt will be required<br>after receiving the funds.</li>
 			</ol>
-			</div><br><br>
-			<div style='padding:0px 50px; font-size:16px;'>
-			Regards,<br><br>
-			Raghu Prodduturi<br>
-			Manager<br>
-			Banyan Intellectual Initiatives<br>
+			Regards,
+			</div><br><br><br>
+			<div style='font-size:16px;'>
+			<table>
+    		<tr>
+        	<td>
+        	<div class='float' style='width:450px; padding:0px 0px 0px 50px;'>
+			$leftsign
+			</div>
+        	</td>
+        	<td>
+        	<div class='float' style='width:250px;'>
+			$rightsign
+			</div>
+        	</td>
+    		</tr>
+			</table>
 			</div>
 			</page>";
 
