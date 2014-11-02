@@ -2,14 +2,15 @@
 
 require( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "config_sql.php" );
 
-$tbl_name1="admins"; //tablename 1.
-$tbl_name2="desks"; //tablename 2.
-$tbl_name3="desk_log"; //tablename 3.
-$tbl_name4="rooms"; //tablename 4.
-$tbl_name5="room_log"; //tablename 5.
-$tbl_name6="startups"; //tablename 6.
-$tbl_name7="startup_members"; //tablename 7.
-$tbl_name8="spaces"; //tablename 8.
+$tbl_name1 = "admins"; //tablename 1.
+$tbl_name2 = "desks"; //tablename 2.
+$tbl_name3 = "desk_log"; //tablename 3.
+$tbl_name4 = "rooms"; //tablename 4.
+$tbl_name5 = "room_log"; //tablename 5.
+$tbl_name6 = "startups"; //tablename 6.
+$tbl_name7 = "startup_members"; //tablename 7.
+$tbl_name8 = "spaces"; //tablename 8.
+$tbl_name9 = "sign_auth"; //tablename 9.
 
 //Creating table "admins".
 $sql_tbl_1 = "CREATE TABLE `$tbl_name1` (
@@ -23,7 +24,7 @@ $sql_tbl_1 = "CREATE TABLE `$tbl_name1` (
 $result_tbl_1 = $mysqli->query( $sql_tbl_1 );
 
 $pass = md5('password');
-$mysqli->query("INSERT INTO admins values ('', 'admin@example.com', '{$pass}', 'Test', 'User')");
+$mysqli->query("INSERT INTO $tbl_name1 values ('', 'admin@example.com', '{$pass}', 'Test', 'User')");
 
 //Creating table "desks".
 $sql_tbl_2 = "CREATE TABLE `$tbl_name2` (
@@ -70,16 +71,6 @@ $sql_tbl_5 = "CREATE TABLE `$tbl_name5` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_5 = $mysqli->query( $sql_tbl_5 );
 
-//Creating table "spaces".
-$sql_tbl_8 = "CREATE TABLE `$tbl_name8` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(30) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `rows` int(11) NOT NULL,
-   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
-$result_tbl_8 = $mysqli->query( $sql_tbl_8 );
-
 //Creating table "startups".
 $sql_tbl_6 = "CREATE TABLE `$tbl_name6` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -111,6 +102,32 @@ $sql_tbl_7 = "CREATE TABLE `$tbl_name7` (
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_7 = $mysqli->query( $sql_tbl_7 );
+
+//Creating table "spaces".
+$sql_tbl_8 = "CREATE TABLE `$tbl_name8` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `rows` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+$result_tbl_8 = $mysqli->query( $sql_tbl_8 );
+
+//Creating table "sign_auth".
+$sql_tbl_9 = "CREATE TABLE `$tbl_name9` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) NOT NULL,
+  `designation` varchar(30) NOT NULL,
+  `company` varchar(50) NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+$result_tbl_9 = $mysqli->query( $sql_tbl_9 );
+
+$mysqli->query("INSERT INTO $tbl_name9 values ('', 'Vasu Deva Verma', 'CEO', 'Banyan Intellectual Initiatives')");
+$mysqli->query("INSERT INTO $tbl_name9 values ('', 'Srinivas Kollipara', 'COO', 'Banyan Intellectual Initiatives')");
+$mysqli->query("INSERT INTO $tbl_name9 values ('', 'Raghu Prodduturi', 'Manager', 'Banyan Intellectual Initiatives')");
+$mysqli->query("INSERT INTO $tbl_name9 values ('', 'Manoj Surya', 'Manager', 'Banyan Intellectual Initiatives')");
+$mysqli->query("INSERT INTO $tbl_name9 values ('', 'Manikiran', 'Manager', 'Banyan Intellectual Initiatives')");
 
 if ($result_tbl_1) {
 	echo "Table $tbl_name1 succesfully created. \r\n";
@@ -152,5 +169,17 @@ if ($result_tbl_7) {
 	echo "Table $tbl_name7 succesfully created. \r\n";
 } else {
 	echo "Table $tbl_name7 couldnt be created. Check the hostname,username,password,database_name. Maybe another table of the same name already exists \r\n";
+}
+
+if ($result_tbl_8) {
+  echo "Table $tbl_name8 succesfully created. \r\n";
+} else {
+  echo "Table $tbl_name8 couldnt be created. Check the hostname,username,password,database_name. Maybe another table of the same name already exists \r\n";
+}
+
+if ($result_tbl_9) {
+  echo "Table $tbl_name9 succesfully created. \r\n";
+} else {
+  echo "Table $tbl_name9 couldnt be created. Check the hostname,username,password,database_name. Maybe another table of the same name already exists \r\n";
 }
 ?>
