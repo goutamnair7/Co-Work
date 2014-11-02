@@ -45,6 +45,12 @@
 								<span>Add Space</span>
 							</a>
 							</li>
+							<li id='invoice'>
+							<a href="purchase_order_form.php">
+								<i class="fa fa-file-text-o"></i>
+								<span>Invoice</span>
+							</a>
+							</li>
 							<li id='chpasswd'>
 							<a href="change_password.php">
 								<i class="fa fa-unlock-alt"></i>
