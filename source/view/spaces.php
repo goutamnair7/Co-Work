@@ -31,39 +31,45 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 		<div id="content-wrapper">
 			<div class="row" id="main">
-
+				<br />
+				<div class = 'col-md-10 col-xs-12' align='right'>
+					<button type="submit" class="btn btn-primary">Add Space</button>
+				</div>
+				<br />
 				<div class="col-md-6 form-group">
-
-					<label>Month</label>
-					<select class="form-control" id = 'month' name="month" required>
-						<option value="1">January</option>
-						<option value="2">February</option>
-						<option value="3">March</option>
-						<option value="4">April</option>
-						<option value="5">May</option>
-						<option value="6">June</option>
-						<option value="7">July</option>
-						<option value="8">August</option>
-						<option value="9">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select><br />
-					<label>Year</label>
-					<select class="form-control" id = 'year' name="year" required>
-					</select><br />
 					<label>Space</label>
 					<select class="form-control" id = 'spacename' name="space" required>
+						<option value = "0"> - </option>
 					<?php
-					require_once("../model/config_sql.php" );
-					
-					$sql = $mysqli->query("SELECT name FROM spaces");
-
-					while($row = $sql->fetch_assoc())
-						echo "<option>".$row['name']."</option>";
+						require_once("../model/config_sql.php" );
+						$sql = $mysqli->query("SELECT name FROM spaces");
+						while($row = $sql->fetch_assoc())
+							echo "<option>".$row['name']."</option>";
 					?>
 					</select>
 					<br/>
+
+					<div id = "monthandyear" style="display:none;">
+						<label>Month</label>
+						<select class="form-control" id = 'month' name="month" required>
+							<option value="0"> - </option>
+							<option value="1">January</option>
+							<option value="2">February</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5">May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</select><br />
+						<label>Year</label>
+						<select class="form-control" id = 'year' name="year" required>
+						</select><br />
+					</div>
 
 					<div id='display_space' class='col-md-6'>
 					</div>
@@ -78,6 +84,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		</div>
 	</div>
 </div>
+
 <!--Common js-->
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
@@ -92,11 +99,31 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 var space = document.getElementById('spacename');
 var month = document.getElementById('month');
 var year = document.getElementById('year');
-space.addEventListener('change', display);
+space.addEventListener('change', show);
 month.addEventListener('change', display);
 year.addEventListener('change', display);
 
+window.onload=initialize();
 window.onload=display();
+
+function initialize()
+{
+	space.value = '0';
+	month.value = '0';
+	year.value = '0';
+}
+
+function show(){
+	month.value = "0";
+	year.value = "0";
+	if(space.value == "0"){
+		document.getElementById('monthandyear').style.display = "none";
+	}
+	else {
+		document.getElementById('monthandyear').style.display = "";
+	}
+	display();
+}
 
 function display()
 {		
@@ -168,6 +195,8 @@ function show_details(id){
 	});
 
 }
+
+document.getElementById('year').innerHTML += '<option value = "0"> - </option>'
 for(var i=2010;i<2016;i++)
     document.getElementById('year').innerHTML += '<option>'+i+'</option>'
 </script>
