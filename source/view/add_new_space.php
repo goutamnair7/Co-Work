@@ -98,11 +98,11 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 											</div>
 
 											<div class="form-group" id='rowdiv'>
-												<label>Number Of Rooms</label>
-												<input value = '0' class="form-control" type="text" placeholder="Number of Rooms" id='rooms' name="rooms" required>
+												<label>Floor</label>
+												<input class="form-control" type="text" placeholder="Floor" id='floor' name="floor" required>
 											</div>
 								
-											<div class = 'col-md-4 col-xs-2'></div>
+											<div class = 'col-md-4 col-xs-2'>
 												<button type="submit" class="col-md-4 col-xs-8 btn btn-success"> <i class="icon-arrow-left"></i>Submit</button>
 											</div>
 										</form>
@@ -118,7 +118,19 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 													<p id="status" class="alert fade in" style="padding:3px;"></p>
 												</div>
 											</div>	
-										
+											<div class="form-group">
+												<label>Space</label>
+												<select class="form-control" id = 'spacename' name="space" required>
+													<?php
+														require_once("../model/config_sql.php" );
+														
+														$sql = $mysqli->query("SELECT name FROM spaces");
+
+														while($row = $sql->fetch_assoc())
+															echo "<option>".$row['name']."</option>";
+													?>
+												</select>
+											</div>
 											<div class="form-group">
 												<label>Length</label>
 												<input class="form-control" type="text" placeholder="Length" name="length" required>
