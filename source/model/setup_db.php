@@ -157,6 +157,7 @@ $sql_tbl_11 = "CREATE TABLE `$tbl_name11` (
   `description` varchar(200) NOT NULL,
   `noofunit` int(11) NOT NULL,
   `rateperunit` int(11) NOT NULL,
+  `checkto` varchar(200) NOT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_11 = $mysqli->query( $sql_tbl_11 );
