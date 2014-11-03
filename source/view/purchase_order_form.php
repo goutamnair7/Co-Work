@@ -93,7 +93,7 @@
 											<p id="status" class="alert fade in" style="padding:3px;"></p>
 										</div>
 									</div>
-									<label>Element 1</label>
+									<label><strong>Element 1</strong></label>
 									<div class="form-group">
 										<label>Description</label>
 										<input class="form-control" type="text" placeholder="Description" name="description1" required>
@@ -111,6 +111,7 @@
 									</div>
 
 									<button class="btn btn-primary" onclick="add_element()">Add one Element</button>
+									<br><br>
 									<div class = 'col-md-12 col-xs-12'><h2>Authorization Information</h2></div> 
 									<br />
 									<?php
@@ -187,7 +188,7 @@ counter = 2;
 function add_element()
 {
 	var add = document.getElementById('add');
-	add.innerHTML += '<label>Element ' +counter+ '</label>'
+	add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>'
 	add.innerHTML += '<div class="form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
 	add.innerHTML += '<div class="form-group"><label>Number Of Units</label><input class="form-control" type="number" placeholder="Number Of Units" name="noofunits' + counter +'" required></div>';
 	add.innerHTML += '<div class="form-group"><label>Rate Per Unit (Rs)</label><input class="form-control" type="number" placeholder="Rate Per Unit (Rs)" name="rate' +counter+ '" required></div>';
