@@ -5,29 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Centaurus - Bootstrap Admin Template</title>
 
+<!--Common Styles -->
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
-
-
 <link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
-
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
-
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
-
-<style>
-#emp {
-	display : none;
-}
-#empbut {
-	display : none;
-}
-#back {
-	display : none;
-}
-</style>
 
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
@@ -55,16 +39,17 @@
 </div>
 
 
+<!-- common js -->
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
 <script src="../asset/js/demo.js"></script>  
- 
-<script src="../asset/js/jquery.maskedinput.min.js"></script>
-<script src="../asset/js/jquery.pwstrength.js"></script> 
 <script src="../asset/js/scripts.js"></script>
+<script src="../asset/js/demo-skin-changer.js"></script>
+<script src="../asset/js/jquery.nanoscroller.min.js"></script> 
+<script src="../asset/js/jquery.maskedinput.min.js"></script>
 
 <script type="text/javascript">
-	$("#chpasswd").addClass("active");
+	$("#pagenamehere").addClass("active");
 </script>
 </body>
 </html>
