@@ -4,9 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-Work :: Register Startup</title>
-<link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
 <!--Common Styles -->
+<link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 <link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">

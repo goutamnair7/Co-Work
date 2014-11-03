@@ -5,29 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-Work :: DashBoard</title>
 
+<!--Common Styles -->
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
-
-
 <link href="../asset/css/libs/font-awesome.css" type="text/css" rel="stylesheet"/>
-
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/layout.css">
 <link rel="stylesheet" type="text/css" href="../asset/css/compiled/elements.css">
-
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
-
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
-<style>
-#emp {
-	display : none;
-}
-#empbut {
-	display : none;
-}
-#back {
-	display : none;
-}
-</style>
 
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
@@ -48,9 +33,6 @@
 				
 				<div class = 'col-md-2'></div>
 				<div class="row col-md-8 col-xs-12">
-			
-				
-				
 <!--				<a data-toggle="modal" href="#adminModal" class="btn btn-primary btn-lg">Admin Register</a>
 
 				<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
@@ -82,7 +64,7 @@
 										<label>Designation</label>
 										<input class="form-control" type="text" placeholder="Designation" name="desig" required>
 									</div>
-									
+
 									<div class="form-group">
 										<label>Company</label>
 										<input class="form-control" type="text" placeholder="Company" name="company" required>
@@ -96,14 +78,14 @@
 									<div class="form-group">
 										<label>Purchase Order Number</label>
 										<input class="form-control" type="number" placeholder="Purchase Order Number" name="purchaseorder" required>
-                                    </div>
+									</div>
 
-                                    <div class="form-group">
+									<div class="form-group">
 										<label>Check To</label>
 										<input class="form-control" type="text" placeholder="Check To" name="checkto" required>
-                                    </div>
+									</div>
 
-                                    <div class = 'col-md-12 col-xs-12'><h2>Invoice Information</h2></div> 
+									<div class = 'col-md-12 col-xs-12'><h2>Invoice Information</h2></div> 
 									<br />
 
 									<div id = "statusdiv" class="row">
@@ -111,21 +93,26 @@
 											<p id="status" class="alert fade in" style="padding:3px;"></p>
 										</div>
 									</div>
-
+									<label><strong>Element 1</strong></label>
 									<div class="form-group">
 										<label>Description</label>
-										<input class="form-control" type="text" placeholder="Description" name="description" required>
-                                    </div>
-                                    <div class="form-group">
+										<input class="form-control" type="text" placeholder="Description" name="description1" required>
+									</div>
+									<div class="form-group">
 										<label>Number Of Units</label>
-										<input class="form-control" type="number" placeholder="Number Of Units" name="noofunits" required>
-                                    </div>
-                                    <div class="form-group">
+										<input class="form-control" type="number" placeholder="Number Of Units" name="noofunits1" required>
+									</div>
+									<div class="form-group">
 										<label>Rate Per Unit (Rs)</label>
-										<input class="form-control" type="number" placeholder="Rate Per Unit (Rs)" name="rate" required>
-                                    </div>
+										<input class="form-control" type="number" placeholder="Rate Per Unit (Rs)" name="rate1" required>
+									</div>
+									<input type='hidden' value='1' id='total' name='total'>
+									<div id = 'add'>
+									</div>
 
-                                    <div class = 'col-md-12 col-xs-12'><h2>Authorization Information</h2></div> 
+									<button class="btn btn-primary" onclick="add_element()">Add one Element</button>
+									<br><br>
+									<div class = 'col-md-12 col-xs-12'><h2>Authorization Information</h2></div> 
 									<br />
 									<?php
 										require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
@@ -150,15 +137,15 @@
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
-                                    </div>
-                                    <div class="form-group">
+									</div>
+									<div class="form-group">
 										<label>Right Authorizaion</label>
 										<select name='rightauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
-                                    </div>
-                                    
+									</div>
+
 								</div>
 
 									<button type="submit" class="btn btn-primary">Generate PDF</button>
@@ -180,16 +167,35 @@
 </div>
 
 
+<!-- common js -->
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
 <script src="../asset/js/demo.js"></script>  
- 
-<script src="../asset/js/jquery.maskedinput.min.js"></script>
-<script src="../asset/js/jquery.pwstrength.js"></script> 
 <script src="../asset/js/scripts.js"></script>
+<script src="../asset/js/demo-skin-changer.js"></script>
+<script src="../asset/js/jquery.nanoscroller.min.js"></script> 
+<script src="../asset/js/jquery.maskedinput.min.js"></script>
 
 <script type="text/javascript">
-	$("#dashboard").addClass("active");
+	$("#invoice").addClass("active");
+
+</script>
+
+<!-- Page specific js -->
+<script>
+
+counter = 2;
+function add_element()
+{
+	var add = document.getElementById('add');
+	add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>'
+	add.innerHTML += '<div class="form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
+	add.innerHTML += '<div class="form-group"><label>Number Of Units</label><input class="form-control" type="number" placeholder="Number Of Units" name="noofunits' + counter +'" required></div>';
+	add.innerHTML += '<div class="form-group"><label>Rate Per Unit (Rs)</label><input class="form-control" type="number" placeholder="Rate Per Unit (Rs)" name="rate' +counter+ '" required></div>';
+	document.getElementById('total').value = counter; 
+	counter++;
+}
+
 </script>
 </body>
 </html>
