@@ -127,7 +127,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 														$sql = $mysqli->query("SELECT name FROM spaces");
 
 														while($row = $sql->fetch_assoc())
-															echo "<option>".$row['name']."</option>";
+															echo "<option value='".$row['name']."'>".$row['name']."</option>";
 													?>
 												</select>
 											</div>
@@ -162,8 +162,6 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 													<option value='leased'>Leased Space</option>
 												</select>
 											</div>
-											<input name='space' value='' type='hidden' id='space'>
-
 											<input name="action" value="create" hidden>
 											<button type="submit" class="col-md-4 col-xs-8 btn btn-success"> <i class="icon-arrow-left"></i>Submit</button>
 
@@ -333,7 +331,7 @@ $("#add_space").on('submit',(function(e) {
 			formData = formData.join('&')
 
 			$.ajax({
-				url: "../controller/wing.php",
+				url: "../controller/space.php",
 				type: 'GET',
 				data: formData + "&type=Wing",
 				contentType: false,

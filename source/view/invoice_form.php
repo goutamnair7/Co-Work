@@ -60,9 +60,9 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Register New Admin</h4>
 							</div>-->
-							<form action="template/receipt.php" method="post">
+							<form action="template/invoice.php" method="post">
 								<br /><br />
-								<div class = 'col-md-12 col-xs-12'><h1>Receipt</h1></div> 
+								<div class = 'col-md-12 col-xs-12'><h1>Invoice</h1></div> 
 								<br />
 								<div class="modal-body">
 									<div class = 'col-md-12 col-xs-12'><h2>General Information</h2></div> 
@@ -77,48 +77,42 @@
 										<label>Name</label>
 										<input class="form-control" type="text" placeholder="Name" name="name" required>
 									</div>
-
-									<div class="form-group">
-										<label>Designation</label>
-										<input class="form-control" type="text" placeholder="Designation" name="desig" required>
-									</div>
 									
 									<div class="form-group">
 										<label>Company</label>
 										<input class="form-control" type="text" placeholder="Company" name="company" required>
-									</div>
-
-									<div class="form-group">
-										<label>Address</label>
-										<input class="form-control" type="text" placeholder="Address" name="add" required>
 									</div>
 									
                                     <div class="form-group">
 										<label>Date</label>
 										<input class="form-control" type="date" placeholder="Date" name="date" required>
 									</div>
-                                    
-                                    <div class="form-group">
-										<label>Receipt Number</label>
-										<input class="form-control" type="text" placeholder="Receipt Number" name="receipt" required>
-									</div>
-
-                                    <div class="form-group">
-										<label>Received From</label>
-										<input class="form-control" type="text" placeholder="Received from" name="from" required>
-                                    </div>
 
 									<div class="form-group">
-										<label>Amount Received</label>
-										<input class="form-control" type="number" placeholder="Amount Received" name="sum" required>
+										<label>Invoice Number</label>
+										<input class="form-control" type="number" placeholder="Invoice Number" name="invoice" required>
+                                    </div>
+
+                                    <div class = 'col-md-12 col-xs-12'><h2>Invoice Information</h2></div> 
+									<br />
+
+									<div id = "statusdiv" class="row">
+										<div class="col-xs-12">
+											<p id="status" class="alert fade in" style="padding:3px;"></p>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label>Description</label>
+										<input class="form-control" type="text" placeholder="Description" name="description" required>
                                     </div>
                                     <div class="form-group">
-										<label>Start Date</label>
-										<input class="form-control" type="date" placeholder="Start Date" name="start" required>
+										<label>Number Of Desks</label>
+										<input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks" required>
                                     </div>
                                     <div class="form-group">
-										<label>End Date</label>
-										<input class="form-control" type="date" placeholder="End Date" name="end" required>
+										<label>Rent Per Desk (Rs)</label>
+										<input class="form-control" type="number" placeholder="Rent Per Desk (Rs)" name="rate" required>
                                     </div>
 
                                     <div class = 'col-md-12 col-xs-12'><h2>Authorization Information</h2></div> 
