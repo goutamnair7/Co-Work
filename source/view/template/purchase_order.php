@@ -7,16 +7,38 @@ $name = $_POST['name'];
 $designation = $_POST['desig'];
 $company = $_POST['company'];
 $address = $_POST['add'];
-
 $date = "16th October 2014";
 $PurchaseOrder = $_POST['purchaseorder'];
-
 $checkto = $_POST['checkto'];
+$total_element = $_POST['total'];
 
-$desc=$_POST['description'];
-$noofunits=$_POST['noofunits'];
-$rate=$_POST['rate'];
-$total = $rate*$noofunits;
+$table = "<table style='border:1px solid black;'>
+			<tr>
+			<td style='width:70px; border:1px solid; text-align:center;'><strong>S.No</strong></td>
+			<td style='width:170px; border:1px solid; text-align:center;'><strong>Description</strong></td>
+			<td style='width:100px; border:1px solid; text-align:center;'><strong>No. of units</strong></td>
+			<td style='width:150px; border:1px solid; text-align:center;'><strong>Rate per unit (Rs)</strong></td>
+			<td style='width:130px; border:1px solid; text-align:center;'><strong>Amount (Rs)</strong></td>
+			</tr>
+			";
+
+for ($i = 1; $i <= $total_element; $i++) {
+
+	$desc=$_POST['description'.$i];
+	$noofunits=$_POST['noofunits'.$i];
+	$rate=$_POST['rate'.$i];
+	$total = $rate*$noofunits;
+	$table = $table . "<tr>
+			<td style='width:70px; border:1px solid; text-align:center;'>$i.</td>
+			<td style='width:170px; border:1px solid; text-align:center;'>$desc</td>
+			<td style='width:100px; border:1px solid; text-align:center;'>$noofunits</td>
+			<td style='width:150px; border:1px solid; text-align:center;'>$rate</td>
+			<td style='width:130px; border:1px solid; text-align:center;'>$total</td>
+			</tr>";
+
+}
+
+$table = $table . "</table>";
 
 $left_auth = $_POST['leftauth'];
 $right_auth = $_POST['rightauth'];
@@ -69,22 +91,7 @@ $content = "<page>
 			$address<br>
 			</div><br>
 			<div style='padding:0px 50px; font-size:16px;'>
-			<table style='border:1px solid black;'>
-			<tr>
-			<td style='width:70px; border:1px solid; text-align:center;'><strong>S.No</strong></td>
-			<td style='width:170px; border:1px solid; text-align:center;'><strong>Description</strong></td>
-			<td style='width:100px; border:1px solid; text-align:center;'><strong>No. of units</strong></td>
-			<td style='width:150px; border:1px solid; text-align:center;'><strong>Rate per unit (Rs)</strong></td>
-			<td style='width:130px; border:1px solid; text-align:center;'><strong>Amount (Rs)</strong></td>
-			</tr>
-			<tr>
-			<td style='width:70px; border:1px solid; text-align:center;'>1.</td>
-			<td style='width:170px; border:1px solid; text-align:center;'>$desc</td>
-			<td style='width:100px; border:1px solid; text-align:center;'>$noofunits</td>
-			<td style='width:150px; border:1px solid; text-align:center;'>$rate</td>
-			<td style='width:130px; border:1px solid; text-align:center;'>$total</td>
-			</tr>
-			</table>
+			$table
 			</div><br><br>
 			<div style='padding:0px 50px; font-size:16px;'>
 			<strong>Payment Terms & Conditions:</strong>

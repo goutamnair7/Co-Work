@@ -11,6 +11,11 @@ $tbl_name6 = "startups"; //tablename 6.
 $tbl_name7 = "startup_members"; //tablename 7.
 $tbl_name8 = "spaces"; //tablename 8.
 $tbl_name9 = "sign_auth"; //tablename 9.
+$tbl_name10 = "invoice"; //tablename 10.
+$tbl_name11 = "purchase_order_invoice"; //tablename 11.
+$tbl_name12 = "reciept_invoice"; //tablename 12.
+$tbl_name13 = "general_invoice"; //tablename 13.
+//$tbl_name14 = "reimbursement_invoice"; //tablename 14.
 
 // Delete table "admins"
 $sql_tbl_1 = "DROP TABLE `$tbl_name1`";
@@ -45,6 +50,18 @@ $result_tbl_8 = $mysqli->query( $sql_tbl_8 );
 
 $sql_tbl_9 = "DROP TABLE `$tbl_name9`";
 $result_tbl_9 = $mysqli->query( $sql_tbl_9 );
+
+$sql_tbl_10 = "DROP TABLE `$tbl_name10`";
+$result_tbl_10 = $mysqli->query( $sql_tbl_10 );
+
+$sql_tbl_11 = "DROP TABLE `$tbl_name11`";
+$result_tbl_11 = $mysqli->query( $sql_tbl_11 );
+
+$sql_tbl_12 = "DROP TABLE `$tbl_name12`";
+$result_tbl_12 = $mysqli->query( $sql_tbl_12 );
+
+$sql_tbl_13 = "DROP TABLE `$tbl_name13`";
+$result_tbl_13 = $mysqli->query( $sql_tbl_13 );
 
 if ($result_tbl_1) {
 	echo "Table $tbl_name1 succesfully deleted. \r\n";
@@ -98,6 +115,30 @@ if ($result_tbl_9) {
 	echo "Table $tbl_name9 succesfully deleted. \r\n";
 } else {
 	echo "Table $tbl_name9 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
+}
+
+if ($result_tbl_10) {
+	echo "Table $tbl_name10 succesfully deleted. \r\n";
+} else {
+	echo "Table $tbl_name10 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
+}
+
+if ($result_tbl_11) {
+	echo "Table $tbl_name11 succesfully deleted. \r\n";
+} else {
+	echo "Table $tbl_name11 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
+}
+
+if ($result_tbl_12) {
+	echo "Table $tbl_name12 succesfully deleted. \r\n";
+} else {
+	echo "Table $tbl_name12 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
+}
+
+if ($result_tbl_13) {
+	echo "Table $tbl_name13 succesfully deleted. \r\n";
+} else {
+	echo "Table $tbl_name13 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
 }
 
 ?>

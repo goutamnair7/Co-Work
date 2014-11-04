@@ -42,9 +42,9 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 						<option value = "0"> - </option>
 					<?php
 						require_once("../model/config_sql.php" );
-						$sql = $mysqli->query("SELECT name FROM spaces");
+						$sql = $mysqli->query("SELECT * FROM spaces");
 						while($row = $sql->fetch_assoc())
-							echo "<option>".$row['name']."</option>";
+							echo "<option class = '" .$row['type']. "' id = '" .$row['name']. "'>".$row['name']."</option>";
 					?>
 					</select>
 					<br/>
@@ -122,10 +122,25 @@ function show(){
 	else {
 		document.getElementById('monthandyear').style.display = "";
 	}
-	display();
+
+	if(document.getElementById(space.value).className == 'Co-Working'){
+		display_desks();
+	}
+	else{
+		display_rooms();
+	}
 }
 
-function display()
+function display(){
+	if(document.getElementById(space.value).className == 'Co-Working'){
+		display_desks();
+	}
+	else{
+		display_rooms();
+	}
+}
+
+function display_desks()
 {		
 	$.ajax({
 		url: "../controller/desk.php",
@@ -145,13 +160,23 @@ function display()
 				for (var j = 0; j < obj[i].length; j++) {
 					obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j]==0){
-						str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						if(spacename == ''){
+							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
+						else{
+							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
 					}
 					else if(obj[i][j]==-1){
 					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
-						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						if(spacename == ''){
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						}
+						else{
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						}
 					}
 
 				};
@@ -193,10 +218,62 @@ function show_details(id){
 			alert("Connection Error");
 		}
 	});
-
 }
 
-document.getElementById('year').innerHTML += '<option value = "0"> - </option>'
+function display_rooms()
+{		
+	$.ajax({
+		url: "../controller/desk.php",
+		type: 'GET',
+		data: "action=show_by_space_name&space="+document.getElementById('spacename').value+'&month='+document.getElementById('month').value+'&year='+document.getElementById('year').value,
+
+		contentType: false,
+		cache: false,
+		processData:false,
+
+		success: function(msg){
+			console.log(msg);
+			var obj = JSON.parse(msg);
+			var length = obj.length;
+			var str='';
+			for (var i = 0; i < length; i++) {
+				for (var j = 0; j < obj[i].length; j++) {
+					obj[i][j] = obj[i][j].startup_id;
+					if(obj[i][j]==0){
+						if(spacename == ''){
+							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
+						else{
+							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
+					}
+					else if(obj[i][j]==-1){
+					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
+					}
+					else {
+						if(spacename == ''){
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						}
+						else{
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+						}
+					}
+				};
+				str+="<br />";
+
+			};
+			document.getElementById('display_space').innerHTML=str;
+			document.getElementById('display_cowork').innerHTML='';
+		},
+		error: function(){
+			alert("Connection Error");
+		}
+	});
+
+}
+</script>
+<script>
+document.getElementById('year').innerHTML += '<option value = "0"> - </option>';
 for(var i=2010;i<2016;i++)
     document.getElementById('year').innerHTML += '<option>'+i+'</option>'
 </script>
