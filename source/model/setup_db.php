@@ -55,12 +55,13 @@ $result_tbl_3 = $mysqli->query( $sql_tbl_3 );
 //Creating table "rooms".
 $sql_tbl_4 = "CREATE TABLE `$tbl_name4` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `length` varchar(5) NOT NULL,
-  `width` varchar(5) NOT NULL,
-  `area` varchar(5) NOT NULL,
+  `length` varchar(15) NOT NULL,
+  `width` varchar(15) NOT NULL,
+  `area` varchar(15) NOT NULL,
   `desks` int(11) NOT NULL,
   `space` varchar(20) NOT NULL,
   `side` varchar(20) NOT NULL,
+  `type` varchar(20) NOT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_4 = $mysqli->query( $sql_tbl_4 );
@@ -114,7 +115,8 @@ $sql_tbl_8 = "CREATE TABLE `$tbl_name8` (
   `type` varchar(30) NOT NULL,
   `name` varchar(30) NOT NULL,
   `rows` int(11) NOT NULL,
-   PRIMARY KEY (`id`)
+  `floor` varchar(15) NOT NULL, 
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_8 = $mysqli->query( $sql_tbl_8 );
 

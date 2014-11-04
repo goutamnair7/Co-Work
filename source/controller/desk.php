@@ -2,6 +2,8 @@
 
 require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
+$result = array('status' => false, 'msg' => 'UNKNOWN ERROR');
+
 $action = @$_GET['action'];
 
 if($action == 'create')
@@ -15,19 +17,37 @@ if($action == 'create')
 	{
 		$desk_count = $desk_count_array[$r-1];
 		for ($i=1; $i <= $desk_count; $i++)
-			$mysqli->query("INSERT INTO desks VALUES ('', '{$space_id}', '{$r}', '{$i}')");
+		{	
+			$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$space_id}', '{$r}', '{$i}')");
+			if(!$status)
+				break;
+		}
 	}
 
-	$result['status'] = true;
-	$result['msg'] = "Successfully added new desk";
-	
+	if($status == false)
+		$result['msg'] = "ERROR: ".$mysqli->error;
+	else
+	{
+		$result['status'] = true;
+		$result['msg'] = "Successfully added new desks";
+	}
+
 	echo json_encode($result);
 }
 else if($action == 'show')
 {
 	$id = @$_GET['id'];
 	$row = $mysqli->query("SELECT * FROM desks WHERE id={$id} LIMIT 1")->fetch_assoc();
-	echo json_encode($row);
+	if($row != NULL)
+	{
+		$result['status'] = true;
+		$result['msg'] = "";
+		$result['row'] = $row;
+	}
+	else
+		$result['msg'] = "Record Not Found!";
+	
+	echo json_encode($result);
 }
 else if($action == "book")
 {
@@ -76,38 +96,79 @@ else if($action == "show_by_space_name")
 	$month = @$_GET['month'];
 	$year = @$_GET['year'];
 
-	$sql = $mysqli->query("SELECT * FROM desks WHERE space='{$space}'");
-
+	$type = $mysqli->query("SELECT type FROM spaces WHERE name='{$space}' LIMIT 1")->fetch_assoc();
+	$type = $type['type'];
+	
 	$free = array();
 
-	if($sql)
+	if($type == "Co-Working")
 	{
-		$all  = array();
+		$sql = $mysqli->query("SELECT * FROM desks WHERE space='{$space}'");
 
-		while($row = $sql->fetch_assoc())
+		if($sql)
 		{
-			$r = $row['row'];
-			$c = $row['column'];
+			$all  = array();
 
-			if(!isset($free[$r-1]))
-				$free[$r-1] = array();
+			while($row = $sql->fetch_assoc())
+			{
+				$r = $row['row'];
+				$c = $row['column'];
 
-			$free[$r-1][$c-1] = array('desk_id' => $row['id'], 'startup_id' => 0);
+				if(!isset($free[$r-1]))
+					$free[$r-1] = array();
 
-			$all[$row['id']] = array('r' => $r, 'c' => $c);
+				$free[$r-1][$c-1] = array('desk_id' => $row['id'], 'startup_id' => 0);
 
+				$all[$row['id']] = array('r' => $r, 'c' => $c);
+
+			}
+
+			$details = $mysqli->query("SELECT * FROM desk_log WHERE year='{$year}' AND month='{$month}'");
+
+			while($row = $details->fetch_assoc())
+			{
+				if(!isset($all[$row['desk_id']]))
+					continue;
+				$r = $all[$row['desk_id']]['r'];
+				$c = $all[$row['desk_id']]['c'];
+
+				$free[$r-1][$c-1]['startup_id'] = intval($row['startup_id']);
+			}
 		}
+	}
+	else if($type == 'Wing')
+	{
+		$free = array(array(), array());
+		
+		$sql = $mysqli->query("SELECT * FROM rooms WHERE space='{$space}'");
 
-		$details = $mysqli->query("SELECT * FROM desk_log WHERE year='{$year}' AND month='{$month}'");
-
-		while($row = $details->fetch_assoc())
+		if($sql)
 		{
-			if(!isset($all[$row['desk_id']]))
-				continue;
-			$r = $all[$row['desk_id']]['r'];
-			$c = $all[$row['desk_id']]['c'];
+			$all  = array();
 
-			$free[$r-1][$c-1]['startup_id'] = intval($row['startup_id']);
+			while($row = $sql->fetch_assoc())
+			{
+				$side = 1;
+				if($row['side'] == "Left")
+					$side = 0;
+
+				$free[$side][] = array('desk_id' => $row['id'], 'startup_id' => 0);
+
+				$all[$row['id']] = array('r' => $side, 'c' => count($free[$side]));
+
+			}
+
+			$details = $mysqli->query("SELECT * FROM room_log WHERE year='{$year}' AND month='{$month}'");
+
+			while($row = $details->fetch_assoc())
+			{
+				if(!isset($all[$row['room_id']]))
+					continue;
+				$r = $all[$row['room_id']]['r'];
+				$c = $all[$row['room_id']]['c'];
+
+				$free[$r][$c-1]['startup_id'] = intval($row['startup_id']);
+			}
 		}
 	}
 
@@ -133,6 +194,7 @@ else if($action == "show_by_startup_id")
 else
 {
 	$result['action'] = $action;
+	$result['msg'] = 'Action Not Defined';
 	echo json_encode($result);
 }
 

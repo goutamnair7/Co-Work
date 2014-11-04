@@ -237,7 +237,8 @@ function display_rooms()
 			var length = obj.length;
 			var str='';
 			for (var i = 0; i < length; i++) {
-	/*				obj[i][j] = obj[i][j].startup_id;
+				for (var j = 0; j < obj[i].length; j++) {
+					obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j]==0){
 						if(spacename == ''){
 							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
@@ -257,10 +258,10 @@ function display_rooms()
 							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
 						}
 					}
-
+				};
 				str+="<br />";
 
-	*/		};
+			};
 			document.getElementById('display_space').innerHTML=str;
 			document.getElementById('display_cowork').innerHTML='';
 		},
