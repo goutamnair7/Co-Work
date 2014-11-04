@@ -96,38 +96,79 @@ else if($action == "show_by_space_name")
 	$month = @$_GET['month'];
 	$year = @$_GET['year'];
 
-	$sql = $mysqli->query("SELECT * FROM desks WHERE space='{$space}'");
-
+	$type = $mysqli->query("SELECT type FROM spaces WHERE name='{$space}' LIMIT 1")->fetch_assoc();
+	$type = $type['type'];
+	
 	$free = array();
 
-	if($sql)
+	if($type == "Co-Working")
 	{
-		$all  = array();
+		$sql = $mysqli->query("SELECT * FROM desks WHERE space='{$space}'");
 
-		while($row = $sql->fetch_assoc())
+		if($sql)
 		{
-			$r = $row['row'];
-			$c = $row['column'];
+			$all  = array();
 
-			if(!isset($free[$r-1]))
-				$free[$r-1] = array();
+			while($row = $sql->fetch_assoc())
+			{
+				$r = $row['row'];
+				$c = $row['column'];
 
-			$free[$r-1][$c-1] = array('desk_id' => $row['id'], 'startup_id' => 0);
+				if(!isset($free[$r-1]))
+					$free[$r-1] = array();
 
-			$all[$row['id']] = array('r' => $r, 'c' => $c);
+				$free[$r-1][$c-1] = array('desk_id' => $row['id'], 'startup_id' => 0);
 
+				$all[$row['id']] = array('r' => $r, 'c' => $c);
+
+			}
+
+			$details = $mysqli->query("SELECT * FROM desk_log WHERE year='{$year}' AND month='{$month}'");
+
+			while($row = $details->fetch_assoc())
+			{
+				if(!isset($all[$row['desk_id']]))
+					continue;
+				$r = $all[$row['desk_id']]['r'];
+				$c = $all[$row['desk_id']]['c'];
+
+				$free[$r-1][$c-1]['startup_id'] = intval($row['startup_id']);
+			}
 		}
+	}
+	else if($type == 'Wing')
+	{
+		$free = array(array(), array());
+		
+		$sql = $mysqli->query("SELECT * FROM rooms WHERE space='{$space}'");
 
-		$details = $mysqli->query("SELECT * FROM desk_log WHERE year='{$year}' AND month='{$month}'");
-
-		while($row = $details->fetch_assoc())
+		if($sql)
 		{
-			if(!isset($all[$row['desk_id']]))
-				continue;
-			$r = $all[$row['desk_id']]['r'];
-			$c = $all[$row['desk_id']]['c'];
+			$all  = array();
 
-			$free[$r-1][$c-1]['startup_id'] = intval($row['startup_id']);
+			while($row = $sql->fetch_assoc())
+			{
+				$side = 1;
+				if($row['side'] == "Left")
+					$side = 0;
+
+				$free[$side][] = array('desk_id' => $row['id'], 'startup_id' => 0);
+
+				$all[$row['id']] = array('r' => $side, 'c' => count($free[$side]));
+
+			}
+
+			$details = $mysqli->query("SELECT * FROM room_log WHERE year='{$year}' AND month='{$month}'");
+
+			while($row = $details->fetch_assoc())
+			{
+				if(!isset($all[$row['room_id']]))
+					continue;
+				$r = $all[$row['room_id']]['r'];
+				$c = $all[$row['room_id']]['c'];
+
+				$free[$r][$c-1]['startup_id'] = intval($row['startup_id']);
+			}
 		}
 	}
 

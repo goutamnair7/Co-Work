@@ -13,8 +13,9 @@ if($action == 'create')
 	$type = @$_GET['type'];
 	$name = @$_GET['name'];
 	$rows = @$_GET['rows'];
+	$floor = @$_GET['floor'];
 
-	$status = $mysqli->query("INSERT INTO spaces VALUES ('', '{$type}', '{$name}', '{$rows}')");
+	$status = $mysqli->query("INSERT INTO spaces VALUES ('', '{$type}', '{$name}', '{$rows}', '{$floor}')");
 
 	if($status == false)
 		$result['msg'] = "ERROR: ".$mysqli->error;
