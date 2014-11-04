@@ -2,6 +2,8 @@
 
 require( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
+$result = array('status' => false, 'msg' => 'UNKNOWN ERROR');
+
 $action = @$_GET['action'];
 
 if($action == 'create')
@@ -15,19 +17,37 @@ if($action == 'create')
 	{
 		$desk_count = $desk_count_array[$r-1];
 		for ($i=1; $i <= $desk_count; $i++)
-			$mysqli->query("INSERT INTO desks VALUES ('', '{$space_id}', '{$r}', '{$i}')");
+		{	
+			$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$space_id}', '{$r}', '{$i}')");
+			if(!$status)
+				break;
+		}
 	}
 
-	$result['status'] = true;
-	$result['msg'] = "Successfully added new desk";
-	
+	if($status == false)
+		$result['msg'] = "ERROR: ".$mysqli->error;
+	else
+	{
+		$result['status'] = true;
+		$result['msg'] = "Successfully added new desks";
+	}
+
 	echo json_encode($result);
 }
 else if($action == 'show')
 {
 	$id = @$_GET['id'];
 	$row = $mysqli->query("SELECT * FROM desks WHERE id={$id} LIMIT 1")->fetch_assoc();
-	echo json_encode($row);
+	if($row != NULL)
+	{
+		$result['status'] = true;
+		$result['msg'] = "";
+		$result['row'] = $row;
+	}
+	else
+		$result['msg'] = "Record Not Found!";
+	
+	echo json_encode($result);
 }
 else if($action == "book")
 {
@@ -133,6 +153,7 @@ else if($action == "show_by_startup_id")
 else
 {
 	$result['action'] = $action;
+	$result['msg'] = 'Action Not Defined';
 	echo json_encode($result);
 }
 

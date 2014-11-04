@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-widthttp://www.scribleaf.com/h, initial-scale=1.0">
 <title>Co-Work :: Add Space</title>
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
 
@@ -63,6 +63,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 														<select class="form-control" id = 'type' name="type" required>
 															<option onclick='showrows()'>Co-Working</option>
 															<option onclick='hiderows()'>Room</option>
+															<option onclick='hiderows()'>Wing</option>
 														</select>
 												</div>
 											
@@ -82,6 +83,30 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 												</div>
 										</form>	
 
+										<form role="form" id = "winginfo" action="" onsubmit="" style='display:none;'>
+											<input name="action" value="create" hidden>
+										
+											<div id = "statusdiv" class="row">
+												<div class="col-xs-12">
+													<p id="status" class="alert fade in" style="padding:3px;"></p>
+												</div>
+											</div>	
+										
+											<div class="form-group" id=''>
+												<label>Name Of Space</label>
+												<input class="form-control" type="text" placeholder="Space Name" id='wingname' name="name">
+											</div>
+
+											<div class="form-group" id='rowdiv'>
+												<label>Floor</label>
+												<input class="form-control" type="text" placeholder="Floor" id='floor' name="floor" required>
+											</div>
+								
+											<div class = 'col-md-4 col-xs-2'>
+												<button type="submit" class="col-md-4 col-xs-8 btn btn-success"> <i class="icon-arrow-left"></i>Submit</button>
+											</div>
+										</form>
+										
 										<form role="form" id = "columns" action="" onsubmit="" style='display:none;'>
 											<input name='space_id' value='' type='hidden' id='space_id'>
 
@@ -93,7 +118,19 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 													<p id="status" class="alert fade in" style="padding:3px;"></p>
 												</div>
 											</div>	
-										
+											<div class="form-group">
+												<label>Space</label>
+												<select class="form-control" id = 'spacename' name="space" required>
+													<?php
+														require_once("../model/config_sql.php" );
+														
+														$sql = $mysqli->query("SELECT name FROM spaces");
+
+														while($row = $sql->fetch_assoc())
+															echo "<option>".$row['name']."</option>";
+													?>
+												</select>
+											</div>
 											<div class="form-group">
 												<label>Length</label>
 												<input class="form-control" type="text" placeholder="Length" name="length" required>
@@ -110,11 +147,19 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 												<label>Number of Desks</label>
 												<input class="form-control" type="text" placeholder="Number of Desks" name="desks" required>
 											</div>
+
 											<div class="form-group">
 												<label>Side</label>
-												<select class="form-control" id = 'typeofspace' name="side" required>
+												<select class="form-control" id = 'side' name="side" required>
 													<option>Left</option>
 													<option>Right</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Type</label>
+												<select class="form-control" id = 'type' name="type" required>
+													<option value='propel'>Propel Space</option>
+													<option value='leased'>Leased Space</option>
 												</select>
 											</div>
 											<input name='space' value='' type='hidden' id='space'>
@@ -188,7 +233,7 @@ $("#add_space").on('submit',(function(e) {
 		document.getElementById("step2").className = "active";
 		document.getElementById("step1_1").className = "badge badge-success";
 		document.getElementById("step2_1").className = "badge badge-primary";	
-		document.getElementById('space').value = "Propel"; 	
+	//	document.getElementById('space').value = "Propel"; 	
 		
 
 		$("#dimensions").on('submit',(function(e) {
@@ -230,7 +275,7 @@ $("#add_space").on('submit',(function(e) {
 			});
 		}));
 	}
-	else{
+	else if(document.getElementById('type').value == 'Co-Working'){
 		$.ajax({
 			url: "../controller/space.php",
 			type: 'GET',
@@ -269,6 +314,54 @@ $("#add_space").on('submit',(function(e) {
 				alert("Connection Error");
 			}
 		});
+	}
+	else {
+		document.getElementById('add_space').style.display = "none";
+		document.getElementById('winginfo').style.display = ""; 	
+		document.getElementById("step1").className = "";
+		document.getElementById("step2").className = "active";
+		document.getElementById("step1_1").className = "badge badge-success";
+		document.getElementById("step2_1").className = "badge badge-primary";	
+	//	document.getElementById('space').value = "Propel"; 	
+
+		$("#winginfo").on('submit',(function(e) {
+			e.preventDefault();
+			var formData = $(this).serializeArray();
+			for (var i = formData.length - 1; i >= 0; i--) {
+				formData[i] = formData[i]['name'] + '=' + formData[i]['value'];
+			};
+			formData = formData.join('&')
+
+			$.ajax({
+				url: "../controller/wing.php",
+				type: 'GET',
+				data: formData + "&type=Wing",
+				contentType: false,
+				cache: false,
+				processData:false,
+
+				success: function(msg){
+					console.log(msg);
+					obj = JSON.parse(msg);
+					if(obj['status'] == false){
+						document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
+						document.getElementById("status").className += " alert-warning";
+					}
+					else {
+					//Success of this function
+						document.getElementById('winginfo').style.display = "none";
+						document.getElementById('success_display').style.display = ""; 
+						document.getElementById("step2").className = "";
+						document.getElementById("step3").className = "active";
+						document.getElementById("step2_1").className = "badge badge-success";
+						document.getElementById("step3_1").className = "badge badge-primary";
+					}
+				},
+				error: function(){
+					alert("Connection Error");
+				}
+			});
+		}));	
 	}
 }));
 </script>

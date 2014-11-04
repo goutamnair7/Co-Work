@@ -89,14 +89,18 @@
 	</div>
 </div>
 
-
+<!-- common js -->
 <script src="../asset/js/jquery.js"></script>
 <script src="../asset/js/bootstrap.js"></script>
 <script src="../asset/js/demo.js"></script>  
- 
-<script src="../asset/js/jquery.maskedinput.min.js"></script>
-<script src="../asset/js/jquery.pwstrength.js"></script> 
 <script src="../asset/js/scripts.js"></script>
+<script src="../asset/js/demo-skin-changer.js"></script>
+<script src="../asset/js/jquery.nanoscroller.min.js"></script> 
+<script src="../asset/js/jquery.maskedinput.min.js"></script>
+
+<!-- page specific js -->
+<script src="../asset/js/jquery.pwstrength.js"></script> 
+
 <script type="text/javascript">
 	$("#changepass").on('submit',(function(e) {
 		e.preventDefault();
