@@ -82,10 +82,10 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 																<?php
 																	require_once("../model/config_sql.php" );
 																	
-																	$sql = $mysqli->query("SELECT name FROM spaces");
+																	$sql = $mysqli->query("SELECT * FROM spaces");
 
 																	while($row = $sql->fetch_assoc())
-																		echo "<option>".$row['name']."</option>";
+																		echo "<option class = '" .$row['type']. "' id = '" .$row['name']. "'>".$row['name']."</option>";
 																?>
 															</select>
 														</div>
@@ -183,6 +183,12 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										<form action="#" id='desk_selection'>
 										</form>
 									</div>
+									
+									<div id='rooms_view'>
+										<form action="#" id='room_selection'>
+										</form>
+									</div>
+									
 									<div class="alert alert-success fade in" id="success_display" style="margin: 100px 0; display:none;">
 										<i class="fa fa-check-circle fa-fw fa-lg"></i>
 										<strong>Congratulations!</strong> You have successfully added a new space.
@@ -354,7 +360,18 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 var global_obj;
 
-function display()
+function display(){
+	var selected_space = document.getElementById('spacename');
+	if(document.getElementById(selected_space.value).className == 'Co-Working'){
+		display_desks();
+	}
+	else{
+		total = 1;
+		display_rooms();
+	}
+}
+
+function display_desks()
 {		
 	var d = new Date();
 	$.ajax({
@@ -392,8 +409,61 @@ function display()
 				str+="<br />";
 
 			};
-			str+='<button id="desk_submit"> Submit </button>'
+			str+='<button id="desk_submit"> Submit </button>';
 			document.getElementById('desk_selection').innerHTML=str;
+		//	document.getElementById('display_room').innerHTML='';
+		},
+		error: function(){
+			alert("Connection Error");
+		}
+	});
+
+}
+
+
+
+
+
+function display_rooms()
+{		
+	var d = new Date();
+	$.ajax({
+		url: "../controller/desk.php",
+		type: 'GET',
+		data: "action=show_by_space_name&space="+document.getElementById('spacename').value+"&month="+(d.getMonth()+1)+"&year="+(d.getYear()+1900),
+
+		contentType: false,
+		cache: false,
+		processData:false,
+
+		success: function(msg){
+			console.log(msg);
+			var obj = JSON.parse(msg);
+			global_obj = msg;
+			var length = obj.length;
+			var str='';
+			for (var i = 0; i < length; i++) {
+	/*			for (var j = 0; j < obj[i].length; j++) {
+					obj[i][j] = obj[i][j].startup_id;
+					if(obj[i][j]==0){
+						var id = "'" + i + '-' + j + "'";
+						str += "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' class='not_selected'";
+						str += ' onclick="change_image('+id+')" />';
+			//			console.log(str);
+					}
+					else if(obj[i][j]==-1){
+		//				str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' class='not_available'/>";
+					}
+					else {
+						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' class='booked'/>";
+					}
+ 
+				};
+				str+="<br />";
+
+	*/		};
+			str+='<button id="desk_submit"> Submit </button>';
+			document.getElementById('room_selection').innerHTML=str;
 		//	document.getElementById('display_room').innerHTML='';
 		},
 		error: function(){
@@ -480,6 +550,66 @@ function change_image(id){
 					else {
 					//Success of this function
 						document.getElementById('desk_selection').style.display = "none";
+						document.getElementById("step3").className = "";
+						document.getElementById("step4").className = "active";
+						document.getElementById("step3_1").className = "badge badge-success";
+						document.getElementById("step4_1").className = "badge badge-primary";
+						document.getElementById("success_display").style.display = "";
+					}
+				},
+				error: function(){
+					alert("Connection Error");
+				}
+			});
+		}
+	}));
+
+
+	$("#room_selection").on('submit',(function() {
+		if(counter != total){
+			alert("Please select " + total + " room");
+		}
+		else{
+	
+			var obj = JSON.parse(global_obj);
+			console.log(obj);
+			var form_data = [];
+			for (var i = 0; i < obj.length; i++) {
+				for (var j = 0; j < obj[i].length; j++) {
+					var id = i + '-' + j;
+					console.log(id);
+					if( document.getElementById(id).src == selectedImage.src) {
+						form_data.push(obj[i][j].desk_id);
+						console.log("INSIDE");
+					}
+	 			};
+			};
+			form_data = "desks=" + JSON.stringify(form_data);
+			form_data +='&action=book';
+			form_data +='&start_date=' + document.getElementById('datepickerjoin').value;
+			form_data +='&end_date=' + document.getElementById('datepickerend').value;
+			form_data +='&startup_id=' + document.getElementById('startup_id').value;
+
+			console.log(form_data);
+
+			$.ajax({
+				url: "../controller/room.php",
+				type: 'GET',
+				data: form_data,
+				contentType: false,
+				cache: false,
+				processData:false,
+
+				success: function(msg){
+					console.log(msg);
+					obj = JSON.parse(msg);
+					if(obj['status'] == false){
+						document.getElementById("status").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
+						document.getElementById("status").className += " alert-warning";
+					}
+					else {
+					//Success of this function
+						document.getElementById('room_selection').style.display = "none";
 						document.getElementById("step3").className = "";
 						document.getElementById("step4").className = "active";
 						document.getElementById("step3_1").className = "badge badge-success";
