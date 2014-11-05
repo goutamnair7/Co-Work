@@ -133,14 +133,14 @@
 
 									<div class="form-group">
 										<label>Left Authorization</label>
-										<select name='leftauth'>
+										<select class="form-control" name='leftauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
 									</div>
 									<div class="form-group">
 										<label>Right Authorizaion</label>
-										<select name='rightauth'>
+										<select class="form-control" name='rightauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
@@ -150,7 +150,8 @@
 
 									<button type="submit" class="btn btn-primary">Generate PDF</button>
 
-							</form>	
+							</form>
+							<br>
 						<!--</div> 
 					</div> 
 				</div>--> 
