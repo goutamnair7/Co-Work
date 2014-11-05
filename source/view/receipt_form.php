@@ -142,14 +142,14 @@
 
 									<div class="form-group">
 										<label>Left Authorization</label>
-										<select name='leftauth'>
+										<select class="form-control" name='leftauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
                                     </div>
                                     <div class="form-group">
 										<label>Right Authorizaion</label>
-										<select name='rightauth'>
+										<select class="form-control" name='rightauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
@@ -185,7 +185,7 @@
 <script src="../asset/js/scripts.js"></script>
 
 <script type="text/javascript">
-	$("#dashboard").addClass("active");
+	$("#invoice").addClass("active");
 </script>
 </body>
 </html>
