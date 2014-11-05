@@ -101,19 +101,25 @@
 											<p id="status" class="alert fade in" style="padding:3px;"></p>
 										</div>
 									</div>
-
+                                    <label><strong>Element 1</strong></label>
 									<div class="form-group">
 										<label>Description</label>
-										<input class="form-control" type="text" placeholder="Description" name="description" required>
+										<input class="form-control" type="text" placeholder="Description" name="description1" required>
                                     </div>
                                     <div class="form-group">
 										<label>Number Of Desks</label>
-										<input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks" required>
+										<input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks1" required>
                                     </div>
                                     <div class="form-group">
 										<label>Rent Per Desk (Rs)</label>
-										<input class="form-control" type="number" placeholder="Rent Per Desk (Rs)" name="rate" required>
+										<input class="form-control" type="number" placeholder="Rent Per Desk (Rs)" name="rate1" required>
                                     </div>
+                                    <input type="hidden" value='1' name='total' id='total'>
+                                    <div id="add">
+                                    </div>
+                                    
+                                    <button class="btn btn-primary" onclick="add_element()">Add one element</button>
+                                    <br><br>
 
                                     <div class = 'col-md-12 col-xs-12'><h2>Authorization Information</h2></div> 
 									<br />
@@ -180,6 +186,38 @@
 
 <script type="text/javascript">
 	$("#invoice").addClass("active");
+</script>
+
+<!--Page specific JS-->
+
+<script>
+    
+counter = 2;
+function add_element()
+{
+    var add = document.getElementById("add");
+
+    desc = Array();
+    desks = Array();
+    rate = Array();
+    desc[counter-1] = document.getElementsByName("description"+String(counter-1))[0].value;
+    desks[counter-1] = document.getElementsByName("noofdesks"+String(counter-1))[0].value;
+    rate[counter-1] = document.getElementsByName("rate"+String(counter-1))[0].value;
+
+    add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>';
+    add.innerHTML += '<div class="form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
+    add.innerHTML += '<div class="form-group"><label>Number Of Desks</label><input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks' + counter +'" required></div>';
+    add.innerHTML += '<div class="form-group"><label>Rent Per Desk (Rs)</label><input class="form-control" type="number" placeholder="Rent Per Desk(Rs)" name="rate' +counter+ '" required></div>';
+    document.getElementById("total").value = counter;
+
+    for(i=counter-1;i>=2;i--)
+    {
+        document.getElementsByName("description"+String(i))[0].value = desc[i];
+        document.getElementsByName("noofdesks"+String(i))[0].value = desks[i];
+        document.getElementsByName("rate"+String(i))[0].value = rate[i];
+    }
+    counter += 1;
+}
 </script>
 </body>
 </html>
