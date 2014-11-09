@@ -62,7 +62,7 @@
 							</div>-->
 							<form action="template/receipt.php" method="post">
 								<br /><br />
-								<div class = 'col-md-12 col-xs-12'><h1>Receipt</h1></div> 
+								<div class = 'col-md-12 col-xs-12'><h1>Receipt Invoice</h1></div>
 								<br />
 								<div class="modal-body">
 									<div class = 'col-md-12 col-xs-12'><h2>General Information</h2></div> 
