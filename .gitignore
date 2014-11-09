@@ -1,2 +1,2 @@
-source/scripts/connect_to_mysql.php
+source/model/config_sql.php
 source/test/tests/*
