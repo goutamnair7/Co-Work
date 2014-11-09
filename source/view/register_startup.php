@@ -443,7 +443,7 @@ function display_rooms()
 			var length = obj.length;
 			var str='';
 			for (var i = 0; i < length; i++) {
-	/*			for (var j = 0; j < obj[i].length; j++) {
+				for (var j = 0; j < obj[i].length; j++) {
 					obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j]==0){
 						var id = "'" + i + '-' + j + "'";
@@ -461,7 +461,7 @@ function display_rooms()
 				};
 				str+="<br />";
 
-	*/		};
+			};
 			str+='<button id="desk_submit"> Submit </button>';
 			document.getElementById('room_selection').innerHTML=str;
 		//	document.getElementById('display_room').innerHTML='';
@@ -573,18 +573,18 @@ function change_image(id){
 	
 			var obj = JSON.parse(global_obj);
 			console.log(obj);
-			var form_data = [];
+			var form_data;
 			for (var i = 0; i < obj.length; i++) {
 				for (var j = 0; j < obj[i].length; j++) {
 					var id = i + '-' + j;
 					console.log(id);
 					if( document.getElementById(id).src == selectedImage.src) {
-						form_data.push(obj[i][j].desk_id);
+						form_data = obj[i][j].desk_id;
 						console.log("INSIDE");
 					}
 	 			};
 			};
-			form_data = "desks=" + JSON.stringify(form_data);
+			form_data = "room_id=" + form_data;
 			form_data +='&action=book';
 			form_data +='&start_date=' + document.getElementById('datepickerjoin').value;
 			form_data +='&end_date=' + document.getElementById('datepickerend').value;
