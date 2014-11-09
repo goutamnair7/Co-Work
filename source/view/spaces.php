@@ -33,7 +33,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 			<div class="row" id="main">
 				<br />
 				<div class = 'col-md-10 col-xs-12' align='right'>
-					<button type="submit" class="btn btn-primary">Add Space</button>
+					<a href="add_new_space.php"><button class="btn btn-primary">Add Space</button></a>
 				</div>
 				<br />
 				<div class="col-md-6 form-group">

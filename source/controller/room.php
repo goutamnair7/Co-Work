@@ -12,13 +12,12 @@ if($action == "create")
 {
 	$length = @$_GET['length'];
 	$width = @$_GET['width'];
-	$area = @$_GET['area'];
 	$desks = @$_GET['desks'];
 	$space = @$_GET['space'];
 	$side = @$_GET['side'];
-	$type = @$_GET['type'];
-	
-	$status = $mysqli->query("INSERT INTO rooms values ('', '{$length}', '{$width}', '{$area}', '{$desks}', '{$space}', '{$side}', '{$type}');");
+	$area = $length*$width;
+
+	$status = $mysqli->query("INSERT INTO rooms values ('', '{$length}', '{$width}', '{$area}', '{$desks}', '{$space}', '{$side}');");
 	
 	if($status == false)
 		$result['msg'] = "ERROR: ".$mysqli->error;
