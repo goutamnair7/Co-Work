@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Co-Work :: DashBoard</title>
+<title>Co-Work :: Invoice</title>
 
 <!--Common Styles -->
 <link href="../asset/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
@@ -74,7 +74,7 @@
 										$nameofperson = $rows['name'];
 										$desigofperson = $rows['designation'];
 										$companyofperson = $rows['company'];
-										$htmlecho = $htmlecho . "<span style='float:left;'><strong>$nameofperson</strong> ($desigofperson) - $companyofperson</span><span style='float:right'><a class='btn btn-sm btn-primary' href='#'>Edit</a> <a class='btn btn-sm btn-danger' href='../controller/auth_delete.php?id=$idofperson'>Delete</a></span><br><br>";
+										$htmlecho = $htmlecho . "<span style='float:left;'><strong>$nameofperson</strong> ($desigofperson) - $companyofperson</span><span style='float:right'><a class='btn btn-sm btn-primary' href='../view/auth_edit.php?id=$idofperson'>Edit</a> <a class='btn btn-sm btn-danger' href='../controller/auth_delete.php?id=$idofperson'>Delete</a></span><br><br>";
 									}
 									echo "$htmlecho"
 									?>
