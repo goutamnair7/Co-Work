@@ -189,11 +189,27 @@ counter = 2;
 function add_element()
 {
 	var add = document.getElementById('add');
+
+    desc = Array();
+    units = Array();
+    rate = Array();
+    desc[counter-1] = document.getElementsByName("description"+String(counter-1))[0].value;
+    units[counter-1] = document.getElementsByName("noofunits"+String(counter-1))[0].value;
+    rate[counter-1] = document.getElementsByName("rate"+String(counter-1))[0].value;
+
 	add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>'
 	add.innerHTML += '<div class="form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
 	add.innerHTML += '<div class="form-group"><label>Number Of Units</label><input class="form-control" type="number" placeholder="Number Of Units" name="noofunits' + counter +'" required></div>';
 	add.innerHTML += '<div class="form-group"><label>Rate Per Unit (Rs)</label><input class="form-control" type="number" placeholder="Rate Per Unit (Rs)" name="rate' +counter+ '" required></div>';
 	document.getElementById('total').value = counter; 
+
+    for(i=counter-1;i>=2;i--)
+    {
+        document.getElementsByName("description"+String(i))[0].value = desc[i];
+        document.getElementsByName("noofunits"+String(i))[0].value = units[i];
+        document.getElementsByName("rate"+String(i))[0].value = rate[i];
+    }
+
 	counter++;
 }
 
