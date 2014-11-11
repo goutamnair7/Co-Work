@@ -191,10 +191,17 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 									<div id='rooms_view'>
 										<br />
 										<div class='col-md-4'></div>
-										<div class='col-md-4'>
+										<div class='col-md-4' style='align'>
 											<form action="#" id='room_selection'>
 											</form>
-										<div class='col-md-4'></div>
+										</div>
+										<div class='col-md-4' style='margin-left:100px;'>
+											<br />
+											<br />
+											<br />
+											<div id='display_room_details' class='col-md-12'>
+											</div>
+										</div>
 									</div>
 									
 									<div class="alert alert-success fade in" id="success_display" style="margin: 100px 0; display:none;">
@@ -518,6 +525,13 @@ function change_image_rooms(id){
 		//	if(obj['status']) {
 				var roomdetails = obj['row'];
 				console.log(roomdetails);
+				var roomdetails = obj['row'];
+				console.log(roomdetails);
+				str = "<b>Room id: </b>"+roomdetails['id']+"<br />";
+				str += "<b>Area: </b>"+roomdetails['area']+"<br />";
+				str += "<b>Desks: </b>"+roomdetails['desks']+"<br />";
+				str += "<b>Side: </b>"+roomdetails['side']+"<br />";
+				document.getElementById('display_room_details').innerHTML = str;
 				//document.getElementById('display_cowork').innerHTML = "Room width : " + roomdetails['width'];
 			//	console.log(obj);
 		//	}
@@ -657,6 +671,7 @@ function change_image_desks(id){
 					else {
 					//Success of this function
 						document.getElementById('room_selection').style.display = "none";
+						document.getElementById('display_room_details').style.display = "none";
 						document.getElementById("step3").className = "";
 						document.getElementById("step4").className = "active";
 						document.getElementById("step3_1").className = "badge badge-success";
