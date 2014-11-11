@@ -51,7 +51,7 @@ else if($action == "book")
 	$start_date = @$_GET['start_date'];
 	$end_date = @$_GET['end_date'];
 
-	$status = $mysqli->query("UPDATE rooms SET leased_to={$startup_id} WHERE id={$id}");
+//	$status = $mysqli->query("UPDATE rooms SET leased_to={$startup_id} WHERE id={$id}");
 	
 	$start_date = explode('-', $start_date);
 	$start_month = $start_date[0];
