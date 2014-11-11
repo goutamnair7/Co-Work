@@ -62,7 +62,7 @@
 							</div>-->
 							<form action="template/invoice.php" method="post">
 								<br /><br />
-								<div class = 'col-md-12 col-xs-12'><h1>Invoice</h1></div> 
+								<div class = 'col-md-12 col-xs-12'><h1>General Invoice</h1></div>
 								<br />
 								<div class="modal-body">
 									<div class = 'col-md-12 col-xs-12'><h2>General Information</h2></div> 
@@ -101,19 +101,27 @@
 											<p id="status" class="alert fade in" style="padding:3px;"></p>
 										</div>
 									</div>
-
-									<div class="form-group">
-										<label>Description</label>
-										<input class="form-control" type="text" placeholder="Description" name="description" required>
+                                    <label><strong>Element 1</strong></label>
+									<div class='row'>
+										<div class="col-md-4 form-group">
+											<label>Description</label>
+											<input id='description1' class="form-control" type="text" placeholder="Description" name="description1" required>
+	                                    </div>
+	                                    <div class="col-md-4 form-group">
+											<label>Number Of Desks</label>
+											<input id='noofdesks1' class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks1" required>
+	                                    </div>
+	                                    <div class="col-md-4 form-group">
+											<label>Rent Per Desk (Rs)</label>
+											<input id='rate1' class="form-control" type="number" placeholder="Rent Per Desk (Rs)" name="rate1" required>
+	                                    </div>
                                     </div>
-                                    <div class="form-group">
-										<label>Number Of Desks</label>
-										<input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks" required>
+                                    <input type="hidden" value='1' name='total' id='total'>
+                                    <div id="add">
                                     </div>
-                                    <div class="form-group">
-										<label>Rent Per Desk (Rs)</label>
-										<input class="form-control" type="number" placeholder="Rent Per Desk (Rs)" name="rate" required>
-                                    </div>
+                                    
+                                    <button class="btn btn-primary" onclick="add_element()">Add one element</button>
+                                    <br><br>
 
                                     <div class = 'col-md-12 col-xs-12'><h2>Authorization Information</h2></div> 
 									<br />
@@ -136,14 +144,14 @@
 
 									<div class="form-group">
 										<label>Left Authorization</label>
-										<select name='leftauth'>
+										<select class="form-control" name='leftauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
                                     </div>
                                     <div class="form-group">
 										<label>Right Authorizaion</label>
-										<select name='rightauth'>
+										<select class="form-control" name='rightauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
@@ -179,7 +187,76 @@
 <script src="../asset/js/scripts.js"></script>
 
 <script type="text/javascript">
-	$("#dashboard").addClass("active");
+	$("#invoice").addClass("active");
+</script>
+
+<!--Page specific JS-->
+
+<script>
+    
+counter = 1;
+function add_element() {
+    var desc = new Array(counter);
+    var desks = new Array(counter);
+    var rates = new Array(counter);
+    for(var i=1; i<=counter;i++) {
+      var description = 'description' + i;
+      var desk = 'noofdesks' + i;
+      var rate = 'rate' + i;
+      desc[i] = document.getElementById(description).value;
+      desks[i] = document.getElementById(desk).value;
+      rates[i] = document.getElementById(rate).value;
+    };
+    counter += 1;
+    document.getElementById('total').value = counter;
+    var add = document.getElementById('add');
+
+    add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>';
+    add.innerHTML += '<div class="row">';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" id="description'+counter+'" name="description'+ counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Number Of Desks</label><input class="form-control" type="number" placeholder="Number Of Desks" id="noofdesks'+counter+'" name="noofdesks' + counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Rent Per Desk (Rs)</label><input class="form-control" type="number" placeholder="Rent Per Desk(Rs)" id="rate'+counter+'" name="rate' +counter+ '" required></div>';
+    add.innerHTML += '</div>';
+
+    for(var i=1;i<=counter-1;i++) {
+      var description = 'description' + i;
+      var desk = 'noofdesks' + i;
+      var rate = 'rate' + i;
+
+      document.getElementById(description).value = desc[i];
+      document.getElementById(desk).value = desks[i];
+      document.getElementById(rate).value = rates[i];
+    };
+  }
+
+
+/* counter = 2;
+function add_element()
+{
+    var add = document.getElementById("add");
+
+    desc = Array();
+    desks = Array();
+    rate = Array();
+    desc[counter-1] = document.getElementsByName("description"+String(counter-1))[0].value;
+    desks[counter-1] = document.getElementsByName("noofdesks"+String(counter-1))[0].value;
+    rate[counter-1] = document.getElementsByName("rate"+String(counter-1))[0].value;
+    add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>';
+    add.innerHTML += '<div class="row">';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Number Of Desks</label><input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks' + counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Rent Per Desk (Rs)</label><input class="form-control" type="number" placeholder="Rent Per Desk(Rs)" name="rate' +counter+ '" required></div>';
+    add.innerHTML += '</div>';
+    document.getElementById("total").value = counter;
+
+    for(i=counter-1;i>=2;i--)
+    {
+        document.getElementsByName("description"+String(i))[0].value = desc[i];
+        document.getElementsByName("noofdesks"+String(i))[0].value = desks[i];
+        document.getElementsByName("rate"+String(i))[0].value = rate[i];
+    }
+    counter += 1;
+} */
 </script>
 </body>
 </html>

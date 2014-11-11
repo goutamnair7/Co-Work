@@ -140,10 +140,6 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 												<input class="form-control" type="text" placeholder="Width" name="width" required>
 											</div>
 											<div class="form-group">
-												<label>Area</label>
-												<input class="form-control" type="text" placeholder="Area" name="area" required>
-											</div>
-											<div class="form-group">
 												<label>Number of Desks</label>
 												<input class="form-control" type="text" placeholder="Number of Desks" name="desks" required>
 											</div>
@@ -153,13 +149,6 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 												<select class="form-control" id = 'side' name="side" required>
 													<option>Left</option>
 													<option>Right</option>
-												</select>
-											</div>
-											<div class="form-group">
-												<label>Type</label>
-												<select class="form-control" id = 'type' name="type" required>
-													<option value='propel'>Propel Space</option>
-													<option value='leased'>Leased Space</option>
 												</select>
 											</div>
 											<input name="action" value="create" hidden>

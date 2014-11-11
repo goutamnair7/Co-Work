@@ -46,7 +46,7 @@
 							</a>
 							</li>
 							<li id='invoice'>
-							<a href="purchase_order_form.php">
+							<a href="invoice.php">
 								<i class="fa fa-file-text-o"></i>
 								<span>Invoice</span>
 							</a>

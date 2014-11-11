@@ -62,7 +62,7 @@
 							</div>-->
 							<form action="template/receipt.php" method="post">
 								<br /><br />
-								<div class = 'col-md-12 col-xs-12'><h1>Receipt</h1></div> 
+								<div class = 'col-md-12 col-xs-12'><h1>Receipt Invoice</h1></div>
 								<br />
 								<div class="modal-body">
 									<div class = 'col-md-12 col-xs-12'><h2>General Information</h2></div> 
@@ -142,14 +142,14 @@
 
 									<div class="form-group">
 										<label>Left Authorization</label>
-										<select name='leftauth'>
+										<select class="form-control" name='leftauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
                                     </div>
                                     <div class="form-group">
 										<label>Right Authorizaion</label>
-										<select name='rightauth'>
+										<select class="form-control" name='rightauth'>
 											<option value="none" default> --- </option>
 											<?php echo "$htmlecho"; ?>
 										</select>
@@ -185,7 +185,7 @@
 <script src="../asset/js/scripts.js"></script>
 
 <script type="text/javascript">
-	$("#dashboard").addClass("active");
+	$("#invoice").addClass("active");
 </script>
 </body>
 </html>

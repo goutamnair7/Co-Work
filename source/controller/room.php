@@ -12,13 +12,12 @@ if($action == "create")
 {
 	$length = @$_GET['length'];
 	$width = @$_GET['width'];
-	$area = @$_GET['area'];
 	$desks = @$_GET['desks'];
 	$space = @$_GET['space'];
 	$side = @$_GET['side'];
-	$type = @$_GET['type'];
-	
-	$status = $mysqli->query("INSERT INTO rooms values ('', '{$length}', '{$width}', '{$area}', '{$desks}', '{$space}', '{$side}', '{$type}');");
+	$area = $length*$width;
+
+	$status = $mysqli->query("INSERT INTO rooms values ('', '{$length}', '{$width}', '{$area}', '{$desks}', '{$space}', '{$side}');");
 	
 	if($status == false)
 		$result['msg'] = "ERROR: ".$mysqli->error;
@@ -52,7 +51,7 @@ else if($action == "book")
 	$start_date = @$_GET['start_date'];
 	$end_date = @$_GET['end_date'];
 
-	$status = $mysqli->query("UPDATE rooms SET leased_to={$startup_id} WHERE id={$id}");
+//	$status = $mysqli->query("UPDATE rooms SET leased_to={$startup_id} WHERE id={$id}");
 	
 	$start_date = explode('-', $start_date);
 	$start_month = $start_date[0];
