@@ -70,11 +70,16 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 						<select class="form-control" id = 'year' name="year" required>
 						</select><br />
 					</div>
-
+					<br />
 					<div id='display_space' class='col-md-6'>
 					</div>
-					<div id='display_cowork' class='col-md-6'>
+					<div id='startup_details'>
+						<div id='display_cowork' class='col-md-6'>
+						</div>
+						<div id='display_room_details' class='col-md-6'>
+						</div>
 					</div>
+
 				</div>
 			<footer id="footer-bar" class="row">
 				<p id="footer-copyright" class="col-xs-12">
@@ -185,6 +190,7 @@ function display_desks()
 			};
 			document.getElementById('display_space').innerHTML=str;
 			document.getElementById('display_cowork').innerHTML='';
+			document.getElementById('display_room_details').innerHTML='';
 		},
 		error: function(){
 			alert("Connection Error");
@@ -206,20 +212,24 @@ function show_details(id, startup_id){
 
 			success: function(msg){
 				var obj = JSON.parse(msg);
+				console.log(obj);
 				if(obj['status']) {
 					var startup = obj['row'];
 					console.log(startup);
-					document.getElementById('display_cowork').innerHTML = "Startup Name : " + startup['name'];
+					document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>" + startup['name'];
 				//	console.log(obj);
 				}
 				else {
-					document.getElementById('display_cowork').innerHTML = "Startup Name : Not Booked";
+					document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>Not Booked";
 				}
 			},
 			error: function(){
 				alert("Connection Error");
 			}
 		});
+	}
+	else{
+		document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>Not Booked";
 	}
 
 	$.ajax({
@@ -236,7 +246,11 @@ function show_details(id, startup_id){
 		//	if(obj['status']) {
 				var roomdetails = obj['row'];
 				console.log(roomdetails);
-				//document.getElementById('display_cowork').innerHTML = "Room width : " + roomdetails['width'];
+				str = "<b>Room id: </b>"+roomdetails['id']+"<br />";
+				str += "<b>Area: </b>"+roomdetails['area']+"<br />";
+				str += "<b>Desks: </b>"+roomdetails['desks']+"<br />";
+				str += "<b>Side: </b>"+roomdetails['side']+"<br />";
+				document.getElementById('display_room_details').innerHTML = str;
 			//	console.log(obj);
 		//	}
 			//else {
@@ -294,6 +308,7 @@ function display_rooms()
 			};
 			document.getElementById('display_space').innerHTML=str;
 			document.getElementById('display_cowork').innerHTML='';
+			document.getElementById('display_room_details').innerHTML='';
 		},
 		error: function(){
 			alert("Connection Error");
