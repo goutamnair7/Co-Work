@@ -51,6 +51,7 @@
 												<option value="invoice_form" default> General Invoice </option>
 												<option value="receipt_form" default> Receipt Invoice </option>
 												<option value="purchase_order_form" default> Purchase Order Invoice </option>
+												<option value="reimbursement_form" default> Reimbursement </option>
 											</select>
 										</div>
 										<button type="submit" class="btn btn-primary">Generate Invoice</button>
