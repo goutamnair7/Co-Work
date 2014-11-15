@@ -28,6 +28,7 @@ else
 		$row = $sql->fetch_array();
 		session_start();
 		$_SESSION['user'] = $row;
+		$_SESSION['name'] = $row['first_name'];
 		$_SESSION['user_type'] = 'admin';
 	}
 }
