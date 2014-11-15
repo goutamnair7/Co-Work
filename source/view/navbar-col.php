@@ -4,12 +4,8 @@
 					<div id="user-left-box" class="clearfix hidden-sm hidden-xs">
 						<img alt="" src="../asset/img/samples/scarlet-159.png"/>
 						<div class="user-box">
-							<span class="name">
-								Welcome<br/>
-								Scarlett
-							</span>
-							<span class="status">
-								<i class="fa fa-circle"></i> Online
+							<span class="name" style='margin-left:-8px;'>
+								Welcome <?php session_start(); echo $_SESSION['name']; ?>
 							</span>
 						</div>
 					</div>
