@@ -50,7 +50,7 @@
 							</div>-->
 							<form id='reg_admin' role="form" action="../controller/admin.php">
 								<br /><br />
-								<div class = 'col-md-12 col-xs-12'><h1>Admin Details</h1></div> 
+								<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Admin Details</h1></div> 
 								<br />
 								<div class="modal-body">
 									

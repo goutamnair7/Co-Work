@@ -1,4 +1,4 @@
-<?php require '../controller/ensure_login.php' ?>
+
 <header class="navbar" id="header-navbar">
 	<div class="container">
 		<a href="../index.php" id="logo" class="navbar-brand">

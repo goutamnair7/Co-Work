@@ -2,10 +2,9 @@
 			<section id="col-left" class="col-left-nano">
 				<div id="col-left-inner" class="col-left-nano-content">
 					<div id="user-left-box" class="clearfix hidden-sm hidden-xs">
-						<img alt="" src="../asset/img/samples/scarlet-159.png"/>
 						<div class="user-box">
 							<span class="name" style='margin-left:-8px;'>
-								Welcome <?php session_start(); echo $_SESSION['name']; ?>
+								Welcome <?php require '../controller/ensure_login.php'; echo $_SESSION['name']; ?>
 							</span>
 						</div>
 					</div>
@@ -45,6 +44,12 @@
 							<a href="invoice.php">
 								<i class="fa fa-file-text-o"></i>
 								<span>Invoice</span>
+							</a>
+							</li>
+							<li id='startup_page'>
+							<a href="startup_page.php">
+								<i class="fa fa-columns"></i>
+								<span>Startup Page</span>
 							</a>
 							</li>
 							<li id='chpasswd'>
