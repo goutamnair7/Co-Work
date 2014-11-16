@@ -32,8 +32,16 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		<div id="content-wrapper">
 			<div class="row" id="main">
 				<br />
-				<div class = 'col-md-10 col-xs-12' align='right'>
-					<a href="add_new_space.php"><button class="btn btn-primary">Add Space</button></a>
+				<div class='row'>
+					<div class = 'col-md-6' style="text-align:center;">
+						<h1>View Space </h1> 
+					</div>
+
+					<div class = 'col-md-5' style="text-align:right;"> 
+						<a href="add_new_space.php"><button class="btn btn-primary">Add Space</button></a>
+					</div>
+
+					<div class = 'col-md-1'></div>
 				</div>
 				<br />
 				<div class="col-md-6 form-group">
