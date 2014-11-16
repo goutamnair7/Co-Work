@@ -51,6 +51,7 @@
 												<option value="invoice_form" default> General Invoice </option>
 												<option value="receipt_form" default> Receipt Invoice </option>
 												<option value="purchase_order_form" default> Purchase Order Invoice </option>
+												<option value="reimbursement_form" default> Reimbursement </option>
 											</select>
 										</div>
 										<button type="submit" class="btn btn-primary">Generate Invoice</button>
@@ -84,11 +85,8 @@
 				</div>
 			</div>
 			
-			<footer id="footer-bar" class="row">
-				<p id="footer-copyright" class="col-xs-12">
-				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
-				</p>
-			</footer>
+			<!--<footer id="footer-bar" class="row">
+			</footer> -->
 		</div>
 	</div>
 </div>
