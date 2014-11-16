@@ -63,7 +63,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										<form role="form" id = "start_up" action="" onsubmit="">
 										<br />
 											<div class="modal-body">
-												<div class = 'col-md-12 col-xs-12'><h1>Startup Details</h1></div> 
+												<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Startup Details</h1></div> 
 												<div id = "statusdiv" class="row">
 													<div class="col-xs-12">
 														<p id="status" class="alert fade in" style="padding:3px;"></p>
