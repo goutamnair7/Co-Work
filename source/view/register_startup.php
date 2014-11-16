@@ -63,7 +63,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 										<form role="form" id = "start_up" action="" onsubmit="">
 										<br />
 											<div class="modal-body">
-												<div class = 'col-md-12 col-xs-12'><h1>Startup Details</h1></div> 
+												<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Startup Details</h1></div> 
 												<div id = "statusdiv" class="row">
 													<div class="col-xs-12">
 														<p id="status" class="alert fade in" style="padding:3px;"></p>
@@ -180,13 +180,28 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 									</div>
 									<br />
 									<div id='desks_view'>
-										<form action="#" id='desk_selection'>
-										</form>
+										<br />
+										<div class='col-md-4'></div>
+										<div class='col-md-4'> 
+											<form action="#" id='desk_selection'> 
+											</form>
+										<div class='col-md-4'></div>
 									</div>
 									
 									<div id='rooms_view'>
-										<form action="#" id='room_selection'>
-										</form>
+										<br />
+										<div class='col-md-4'></div>
+										<div class='col-md-4' style='align'>
+											<form action="#" id='room_selection'>
+											</form>
+										</div>
+										<div class='col-md-4' style='margin-left:100px;'>
+											<br />
+											<br />
+											<br />
+											<div id='display_room_details' class='col-md-12'>
+											</div>
+										</div>
 									</div>
 									
 									<div class="alert alert-success fade in" id="success_display" style="margin: 100px 0; display:none;">
@@ -199,11 +214,8 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 					</div>
 				</div>
 			</div>
-			<footer id="footer-bar" class="row">
-				<p id="footer-copyright" class="col-xs-12">
-				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
-				</p>
-			</footer>
+			<!--<footer id="footer-bar" class="row">
+			</footer> -->
 		</div>
 	</div>
 </div>
@@ -388,14 +400,14 @@ function display_desks()
 			var obj = JSON.parse(msg);
 			global_obj = msg;
 			var length = obj.length;
-			var str='';
+			var str='<div class = "col-md-12 col-xs-12"><h1>Select Desks</h1></div><br />';
 			for (var i = 0; i < length; i++) {
 				for (var j = 0; j < obj[i].length; j++) {
 					obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j]==0){
 						var id = "'" + i + '-' + j + "'";
 						str += "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' class='not_selected'";
-						str += ' onclick="change_image('+id+')" />';
+						str += ' onclick="change_image_desks('+id+')" />';
 			//			console.log(str);
 					}
 					else if(obj[i][j]==-1){
@@ -409,7 +421,7 @@ function display_desks()
 				str+="<br />";
 
 			};
-			str+='<button id="desk_submit"> Submit </button>';
+			str+='<br /><button class="btn btn-success" id="desk_submit"> Submit </button>';
 			document.getElementById('desk_selection').innerHTML=str;
 		//	document.getElementById('display_room').innerHTML='';
 		},
@@ -419,10 +431,6 @@ function display_desks()
 	});
 
 }
-
-
-
-
 
 function display_rooms()
 {		
@@ -441,17 +449,17 @@ function display_rooms()
 			var obj = JSON.parse(msg);
 			global_obj = msg;
 			var length = obj.length;
-			var str='';
+			var str='<div class = "col-md-12 col-xs-12"><h1>Select Room</h1></div><br />';
 			for (var i = 0; i < length; i++) {
 				for (var j = 0; j < obj[i].length; j++) {
-					obj[i][j] = obj[i][j].startup_id;
-					if(obj[i][j]==0){
+					//obj[i][j] = obj[i][j].startup_id;
+					if(obj[i][j].startup_id == 0){
 						var id = "'" + i + '-' + j + "'";
-						str += "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' class='not_selected'";
-						str += ' onclick="change_image('+id+')" />';
+						str += "<img src='../asset/img/not_selected.png' id='" + obj[i][j].desk_id + "' class='not_selected'";
+						str += ' onclick="change_image_rooms('+obj[i][j].desk_id+')" />';
 			//			console.log(str);
 					}
-					else if(obj[i][j]==-1){
+					else if(obj[i][j].startup_id == -1){
 		//				str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' class='not_available'/>";
 					}
 					else {
@@ -462,7 +470,7 @@ function display_rooms()
 				str+="<br />";
 
 			};
-			str+='<button id="desk_submit"> Submit </button>';
+			str+='<br /><button class="btn btn-success" id="desk_submit"> Submit </button>';
 			document.getElementById('room_selection').innerHTML=str;
 		//	document.getElementById('display_room').innerHTML='';
 		},
@@ -486,7 +494,56 @@ selectedImage.src = "../asset/img/selected.png";
 var notSelectedImage = new Image();
 notSelectedImage.src = "../asset/img/not_selected.png";
 
-function change_image(id){
+function change_image_rooms(id){
+
+	if(document.getElementById(id).src == notSelectedImage.src){
+		if(counter < total){
+			document.getElementById(id).src = selectedImage.src;
+			document.getElementById(id).className = 'selected';
+			counter++;
+		}
+	}
+	else{
+		document.getElementById(id).src = notSelectedImage.src;
+		document.getElementById(id).className = 'not_selected';
+		counter--;
+	}
+	$.ajax({
+		url: "../controller/room.php",
+		type: 'GET',
+		data: "action=show&id=" + id,
+
+		contentType: false,
+		cache: false,
+		processData:false,
+
+		success: function(msg){
+			var obj = JSON.parse(msg);
+		//	if(obj['status']) {
+				var roomdetails = obj['row'];
+				console.log(roomdetails);
+				var roomdetails = obj['row'];
+				console.log(roomdetails);
+				str = "<b>Room id: </b>"+roomdetails['id']+"<br />";
+				str += "<b>Area: </b>"+roomdetails['area']+"<br />";
+				str += "<b>Desks: </b>"+roomdetails['desks']+"<br />";
+				str += "<b>Side: </b>"+roomdetails['side']+"<br />";
+				document.getElementById('display_room_details').innerHTML = str;
+				//document.getElementById('display_cowork').innerHTML = "Room width : " + roomdetails['width'];
+			//	console.log(obj);
+		//	}
+			//else {
+			//	document.getElementById('display_cowork').innerHTML = "Startup Name : Not Booked";
+			//}
+		},
+		error: function(){
+			alert("Connection Error");
+		}
+	});
+}	
+
+
+function change_image_desks(id){
 
 	if(document.getElementById(id).src == notSelectedImage.src){
 		if(counter < total){
@@ -501,6 +558,7 @@ function change_image(id){
 		counter--;
 	}
 }	
+
 </script>
 
 <script type="text/javascript">
@@ -576,9 +634,9 @@ function change_image(id){
 			var form_data;
 			for (var i = 0; i < obj.length; i++) {
 				for (var j = 0; j < obj[i].length; j++) {
-					var id = i + '-' + j;
+					var id = obj[i][j].desk_id;
 					console.log(id);
-					if( document.getElementById(id).src == selectedImage.src) {
+					if( document.getElementById(id) && document.getElementById(id).src == selectedImage.src) {
 						form_data = obj[i][j].desk_id;
 						console.log("INSIDE");
 					}
@@ -610,6 +668,7 @@ function change_image(id){
 					else {
 					//Success of this function
 						document.getElementById('room_selection').style.display = "none";
+						document.getElementById('display_room_details').style.display = "none";
 						document.getElementById("step3").className = "";
 						document.getElementById("step4").className = "active";
 						document.getElementById("step3_1").className = "badge badge-success";

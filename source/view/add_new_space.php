@@ -49,6 +49,8 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 								<div class="step-content">
 									<div class = 'col-md-2'></div>
 									<div class="step-pane active col-md-8 col-xs-12" id="step1">
+									<br />
+									<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Add New Space</h1></div> 
 										
 										<form role="form" id = "add_space" action="" onsubmit="">
 											<div class="modal-body">
@@ -166,11 +168,8 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 					</div>
 				</div>
 			</div>
-			<footer id="footer-bar" class="row">
-				<p id="footer-copyright" class="col-xs-12">
-				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
-				</p>
-			</footer>
+			<!--<footer id="footer-bar" class="row">
+			</footer> -->
 		</div>
 	</div>
 </div>

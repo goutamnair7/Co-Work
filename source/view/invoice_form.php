@@ -102,17 +102,19 @@
 										</div>
 									</div>
                                     <label><strong>Element 1</strong></label>
-									<div class="form-group">
-										<label>Description</label>
-										<input class="form-control" type="text" placeholder="Description" name="description1" required>
-                                    </div>
-                                    <div class="form-group">
-										<label>Number Of Desks</label>
-										<input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks1" required>
-                                    </div>
-                                    <div class="form-group">
-										<label>Rent Per Desk (Rs)</label>
-										<input class="form-control" type="number" placeholder="Rent Per Desk (Rs)" name="rate1" required>
+									<div class='row'>
+										<div class="col-md-4 form-group">
+											<label>Description</label>
+											<input id='description1' class="form-control" type="text" placeholder="Description" name="description1" required>
+	                                    </div>
+	                                    <div class="col-md-4 form-group">
+											<label>Number Of Desks</label>
+											<input id='noofdesks1' class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks1" required>
+	                                    </div>
+	                                    <div class="col-md-4 form-group">
+											<label>Rent Per Desk (Rs)</label>
+											<input id='rate1' class="form-control" type="number" placeholder="Rent Per Desk (Rs)" name="rate1" required>
+	                                    </div>
                                     </div>
                                     <input type="hidden" value='1' name='total' id='total'>
                                     <div id="add">
@@ -165,12 +167,8 @@
 				</div>--> 
 				</div>
 			</div>
-			
-			<footer id="footer-bar" class="row">
-				<p id="footer-copyright" class="col-xs-12">
-				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
-				</p>
-			</footer>
+			<!--<footer id="footer-bar" class="row">
+			</footer> -->
 		</div>
 	</div>
 </div>
@@ -192,7 +190,43 @@
 
 <script>
     
-counter = 2;
+counter = 1;
+function add_element() {
+    var desc = new Array(counter);
+    var desks = new Array(counter);
+    var rates = new Array(counter);
+    for(var i=1; i<=counter;i++) {
+      var description = 'description' + i;
+      var desk = 'noofdesks' + i;
+      var rate = 'rate' + i;
+      desc[i] = document.getElementById(description).value;
+      desks[i] = document.getElementById(desk).value;
+      rates[i] = document.getElementById(rate).value;
+    };
+    counter += 1;
+    document.getElementById('total').value = counter;
+    var add = document.getElementById('add');
+
+    add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>';
+    add.innerHTML += '<div class="row">';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" id="description'+counter+'" name="description'+ counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Number Of Desks</label><input class="form-control" type="number" placeholder="Number Of Desks" id="noofdesks'+counter+'" name="noofdesks' + counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Rent Per Desk (Rs)</label><input class="form-control" type="number" placeholder="Rent Per Desk(Rs)" id="rate'+counter+'" name="rate' +counter+ '" required></div>';
+    add.innerHTML += '</div>';
+
+    for(var i=1;i<=counter-1;i++) {
+      var description = 'description' + i;
+      var desk = 'noofdesks' + i;
+      var rate = 'rate' + i;
+
+      document.getElementById(description).value = desc[i];
+      document.getElementById(desk).value = desks[i];
+      document.getElementById(rate).value = rates[i];
+    };
+  }
+
+
+/* counter = 2;
 function add_element()
 {
     var add = document.getElementById("add");
@@ -203,11 +237,12 @@ function add_element()
     desc[counter-1] = document.getElementsByName("description"+String(counter-1))[0].value;
     desks[counter-1] = document.getElementsByName("noofdesks"+String(counter-1))[0].value;
     rate[counter-1] = document.getElementsByName("rate"+String(counter-1))[0].value;
-
     add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>';
-    add.innerHTML += '<div class="form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
-    add.innerHTML += '<div class="form-group"><label>Number Of Desks</label><input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks' + counter +'" required></div>';
-    add.innerHTML += '<div class="form-group"><label>Rent Per Desk (Rs)</label><input class="form-control" type="number" placeholder="Rent Per Desk(Rs)" name="rate' +counter+ '" required></div>';
+    add.innerHTML += '<div class="row">';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Number Of Desks</label><input class="form-control" type="number" placeholder="Number Of Desks" name="noofdesks' + counter +'" required></div>';
+    add.innerHTML += '<div class="col-md-4 form-group"><label>Rent Per Desk (Rs)</label><input class="form-control" type="number" placeholder="Rent Per Desk(Rs)" name="rate' +counter+ '" required></div>';
+    add.innerHTML += '</div>';
     document.getElementById("total").value = counter;
 
     for(i=counter-1;i>=2;i--)
@@ -217,7 +252,7 @@ function add_element()
         document.getElementsByName("rate"+String(i))[0].value = rate[i];
     }
     counter += 1;
-}
+} */
 </script>
 </body>
 </html>

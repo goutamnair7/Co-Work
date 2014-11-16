@@ -32,14 +32,22 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		<div id="content-wrapper">
 			<div class="row" id="main">
 				<br />
-				<div class = 'col-md-10 col-xs-12' align='right'>
-					<a href="add_new_space.php"><button class="btn btn-primary">Add Space</button></a>
+				<div class='row'>
+					<div class = 'col-md-6' style="text-align:center;">
+						<h1>View Space </h1> 
+					</div>
+
+					<div class = 'col-md-5' style="text-align:right;"> 
+						<a href="add_new_space.php"><button class="btn btn-primary">Add Space</button></a>
+					</div>
+
+					<div class = 'col-md-1'></div>
 				</div>
 				<br />
 				<div class="col-md-6 form-group">
 					<label>Space</label>
 					<select class="form-control" id = 'spacename' name="space" required>
-						<option value = "0"> - </option>
+						<option id='0' class='useless' value = "0"> - </option>
 					<?php
 						require_once("../model/config_sql.php" );
 						$sql = $mysqli->query("SELECT * FROM spaces");
@@ -70,17 +78,19 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 						<select class="form-control" id = 'year' name="year" required>
 						</select><br />
 					</div>
-
+					<br />
 					<div id='display_space' class='col-md-6'>
 					</div>
-					<div id='display_cowork' class='col-md-6'>
+					<div id='startup_details'>
+						<div id='display_cowork' class='col-md-6'>
+						</div>
+						<div id='display_room_details' class='col-md-6'>
+						</div>
 					</div>
+
 				</div>
-			<footer id="footer-bar" class="row">
-				<p id="footer-copyright" class="col-xs-12">
-				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
-				</p>
-			</footer>
+			<!--<footer id="footer-bar" class="row">
+			</footer> -->
 		</div>
 	</div>
 </div>
@@ -185,6 +195,7 @@ function display_desks()
 			};
 			document.getElementById('display_space').innerHTML=str;
 			document.getElementById('display_cowork').innerHTML='';
+			document.getElementById('display_room_details').innerHTML='';
 		},
 		error: function(){
 			alert("Connection Error");
@@ -193,9 +204,41 @@ function display_desks()
 
 }
 
-function show_details(id){
+function show_details(id, startup_id){
+	if(startup_id != 0) {
+		$.ajax({
+			url: "../controller/startup.php",
+			type: 'GET',
+			data: "action=show&id=" + startup_id,
+
+			contentType: false,
+			cache: false,
+			processData:false,
+
+			success: function(msg){
+				var obj = JSON.parse(msg);
+				console.log(obj);
+				if(obj['status']) {
+					var startup = obj['row'];
+					console.log(startup);
+					document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>" + startup['name'];
+				//	console.log(obj);
+				}
+				else {
+					document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>Not Booked";
+				}
+			},
+			error: function(){
+				alert("Connection Error");
+			}
+		});
+	}
+	else{
+		document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>Not Booked";
+	}
+
 	$.ajax({
-		url: "../controller/startup.php",
+		url: "../controller/room.php",
 		type: 'GET',
 		data: "action=show&id=" + id,
 
@@ -204,20 +247,26 @@ function show_details(id){
 		processData:false,
 
 		success: function(msg){
-			//console.log(msg);
 			var obj = JSON.parse(msg);
-			if(obj['status']) {
-				var startup = obj['row'];
-				document.getElementById('display_cowork').innerHTML = "Startup Name : " + startup['name'];
+		//	if(obj['status']) {
+				var roomdetails = obj['row'];
+				console.log(roomdetails);
+				str = "<b>Room id: </b>"+roomdetails['id']+"<br />";
+				str += "<b>Area: </b>"+roomdetails['area']+"<br />";
+				str += "<b>Desks: </b>"+roomdetails['desks']+"<br />";
+				str += "<b>Side: </b>"+roomdetails['side']+"<br />";
+				document.getElementById('display_room_details').innerHTML = str;
 			//	console.log(obj);
-			}
-			else
-				alert("There is some major problem. Contact developers ASAP");
+		//	}
+			//else {
+			//	document.getElementById('display_cowork').innerHTML = "Startup Name : Not Booked";
+			//}
 		},
 		error: function(){
 			alert("Connection Error");
 		}
 	});
+
 }
 
 function display_rooms()
@@ -238,24 +287,24 @@ function display_rooms()
 			var str='';
 			for (var i = 0; i < length; i++) {
 				for (var j = 0; j < obj[i].length; j++) {
-					obj[i][j] = obj[i][j].startup_id;
-					if(obj[i][j]==0){
+					//obj[i][j] = obj[i][j].startup_id;
+					if(obj[i][j].startup_id==0){
 						if(spacename == ''){
-							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
 						}
 						else{
-							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
 						}
 					}
-					else if(obj[i][j]==-1){
+					else if(obj[i][j].startup_id==-1){
 					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
 						if(spacename == ''){
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
 						}
 						else{
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
 						}
 					}
 				};
@@ -264,6 +313,7 @@ function display_rooms()
 			};
 			document.getElementById('display_space').innerHTML=str;
 			document.getElementById('display_cowork').innerHTML='';
+			document.getElementById('display_room_details').innerHTML='';
 		},
 		error: function(){
 			alert("Connection Error");

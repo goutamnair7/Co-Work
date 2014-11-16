@@ -42,9 +42,9 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Register New Admin</h4>
 							</div>-->
-							<form action="template/purchase_order.php" method="post">
+							<form action="template/reimbursement.php" method="post">
 								<br /><br />
-								<div class = 'col-md-12 col-xs-12'><h1>Purchase Order</h1></div> 
+								<div class = 'col-md-12 col-xs-12'><h1>Reimbursement</h1></div> 
 								<br />
 								<div class="modal-body">
 									<div class = 'col-md-12 col-xs-12'><h2>General Information</h2></div> 
@@ -56,36 +56,34 @@
 									</div>
 										
 									<div class="form-group">
-										<label>Name</label>
+										<label>Date</label>
+										<input class="form-control" type="date" placeholder="Date" name="date" required>
+									</div>
+
+									<div class="form-group">
+										<label>Reimbursement to</label>
 										<input class="form-control" type="text" placeholder="Name" name="name" required>
 									</div>
 
 									<div class="form-group">
-										<label>Designation</label>
-										<input class="form-control" type="text" placeholder="Designation" name="desig" required>
+										<label>Reason</label>
+										<input class="form-control" type="text" placeholder="Reason for reimbursement" name="reason" required>
 									</div>
-
+									
 									<div class="form-group">
-										<label>Company</label>
-										<input class="form-control" type="text" placeholder="Company" name="company" required>
+										<label>Name of beneficiary</label>
+										<input class="form-control" type="text" placeholder="Name of beneficiary" name="bname" required>
 									</div>
-
+                                    <div class="form-group">
+										<label>Account to be debited from:</label>
+										<input class="form-control" type="text" placeholder="Account" name="account" required>
+									</div>
 									<div class="form-group">
-										<label>Address</label>
-										<input class="form-control" type="text" placeholder="Password" name="add" required>
+										<label>Enclosures</label>
+										<input class="form-control" type="text" placeholder="Enclosures" name="enclosure" required>
 									</div>
 
-									<div class="form-group">
-										<label>Purchase Order Number</label>
-										<input class="form-control" type="number" placeholder="Purchase Order Number" name="purchaseorder" required>
-									</div>
-
-									<div class="form-group">
-										<label>Check To</label>
-										<input class="form-control" type="text" placeholder="Check To" name="checkto" required>
-									</div>
-
-									<div class = 'col-md-12 col-xs-12'><h2>Invoice Information</h2></div> 
+									<div class = 'col-md-12 col-xs-12'><h2>Reimbursement Information</h2></div> 
 									<br />
 
 									<div id = "statusdiv" class="row">
@@ -95,16 +93,20 @@
 									</div>
 									<label><strong>Element 1</strong></label>
 									<div class="form-group">
+										<label>Date</label>
+										<input class="form-control" type="date" placeholder="Date" name="date1" required>
+									</div>
+									<div class="form-group">
+										<label>Cheque Number</label>
+										<input class="form-control" type="number" placeholder="Cheque Number" name="number1" required>
+									</div>
+									<div class="form-group">
 										<label>Description</label>
 										<input class="form-control" type="text" placeholder="Description" name="description1" required>
 									</div>
 									<div class="form-group">
-										<label>Number Of Units</label>
-										<input class="form-control" type="number" placeholder="Number Of Units" name="noofunits1" required>
-									</div>
-									<div class="form-group">
-										<label>Rate Per Unit (Rs)</label>
-										<input class="form-control" type="number" placeholder="Rate Per Unit (Rs)" name="rate1" required>
+										<label>Amount (Rs)</label>
+										<input class="form-control" type="number" placeholder="Amount (Rs)" name="amount1" required>
 									</div>
 									<input type='hidden' value='1' id='total' name='total'>
 									<div id = 'add'>
@@ -187,24 +189,28 @@ function add_element()
 {
 	var add = document.getElementById('add');
 
+    _date = Array();
     desc = Array();
-    units = Array();
-    rate = Array();
+    _number = Array();
+    amount = Array();
+    _date[counter-1] = document.getElementsByName("date"+String(counter-1))[0].value;
     desc[counter-1] = document.getElementsByName("description"+String(counter-1))[0].value;
-    units[counter-1] = document.getElementsByName("noofunits"+String(counter-1))[0].value;
-    rate[counter-1] = document.getElementsByName("rate"+String(counter-1))[0].value;
+    _number[counter-1] = document.getElementsByName("number"+String(counter-1))[0].value;
+    amount[counter-1] = document.getElementsByName("amount"+String(counter-1))[0].value;
 
 	add.innerHTML += '<label><strong>Element ' +counter+ '</strong></label>'
+	add.innerHTML += '<div class="form-group"><label>Date</label><input class="form-control" type="date" placeholder="Date" name="date'+ counter +'" required></div>';
+	add.innerHTML += '<div class="form-group"><label>Cheque Number</label><input class="form-control" type="number" placeholder="Cheque Number" name="number' + counter +'" required></div>';
 	add.innerHTML += '<div class="form-group"><label>Description</label><input class="form-control" type="text" placeholder="Description" name="description'+ counter +'" required></div>';
-	add.innerHTML += '<div class="form-group"><label>Number Of Units</label><input class="form-control" type="number" placeholder="Number Of Units" name="noofunits' + counter +'" required></div>';
-	add.innerHTML += '<div class="form-group"><label>Rate Per Unit (Rs)</label><input class="form-control" type="number" placeholder="Rate Per Unit (Rs)" name="rate' +counter+ '" required></div>';
+	add.innerHTML += '<div class="form-group"><label>Amount (Rs)</label><input class="form-control" type="number" placeholder="Amount (Rs)" name="amount' +counter+ '" required></div>';
 	document.getElementById('total').value = counter; 
 
     for(i=counter-1;i>=2;i--)
     {
+        document.getElementsByName("date"+String(i))[0].value = _date[i];
         document.getElementsByName("description"+String(i))[0].value = desc[i];
-        document.getElementsByName("noofunits"+String(i))[0].value = units[i];
-        document.getElementsByName("rate"+String(i))[0].value = rate[i];
+        document.getElementsByName("number"+String(i))[0].value = _number[i];
+        document.getElementsByName("amount"+String(i))[0].value = amount[i];
     }
 
 	counter++;

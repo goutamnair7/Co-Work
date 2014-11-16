@@ -44,12 +44,59 @@
 		?>
 
 		<div id="content-wrapper">
-			
-			<footer id="footer-bar" class="row">
-				<p id="footer-copyright" class="col-xs-12">
-				&copy; 2014 <a href="http://www.adbee.sk/" target="_blank">Adbee digital</a>. Powered by Centaurus Theme.
-				</p>
-			</footer>
+			<br />
+			<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Dashboard</h1></div> 
+				
+				<?php
+					require_once("../model/config_sql.php" );
+
+					$sql = $mysqli->query("SELECT * FROM spaces");
+						
+					while($row = $sql->fetch_assoc()){
+						echo "<div class='col-md-3 main-box clearfix' style='padding:10px;margin-left:30px;'>";
+						$name = $row['name'];
+						echo "<span><h4><b>".$row['name']."</b></h3><span>";						
+						echo "<b>Type: </b>".$row['type'];						
+						
+						if($row['type'] == 'Wing'){
+							echo "<br /><b>Located on: </b>".$row['floor'] . " Floor";
+							$sql1 = $mysqli->query("SELECT COUNT(*) as total FROM rooms WHERE space LIKE '{$name}'");
+							$row1 = $sql1->fetch_assoc();
+							echo "<br /><b>Total No. of Rooms: </b>".$row1['total'];
+							$month = date("m");	
+							$year = date("Y");
+							$sql1 = $mysqli->query("SELECT * FROM rooms WHERE space LIKE '{$name}'");
+							$count=0;
+							while($row1 = $sql1->fetch_assoc()){
+								$room_id = $row1['id'];
+								$sql2 = $mysqli->query("SELECT * FROM room_log WHERE room_id='{$room_id}' AND month='{$month}' AND year='{$year}' LIMIT 1");
+								$count = $count + mysqli_num_rows($sql2);
+							}
+							echo "<br /><b>Rooms Occupied: </b>".$count;
+						}
+						else{
+							echo "<br /><b>Rows: </b>".$row['rows'];
+							$sql1 = $mysqli->query("SELECT COUNT(*) as total FROM desks WHERE space LIKE '{$name}'");
+							$row1 = $sql1->fetch_assoc();
+							echo "<br /><b>Total No. of Desks: </b>".$row1['total'];
+							$month = date("m");	
+							$year = '20'.date("y");
+
+							$sql1 = $mysqli->query("SELECT * FROM desks WHERE space LIKE '{$name}'");
+							$count=0;
+							while($row1 = $sql1->fetch_assoc()){
+								$desk_id = $row1['id'];
+								$sql2 = $mysqli->query("SELECT * FROM desk_log WHERE desk_id='{$desk_id}' AND month='{$month}' AND year='{$year}' LIMIT 1");
+								$count = $count + mysqli_num_rows($sql2);
+							}
+							echo "<br /><b>Desks Occupied: </b>".$count;
+						}
+						echo "</div>";
+						//echo "<div class='col-md-1'></div>";
+					}
+				?>
+			<!--<footer id="footer-bar" class="row">
+			</footer> -->
 		</div>
 	</div>
 </div>
