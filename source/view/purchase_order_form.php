@@ -56,6 +56,10 @@
 									</div>
 										
 									<div class="form-group">
+										<input class="form-control hidden" type="text" name="ret_action" value="create" required>
+									</div>
+
+									<div class="form-group">
 										<label>Name</label>
 										<input class="form-control" type="text" placeholder="Name" name="name" required>
 									</div>
