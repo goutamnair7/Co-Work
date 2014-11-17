@@ -12,13 +12,15 @@ if($action == 'create')
 	$desk_count_array = json_decode(@$_GET['desk_count_array']);
 	
 	$row = count($desk_count_array);
+	$label = 1;
 
 	for($r = 1; $r<=$row; $r++)
 	{
 		$desk_count = $desk_count_array[$r-1];
 		for ($i=1; $i <= $desk_count; $i++)
 		{	
-			$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$space_id}', '{$r}', '{$i}')");
+			$status = $mysqli->query("INSERT INTO desks VALUES ('', '{$space_id}', '{$r}', '{$i}', '{$label}')");
+			$label++;
 			if(!$status)
 				break;
 		}
@@ -117,7 +119,7 @@ else if($action == "show_by_space_name")
 				if(!isset($free[$r-1]))
 					$free[$r-1] = array();
 
-				$free[$r-1][$c-1] = array('desk_id' => $row['id'], 'startup_id' => 0);
+				$free[$r-1][$c-1] = array('desk_id' => $row['id'], 'startup_id' => 0, 'label' => $row['label']);
 
 				$all[$row['id']] = array('r' => $r, 'c' => $c);
 
