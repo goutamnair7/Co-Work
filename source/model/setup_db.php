@@ -12,9 +12,9 @@ $tbl_name7 = "startup_members"; //tablename 7.
 $tbl_name8 = "spaces"; //tablename 8.
 $tbl_name9 = "sign_auth"; //tablename 9.
 $tbl_name10 = "invoice"; //tablename 10.
-$tbl_name11 = "purchase_order_invoice"; //tablename 11.
-$tbl_name12 = "reciept_invoice"; //tablename 12.
-$tbl_name13 = "general_invoice"; //tablename 13.
+$tbl_name11 = "purchase_order"; //tablename 11.
+$tbl_name12 = "reciept"; //tablename 12.
+$tbl_name13 = "general"; //tablename 13.
 //$tbl_name14 = "reimbursement_invoice"; //tablename 14.
 
 //Creating table "admins".
@@ -148,6 +148,8 @@ $sql_tbl_10 = "CREATE TABLE `$tbl_name10` (
   `date` DATE NOT NULL,
   `left_auth` varchar(60) NOT NULL,
   `right_auth` varchar(60) NOT NULL,
+  `checkto` varchar(200),
+  `status` int(11),
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_10 = $mysqli->query( $sql_tbl_10 );
@@ -159,7 +161,6 @@ $sql_tbl_11 = "CREATE TABLE `$tbl_name11` (
   `description` varchar(200) NOT NULL,
   `noofunit` int(11) NOT NULL,
   `rateperunit` int(11) NOT NULL,
-  `checkto` varchar(200) NOT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_11 = $mysqli->query( $sql_tbl_11 );
