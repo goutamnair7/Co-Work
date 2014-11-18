@@ -401,26 +401,29 @@ function display_desks()
 			global_obj = msg;
 			var length = obj.length;
 			var str='<div class = "col-md-12 col-xs-12"><h1>Select Desks</h1></div><br />';
+			str += "<table style='font-size: 0.8em; text-align: center'>";
 			for (var i = 0; i < length; i++) {
+				str += "<tr>";
 				for (var j = 0; j < obj[i].length; j++) {
-					obj[i][j] = obj[i][j].startup_id;
-					if(obj[i][j]==0){
+					str += "<td>";
+					if(obj[i][j].startup_id==0){
 						var id = "'" + i + '-' + j + "'";
 						str += "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' class='not_selected'";
-						str += ' onclick="change_image_desks('+id+')" />';
+						str += ' onclick="change_image_desks('+id+')" /><br>'+obj[i][j].label;
 			//			console.log(str);
 					}
-					else if(obj[i][j]==-1){
+					else if(obj[i][j].startup_id==-1){
 		//				str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' class='not_available'/>";
 					}
 					else {
-						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' class='booked'/>";
+						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' class='booked'/><br>"+obj[i][j].label;
 					}
- 
+					str += "</td><td>&nbsp;&nbsp;</td>";
 				};
-				str+="<br />";
+				str+="</tr>";
 
 			};
+			str += "</table>";
 			str+='<br /><button class="btn btn-success" id="desk_submit"> Submit </button>';
 			document.getElementById('desk_selection').innerHTML=str;
 		//	document.getElementById('display_room').innerHTML='';
