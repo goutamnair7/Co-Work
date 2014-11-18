@@ -35,7 +35,8 @@
 				<div class="row col-md-8 col-xs-12">
 								<br /><br />
 								<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Invoices</h1></div> 
-								<br />
+								<br /><br><br>
+							    <a class="btn btn-primary" href="previous_invoice.php">Previous Invoices</a><br/><br/>
 								<div class="modal-body">
 									<div class = 'col-md-12 col-xs-12'><h2>Generate New Invoice</h2></div> 
 									<br />	
