@@ -14,7 +14,7 @@ while ($rows=mysqli_fetch_array($result1)) {
 	$invoice_number = $rows['invoice_number'];
 	$inv_id = $rows['id'];
 	$html = $html . "<tr>
-	                    <td><a href=template/$table.php?id=".$inv_id.">".$invoice_number."</a></td>
+	                    <td><a href=template/$type.php?id=".$inv_id.">".$invoice_number."</a></td>
 	                    <td><a class=\"btn btn-success\" onclick=\"invoice_confirm($inv_id,'$type')\">Confirm</a></td>
                     </tr>";
 }
