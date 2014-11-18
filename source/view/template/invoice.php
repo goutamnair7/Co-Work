@@ -3,14 +3,45 @@
 require_once("../../vendor/html2pdf_v4.03/html2pdf.class.php");
 require( dirname(dirname( dirname( __FILE__ ) ) ). DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
-$name = $_POST['name'];
-$designation = $_POST['desig'];
-$company = $_POST['company'];
-$address = "2nd Floor, Vindya C4 Building, IIITH, Gachibowli, Hyderabad";
+if (isset($_POST['ret_action'])) {
+	$ret_action = $_POST['ret_action'];
+} else {
+	$ret_action = "exist";
+}
 
-$date = $_POST['date'];
-$invoice = $_POST['invoice'];
-$total_number = $_POST['total'];
+if ($ret_action == "create") {
+
+	$name = $_POST['name'];
+	$designation = $_POST['desig'];
+	$company = $_POST['company'];
+	$address = $_POST['add'];
+	$date_to_store = date("Y-m-d");
+	$date = date("F d, Y", strtotime($date_to_store));
+	$invoice = $_POST['invoice'];
+	$total_number = $_POST['total'];
+	$left_auth = $_POST['leftauth'];
+	$right_auth = $_POST['rightauth'];
+	$query_new = "INSERT INTO invoice
+			VALUES('', $invoice, 'general', '$name', '$designation', '$company', '$address', '$date_to_store', '$left_auth', '$right_auth', '', 0);";
+	$result_new = $mysqli->query($query_new);
+
+} else if ($ret_action == "exist") {
+
+	$id_invoice = $_GET['id'];
+	$extract_query = "SELECT * FROM invoice WHERE id=$id_invoice";
+	$result_extract = $mysqli->query($extract_query);
+	$rows_extract = mysqli_fetch_array($result_extract);
+	$name = $rows_extract['name'];
+	$designation = $rows_extract['designation'];
+	$company = $rows_extract['company'];
+	$address = $rows_extract['address'];
+	$date_to_store = $rows_extract['date'];
+	$date = date("F d, Y", strtotime($date_to_store));
+	$invoice = $rows_extract['invoice_number'];
+	$left_auth = $rows_extract['left_auth'];
+	$right_auth = $rows_extract['right_auth'];
+
+}
 
 $table = "<table style='border:1px solid black;'>
             <tr>
@@ -21,25 +52,54 @@ $table = "<table style='border:1px solid black;'>
             <td style='width:130px; border:1px solid; text-align:center;'><strong>Amount (Rs)</strong></td>
             </tr>
             ";
-for($i=1;$i<=$total_number;$i++)
-{
-    $desc = $_POST['description'.$i];
-    $noofdesks = $_POST['noofdesks'.$i];
-    $rate = $_POST['rate'.$i];
-    $total = $rate*$noofdesks;
-    $table = $table . "<tr>
-            <td style='width:70px; border:1px solid; text-align:center;'>$i.</td>
-            <td style='width:170px; border:1px solid; text-align:center;'>$desc</td>
-            <td style='width:100px; border:1px solid; text-align:center;'>$noofdesks</td>
-            <td style='width:150px; border:1px solid; text-align:center;'>$rate</td>
-            <td style='width:130px; border:1px solid; text-align:center;'>$total</td>
-            </tr>";
+
+if ($ret_action == "create") {
+
+	for($i=1;$i<=$total_number;$i++)
+	{
+	    $desc = $_POST['description'.$i];
+	    $noofdesks = $_POST['noofdesks'.$i];
+	    $rate = $_POST['rate'.$i];
+	    $total = $rate*$noofdesks;
+	    $table = $table . "<tr>
+	            <td style='width:70px; border:1px solid; text-align:center;'>$i.</td>
+	            <td style='width:170px; border:1px solid; text-align:center;'>$desc</td>
+	            <td style='width:100px; border:1px solid; text-align:center;'>$noofdesks</td>
+	            <td style='width:150px; border:1px solid; text-align:center;'>$rate</td>
+	            <td style='width:130px; border:1px solid; text-align:center;'>$total</td>
+	            </tr>";
+
+	    $query_create = "INSERT INTO invoice
+			VALUES('', $invoice, '$desc', $noofdesks, $rate);";
+		$result_create = $mysqli->query($query_create);
+	}
+
+} else {
+
+	$purchase_query = "SELECT * FROM general WHERE invoice_number=$invoice";
+	$result_purchase = $mysqli->query($purchase_query);
+	$i = 0;
+	while($rows_purchase = mysqli_fetch_array($result_purchase)) {
+
+		$desc = $rows_purchase['description'];
+		$noofdesks = $rows_purchase['noofdesk'];
+		$rate = $rows_purchase['rateperdesk'];
+		$total = $rate*$noofunits;
+		$i++;
+		$table = $table . "<tr>
+				<td style='width:70px; border:1px solid; text-align:center;'>$i.</td>
+				<td style='width:170px; border:1px solid; text-align:center;'>$desc</td>
+				<td style='width:100px; border:1px solid; text-align:center;'>$noofunits</td>
+				<td style='width:150px; border:1px solid; text-align:center;'>$rate</td>
+				<td style='width:130px; border:1px solid; text-align:center;'>$total</td>
+				</tr>";
+
+	}
+
 }
 
 $table .= "</table>";
 
-$left_auth = $_POST['leftauth'];
-$right_auth = $_POST['rightauth'];
 $leftsign = '';
 $rightsign = '';
 
