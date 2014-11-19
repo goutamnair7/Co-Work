@@ -94,7 +94,7 @@
 
 									<div class="form-group">
 										<label>Address</label>
-										<input class="form-control" type="text" placeholder="Password" name="add" required>
+										<input class="form-control" type="text" placeholder="Address" name="add" required>
 									</div>
 
 									<div class="form-group">

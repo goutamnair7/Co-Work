@@ -17,7 +17,7 @@
 
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
-<style>
+<!--<style>
 #emp {
 	display : none;
 }
@@ -27,7 +27,7 @@
 #back {
 	display : none;
 }
-</style>
+</style>-->
 
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
@@ -47,6 +47,7 @@
 			<br />
 			<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Dashboard</h1></div> 
 				<br />
+<!DOCTYPE html>
 				<div class='col-md-8'>
 					
 					<?php
@@ -101,9 +102,7 @@
 				</footer> -->
 			</div>
 			<div class='col-md-4' style='margin-top:-32px;'>
-				<h2>Pending Invoice</h2>
-				<div id='msgform'>
-				</div>
+				<h2>Pending Invoices</h2>
 				<div class="form-group">
 					<select class='form-control' onchange='changeajax(this.value)'>
 						<option value=""> ---- Select Invoice Type ---- </option>
@@ -113,6 +112,8 @@
 						<option value="reimbursement"> Reimbursement Invoice </option>
 						
 					</select>
+				</div>
+				<div id='msgform'>
 				</div>
 				<div id='voiceofinvoice'>
 				</div>
@@ -136,6 +137,17 @@
 
 var choice;
 
+$( document ).ready(function() {
+	$.ajax({
+			url: "../controller/dashinvoice.php",
+			type: 'POST',
+			data: {"type": "all"},
+			success: function(result) {
+				$('#voiceofinvoice').html(result);
+			}
+		});
+});
+
 function changeajax(form) {
 	choice = form;
 	if (choice != "") {
@@ -148,7 +160,14 @@ function changeajax(form) {
 			}
 		});
 	} else {
-		$('#voiceofinvoice').html("");
+		$.ajax({
+			url: "../controller/dashinvoice.php",
+			type: 'POST',
+			data: {"type": "all"},
+			success: function(result) {
+				$('#voiceofinvoice').html(result);
+			}
+		});
 	}
 };
 
@@ -159,7 +178,25 @@ function invoice_confirm(invoice,type){
         data: {"id": invoice, "action":"confirm" },
         success: function(msg){
             $("#msgform").html("<div class='alert alert-success'>"+msg+"</div>");
-            changeajax(type);
+            if(type == 'all')
+            {
+                changeajax("");
+                console.log("type: all");
+            }
+            else
+                changeajax(type);
+        }
+    });
+};
+
+function invoice_confirm1(invoice,type,type1){
+    $.ajax({
+        url: "../controller/change_status.php",
+        type: 'GET',
+        data: {"id": invoice, "action":"confirm" },
+        success: function(msg){
+            $("#msgform").html("<div class='alert alert-success'>"+msg+"</div>");
+            changeajax(type1);
         }
     });
 };

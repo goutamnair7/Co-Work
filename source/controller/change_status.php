@@ -22,7 +22,7 @@ if($result_change) {
 	 * Redirect to the page from where its called. Also can use ajax for best use.
 	 * If ajax is used instead of header(LOCATION), use echo "Invoice Completed."
 	 */
-	echo "Success";
+	echo "Invoice confirmed successfully";
 
 } else {
 

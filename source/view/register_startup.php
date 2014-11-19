@@ -114,7 +114,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 													<div class="form-group">
 														<div class="col-md-6 form-group">
 															<label>Number of Employees</label>
-															<input id='employee_num' class="form-control" type="number" placeholder="Number of Employees" name="employees" required>
+															<input id='employee_num' class="form-control" type="text" placeholder="Number of Employees" name="employees" required>
 														</div>
 														
 														<div class="col-md-6 form-group">
@@ -169,7 +169,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 												<div class="form-group">
 													<label>Contact Number</label>
-													<input class="form-control" type="number" placeholder="Contact Number" id="contact" name="contact" required>
+													<input class="form-control" type="text" placeholder="Contact Number" id="contact" name="contact" required>
 												</div>
 												<input name='startup_id' id='startup_id' type='hidden'>
 												<input name='primary' id='primary'type='hidden'>
@@ -307,7 +307,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 			success: function(msg){
 				var obj = JSON.parse(msg);
-				console.msg(msg);
+				console.log(msg);
 				if(obj['status'] == false){
 					document.getElementById("status2").innerHTML = "<i class='fa fa-warning fa-fw fa-lg'></i>"+obj['msg'];
 					document.getElementById("status2").className += " alert-warning";

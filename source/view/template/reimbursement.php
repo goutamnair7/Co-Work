@@ -3,8 +3,10 @@
 require_once("../../vendor/html2pdf_v4.03/html2pdf.class.php");
 require( dirname(dirname( dirname( __FILE__ ) ) ). DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
-$date = $_POST['date'];
+$date_to_store = date("Y-m-d");
+$date = date("F d, Y", strtotime($date_to_store));
 $name = $_POST['name'];
+$invoice = $_POST['inum'];
 $reason = $_POST['reason'];
 $account = $_POST['account'];
 $bname = $_POST['bname'];
@@ -83,6 +85,7 @@ $content = "<page>
 			</div>
 			<div style='padding:0px 50px; font-size:16px; text-align:right; position:absolute; top:221px; right:50px;'>
 			<strong>Date:</strong> $date<br>
+            <strong>Invoice Number:</strong> $invoice<br>
 			</div>
 			<div style='padding:0px 50px; font-size:16px;'>
 			<strong>To:</strong><br>

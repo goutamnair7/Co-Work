@@ -69,7 +69,7 @@ if ($ret_action == "create") {
 	            <td style='width:130px; border:1px solid; text-align:center;'>$total</td>
 	            </tr>";
 
-	    $query_create = "INSERT INTO invoice
+	    $query_create = "INSERT INTO general
 			VALUES('', $invoice, '$desc', $noofdesks, $rate);";
 		$result_create = $mysqli->query($query_create);
 	}
@@ -84,12 +84,12 @@ if ($ret_action == "create") {
 		$desc = $rows_purchase['description'];
 		$noofdesks = $rows_purchase['noofdesk'];
 		$rate = $rows_purchase['rateperdesk'];
-		$total = $rate*$noofunits;
+		$total = $rate*$noofdesks;
 		$i++;
 		$table = $table . "<tr>
 				<td style='width:70px; border:1px solid; text-align:center;'>$i.</td>
 				<td style='width:170px; border:1px solid; text-align:center;'>$desc</td>
-				<td style='width:100px; border:1px solid; text-align:center;'>$noofunits</td>
+				<td style='width:100px; border:1px solid; text-align:center;'>$noofdesks</td>
 				<td style='width:150px; border:1px solid; text-align:center;'>$rate</td>
 				<td style='width:130px; border:1px solid; text-align:center;'>$total</td>
 				</tr>";
