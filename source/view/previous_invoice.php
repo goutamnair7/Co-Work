@@ -94,21 +94,17 @@
             id = 2;
         else if(id == "general")
             id = 1;
+        else if(id == "reimbursement")
+            id = 4;
+        
         $.ajax({
-            url: "../controller/change_status?id="+invoice+"&action=confirm",
+            url: "../controller/change_status.php",
             type: 'GET',
-            contentType: false,
-            cache: false,
-            processData: false,
-
+            data: {"id": invoice, "action":"confirm" },
             success: function(msg){
                         console.log(msg);
                         console.log("Status changed");
                         show(id);
-            },
-            error: function(msg){
-                        console.log(msg);
-                        console.log("Error occured");
             }
         });
     }
@@ -120,22 +116,18 @@
             id = 2;
         else if(id == "general")
             id = 1;
+        else if(id == "reimbursement")
+            id = 4;
+        
 
         $.ajax({
-            url: "../controller/change_status?id="+invoice+"&action=pending&table="+id,
+            url: "../controller/change_status.php",
             type: 'GET',
-            contentType: false,
-            cache: false,
-            processData: false,
-
+            data: {"id": invoice, "action": "pending"},
             success: function(msg){
                         console.log(msg);
                         console.log("Status changed");
                         show(id);
-            },
-            error: function(msg){
-                        console.log(msg);
-                        console.log("Error occured");
             }
         });
     }
