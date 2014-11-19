@@ -101,9 +101,10 @@
 				<!--<footer id="footer-bar" class="row">
 				</footer> -->
 			</div>
-			<div class='col-md-4' style="margin-top:-32px;">
-				<h2>Pending Invoices</h2>
-				
+			<div class='col-md-4' style='margin-top:-32px;'>
+				<h2>Pending Invoice</h2>
+				<div id='msgform'>
+				</div>
 				<div class="form-group">
 					<select class='form-control' onchange='changeajax(this.value)'>
 						<option value=""> ---- Select Invoice Type ---- </option>
