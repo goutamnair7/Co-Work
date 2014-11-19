@@ -1,0 +1,20 @@
+*** Settings ***
+Documentation       A resource file with reusable keywords and variables.
+...                 Install Robot Framework With pip:
+...                 1) pip install robotframework
+...                 2) pip install robotframework-selenium2library 
+
+Library             Selenium2Library
+
+*** Variables ***
+
+${SERVER}           localhost/SSAD/ssad32/source/
+${BROWSER}          Firefox
+${DELAY}            0.2
+${VALID USER}       admin@example.com
+${VALID PASSWORD}   password
+${LOGIN URL}        http://${SERVER}/
+${WELCOME URL}      http://${SERVER}/welcome.html
+${ERROR URL}        http://${SERVER}/error.html
+${HTTP_PROXY}       proxy.iiit.ac.in:8080
+${NO_PROXY}         localhost, 127.0.0.1

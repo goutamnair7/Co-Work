@@ -53,13 +53,13 @@
 							</a>
 							</li>
 							<li id='chpasswd'>
-							<a href="change_password.php">
+							<a id='change_password_btn' href="change_password.php">
 								<i class="fa fa-unlock-alt"></i>
 								<span>Reset Password</span>
 							</a>
 							</li>
 							<li id='logoutsession'>
-							<a href="../controller/logout.php">
+							<a id = 'logout_btn' href="../controller/logout.php">
 								<i class="fa fa-sign-out"></i>
 								<span>Logout</span>
 							</a>

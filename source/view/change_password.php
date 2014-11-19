@@ -69,7 +69,7 @@
 								<input class="form-control" id="reset_confirm_password" type="password" name="confirm_pass" required>
 							</div>
 							<div class='col-md-4 col-xs-2'></div>
-							<button type="submit" class="col-xs-8 col-md-4 btn btn-primary">Reset Password</button>
+							<button id='passwd_change_btn' type="submit" class="col-xs-8 col-md-4 btn btn-primary">Reset Password</button>
 
 						</div>
 
