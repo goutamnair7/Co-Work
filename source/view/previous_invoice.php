@@ -44,7 +44,7 @@
 									    <option value="1"> General Invoice </option>
 										<option value="2"> Receipt Invoice </option>
 										<option value="3"> Purchase Order Invoice </option>
-										<!--<option value="4"> Reimbursement </option>-->
+										<option value="4"> Reimbursement </option>
 									</select>
 						</div><br><br>	
 			        <div style='margin-left:30px' id="resultdiv">

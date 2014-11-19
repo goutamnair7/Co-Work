@@ -55,9 +55,9 @@
 										</div>
 									</div>
 										
-									<div class="form-group">
-										<label>Date</label>
-										<input class="form-control" type="date" placeholder="Date" name="date" required>
+                                    <div class="form-group">
+										<label>Invoice Number</label>
+										<input class="form-control" type="text" placeholder="Invoice Number" name="inum" required>
 									</div>
 
 									<div class="form-group">
@@ -74,11 +74,13 @@
 										<label>Name of beneficiary</label>
 										<input class="form-control" type="text" placeholder="Name of beneficiary" name="bname" required>
 									</div>
+                                    
                                     <div class="form-group">
 										<label>Account to be debited from:</label>
 										<input class="form-control" type="text" placeholder="Account" name="account" required>
 									</div>
-									<div class="form-group">
+									
+                                    <div class="form-group">
 										<label>Enclosures</label>
 										<input class="form-control" type="text" placeholder="Enclosures" name="enclosure" required>
 									</div>
@@ -93,8 +95,8 @@
 									</div>
 									<label><strong>Element 1</strong></label>
 									<div class="form-group">
-										<label>Date</label>
-										<input class="form-control" type="date" placeholder="Date" name="date1" required>
+										<label>Date on Bill</label>
+										<input class="form-control" type="date" placeholder="Date on Bill" name="date1" required>
 									</div>
 									<div class="form-group">
 										<label>Cheque Number</label>

@@ -33,7 +33,7 @@
         }   
         else if($id == 4)
         {   
-            $query1 .= "reimbursement R ON I.type=\"reimbursement\" WHERE G.invoice_number=R.invoice_number;";
+            $query1 .= "reimbursement R ON I.type=\"reimbursement\" WHERE R.invoice_number=I.invoice_number;";
             $query2 .= "reimbursement;";
             $table = "reimbursement";
         }   
