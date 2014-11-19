@@ -96,12 +96,7 @@
 										<label>Address</label>
 										<input class="form-control" type="text" placeholder="Address" name="add" required>
 									</div>
-									
-                                    <div class="form-group">
-										<label>Date</label>
-										<input class="form-control" type="date" placeholder="Date" name="date" required>
-									</div>
-                                    
+
                                     <div class="form-group">
 										<label>Receipt Number</label>
 										<input class="form-control" type="text" placeholder="Receipt Number" name="receipt" required>
