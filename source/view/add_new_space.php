@@ -77,7 +77,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 
 												<div class="form-group" id='rowdiv'>
 													<label>Number Of Rows</label>
-													<input value = '0' class="form-control" type="text" placeholder="Number of Rows" id='rows' name="rows" required>
+													<input value = '0' class="form-control" type="number" placeholder="Number of Rows" id='rows' name="rows" required>
 												</div>
 									
 												<div class = 'col-md-4 col-xs-2'></div>
@@ -135,15 +135,15 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 											</div>
 											<div class="form-group">
 												<label>Length</label>
-												<input class="form-control" type="text" placeholder="Length" name="length" required>
+												<input class="form-control" type="number" placeholder="Length" name="length" required>
 											</div>
 											<div class="form-group">
 												<label>Width</label>
-												<input class="form-control" type="text" placeholder="Width" name="width" required>
+												<input class="form-control" type="number" placeholder="Width" name="width" required>
 											</div>
 											<div class="form-group">
 												<label>Number of Desks</label>
-												<input class="form-control" type="text" placeholder="Number of Desks" name="desks" required>
+												<input class="form-control" type="number" placeholder="Number of Desks" name="desks" required>
 											</div>
 
 											<div class="form-group">
@@ -286,7 +286,7 @@ $("#add_space").on('submit',(function(e) {
 					num = total = document.getElementById('rows').value;
 					var i;
 					for(i=1;i<=num;i++){
-						document.getElementById('columns').innerHTML += '<div class="form-group"><label>Number of columns in Row ' + i + '</label><input class="form-control" type="text" placeholder="Columns" name="columns" id="row'+i+'" required></div>';
+						document.getElementById('columns').innerHTML += '<div class="form-group"><label>Number of columns in Row ' + i + '</label><input class="form-control" type="number" placeholder="Columns" name="columns" id="row'+i+'" required></div>';
 					}
 					document.getElementById('columns').innerHTML += '<button type="submit" class="col-md-4 col-xs-8 btn btn-success"> <i class="icon-arrow-left"></i>Submit</button>';
 

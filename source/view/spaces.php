@@ -286,23 +286,13 @@ function display_rooms()
 				for (var j = 0; j < obj[i].length; j++) {
 					//obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j].startup_id==0){
-						if(spacename == ''){
-							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
-						}
-						else{
-							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
-						}
+						str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
 					}
 					else if(obj[i][j].startup_id==-1){
 					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
-						if(spacename == ''){
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
-						}
-						else{
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
-						}
+						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
 					}
 				};
 				str+="<br />";
