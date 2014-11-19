@@ -30,6 +30,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		?>
 
 		<div id="content-wrapper">
+        <div class="main-box clearfix" style="min-height: 820px;">
 			<div class="row" id="main">
 				<br />
 				<div class='row'>
@@ -93,6 +94,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 			</footer> -->
 		</div>
 	</div>
+    </div>
 </div>
 
 <!--Common js-->
@@ -166,33 +168,26 @@ function display_desks()
 			var obj = JSON.parse(msg);
 			var length = obj.length;
 			var str='';
+			str = "<table style='font-size: 0.8em; text-align: center'>";
 			for (var i = 0; i < length; i++) {
+				str += "<tr>";
 				for (var j = 0; j < obj[i].length; j++) {
-					obj[i][j] = obj[i][j].startup_id;
-					if(obj[i][j]==0){
-						if(spacename == ''){
-							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
-						}
-						else{
-							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
-						}
+					str += "<td>";
+					if(obj[i][j].startup_id==0){
+							str+= "<img src='../asset/img/not_selected.png' id='" + i + "-" + j + "' /><br>"+obj[i][j].label;
 					}
-					else if(obj[i][j]==-1){
+					else if(obj[i][j].startup_id==-1){
 					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
-						if(spacename == ''){
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
-						}
-						else{
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j]+")' />";
-						}
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details(0, "+obj[i][j].startup_id+")' /><br />"+obj[i][j].label;
 					}
-
+					str += "</td><td>&nbsp;&nbsp;</td>";
 				};
-				str+="<br />";
+				str+="</tr>";
 
 			};
+			str += "</table>";
 			document.getElementById('display_space').innerHTML=str;
 			document.getElementById('display_cowork').innerHTML='';
 			document.getElementById('display_room_details').innerHTML='';
@@ -221,7 +216,7 @@ function show_details(id, startup_id){
 				if(obj['status']) {
 					var startup = obj['row'];
 					console.log(startup);
-					document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>" + startup['name'];
+					document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b><a href='startup_page.php?id="+startup['id']+"'>" + startup['name']+"</a>";
 				//	console.log(obj);
 				}
 				else {
@@ -237,35 +232,37 @@ function show_details(id, startup_id){
 		document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b>Not Booked";
 	}
 
-	$.ajax({
-		url: "../controller/room.php",
-		type: 'GET',
-		data: "action=show&id=" + id,
+	if(document.getElementById(space.value).className == 'Wing'){
+		$.ajax({
+			url: "../controller/room.php",
+			type: 'GET',
+			data: "action=show&id=" + id,
 
-		contentType: false,
-		cache: false,
-		processData:false,
+			contentType: false,
+			cache: false,
+			processData:false,
 
-		success: function(msg){
-			var obj = JSON.parse(msg);
-		//	if(obj['status']) {
-				var roomdetails = obj['row'];
-				console.log(roomdetails);
-				str = "<b>Room id: </b>"+roomdetails['id']+"<br />";
-				str += "<b>Area: </b>"+roomdetails['area']+"<br />";
-				str += "<b>Desks: </b>"+roomdetails['desks']+"<br />";
-				str += "<b>Side: </b>"+roomdetails['side']+"<br />";
-				document.getElementById('display_room_details').innerHTML = str;
-			//	console.log(obj);
-		//	}
-			//else {
-			//	document.getElementById('display_cowork').innerHTML = "Startup Name : Not Booked";
-			//}
-		},
-		error: function(){
-			alert("Connection Error");
-		}
-	});
+			success: function(msg){
+				var obj = JSON.parse(msg);
+			//	if(obj['status']) {
+					var roomdetails = obj['row'];
+					console.log(roomdetails);
+					str = "<b>Room id: </b>"+roomdetails['id']+"<br />";
+					str += "<b>Area: </b>"+roomdetails['area']+"<br />";
+					str += "<b>Desks: </b>"+roomdetails['desks']+"<br />";
+					str += "<b>Side: </b>"+roomdetails['side']+"<br />";
+					document.getElementById('display_room_details').innerHTML = str;
+				//	console.log(obj);
+			//	}
+				//else {
+				//	document.getElementById('display_cowork').innerHTML = "Startup Name : Not Booked";
+				//}
+			},
+			error: function(){
+				alert("Connection Error");
+			}
+		});
+	}
 
 }
 
@@ -289,23 +286,13 @@ function display_rooms()
 				for (var j = 0; j < obj[i].length; j++) {
 					//obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j].startup_id==0){
-						if(spacename == ''){
-							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
-						}
-						else{
-							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
-						}
+						str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
 					}
 					else if(obj[i][j].startup_id==-1){
 					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
-						if(spacename == ''){
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
-						}
-						else{
-							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
-						}
+						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
 					}
 				};
 				str+="<br />";
@@ -324,7 +311,7 @@ function display_rooms()
 </script>
 <script>
 document.getElementById('year').innerHTML += '<option value = "0"> - </option>';
-for(var i=2010;i<2016;i++)
+for(var i=2005;i<2025;i++)
     document.getElementById('year').innerHTML += '<option>'+i+'</option>'
 </script>
 

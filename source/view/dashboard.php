@@ -46,57 +46,77 @@
 		<div id="content-wrapper">
 			<br />
 			<div class = 'col-md-12 col-xs-12' style="text-align:center;"><h1>Dashboard</h1></div> 
-				
-				<?php
-					require_once("../model/config_sql.php" );
+				<br />
+				<div class='col-md-8'>
+					
+					<?php
+						require_once("../model/config_sql.php" );
 
-					$sql = $mysqli->query("SELECT * FROM spaces");
-						
-					while($row = $sql->fetch_assoc()){
-						echo "<div class='col-md-3 main-box clearfix' style='padding:10px;margin-left:30px;'>";
-						$name = $row['name'];
-						echo "<span><h4><b>".$row['name']."</b></h3><span>";						
-						echo "<b>Type: </b>".$row['type'];						
-						
-						if($row['type'] == 'Wing'){
-							echo "<br /><b>Located on: </b>".$row['floor'] . " Floor";
-							$sql1 = $mysqli->query("SELECT COUNT(*) as total FROM rooms WHERE space LIKE '{$name}'");
-							$row1 = $sql1->fetch_assoc();
-							echo "<br /><b>Total No. of Rooms: </b>".$row1['total'];
-							$month = date("m");	
-							$year = date("Y");
-							$sql1 = $mysqli->query("SELECT * FROM rooms WHERE space LIKE '{$name}'");
-							$count=0;
-							while($row1 = $sql1->fetch_assoc()){
-								$room_id = $row1['id'];
-								$sql2 = $mysqli->query("SELECT * FROM room_log WHERE room_id='{$room_id}' AND month='{$month}' AND year='{$year}' LIMIT 1");
-								$count = $count + mysqli_num_rows($sql2);
+						$sql = $mysqli->query("SELECT * FROM spaces");
+							
+						while($row = $sql->fetch_assoc()){
+							echo "<div class='col-md-5 main-box clearfix' style='padding:10px;margin-left:25px;'>";
+							$name = $row['name'];
+							echo "<span><h4><b>".$row['name']."</b></h3><span>";						
+							echo "<b>Type: </b>".$row['type'];						
+							
+							if($row['type'] == 'Wing'){
+								echo "<br /><b>Located on: </b>".$row['floor'] . " Floor";
+								$sql1 = $mysqli->query("SELECT COUNT(*) as total FROM rooms WHERE space LIKE '{$name}'");
+								$row1 = $sql1->fetch_assoc();
+								echo "<br /><b>Total No. of Rooms: </b>".$row1['total'];
+								$month = date("m");	
+								$year = date("Y");
+								$sql1 = $mysqli->query("SELECT * FROM rooms WHERE space LIKE '{$name}'");
+								$count=0;
+								while($row1 = $sql1->fetch_assoc()){
+									$room_id = $row1['id'];
+									$sql2 = $mysqli->query("SELECT * FROM room_log WHERE room_id='{$room_id}' AND month='{$month}' AND year='{$year}' LIMIT 1");
+									$count = $count + mysqli_num_rows($sql2);
+								}
+								echo "<br /><b>Rooms Occupied: </b>".$count;
 							}
-							echo "<br /><b>Rooms Occupied: </b>".$count;
-						}
-						else{
-							echo "<br /><b>Rows: </b>".$row['rows'];
-							$sql1 = $mysqli->query("SELECT COUNT(*) as total FROM desks WHERE space LIKE '{$name}'");
-							$row1 = $sql1->fetch_assoc();
-							echo "<br /><b>Total No. of Desks: </b>".$row1['total'];
-							$month = date("m");	
-							$year = '20'.date("y");
+							else{
+								echo "<br /><b>Rows: </b>".$row['rows'];
+								$sql1 = $mysqli->query("SELECT COUNT(*) as total FROM desks WHERE space LIKE '{$name}'");
+								$row1 = $sql1->fetch_assoc();
+								echo "<br /><b>Total No. of Desks: </b>".$row1['total'];
+								$month = date("m");	
+								$year = '20'.date("y");
 
-							$sql1 = $mysqli->query("SELECT * FROM desks WHERE space LIKE '{$name}'");
-							$count=0;
-							while($row1 = $sql1->fetch_assoc()){
-								$desk_id = $row1['id'];
-								$sql2 = $mysqli->query("SELECT * FROM desk_log WHERE desk_id='{$desk_id}' AND month='{$month}' AND year='{$year}' LIMIT 1");
-								$count = $count + mysqli_num_rows($sql2);
+								$sql1 = $mysqli->query("SELECT * FROM desks WHERE space LIKE '{$name}'");
+								$count=0;
+								while($row1 = $sql1->fetch_assoc()){
+									$desk_id = $row1['id'];
+									$sql2 = $mysqli->query("SELECT * FROM desk_log WHERE desk_id='{$desk_id}' AND month='{$month}' AND year='{$year}' LIMIT 1");
+									$count = $count + mysqli_num_rows($sql2);
+								}
+								echo "<br /><b>Desks Occupied: </b>".$count;
 							}
-							echo "<br /><b>Desks Occupied: </b>".$count;
+							echo "</div>";
+							//echo "<div class='col-md-1'></div>";
 						}
-						echo "</div>";
-						//echo "<div class='col-md-1'></div>";
-					}
-				?>
-			<!--<footer id="footer-bar" class="row">
-			</footer> -->
+					?>
+				<!--<footer id="footer-bar" class="row">
+				</footer> -->
+			</div>
+			<div class='col-md-4'>
+				<h2>Pending Invoice</h2>
+				<div id='msgform'>
+				</div>
+				<div class="form-group">
+					<select class='form-control' onchange='changeajax(this.value)'>
+						<option value=""> ---- Select Invoice Type ---- </option>
+						<option value="general"> General Invoice </option>
+						<option value="receipt"> Receipt Invoice </option>
+						<option value="purchase_order"> Purchase Order </option>
+						<option value="reimbursement"> Reimbursement Invoice </option>
+						
+					</select>
+				</div>
+				<div id='voiceofinvoice'>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -113,6 +133,37 @@
 
 <script type="text/javascript">
 	$("#dashboard").addClass("active");
+
+var choice;
+
+function changeajax(form) {
+	choice = form;
+	if (choice != "") {
+		$.ajax({
+			url: "../controller/dashinvoice.php",
+			type: 'POST',
+			data: {"type": choice},
+			success: function(result) {
+				$('#voiceofinvoice').html(result);
+			}
+		});
+	} else {
+		$('#voiceofinvoice').html("");
+	}
+};
+
+function invoice_confirm(invoice,type){
+    $.ajax({
+        url: "../controller/change_status.php",
+        type: 'GET',
+        data: {"id": invoice, "action":"confirm" },
+        success: function(msg){
+            $("#msgform").html("<div class='alert alert-success'>"+msg+"</div>");
+            changeajax(type);
+        }
+    });
+};
+
 </script>
 </body>
 </html>

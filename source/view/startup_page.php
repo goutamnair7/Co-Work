@@ -36,7 +36,7 @@
 					<br />
 					<label>Select Startup</label> 
 					
-					<select class="form-control" id = 'spacename' name="space" required>
+					<select onchange='choosestartup(this)' class="form-control" id = 'spacename' name="space" required>
 						<option id='0' class='useless' value = "0"> - </option>
 						<?php
 							$id = $_GET['id'];
@@ -47,7 +47,7 @@
 									echo "<option class = '" .$row['space']. "' id = '" .$row['id']. "' selected='selected'>".$row['name']."</option>";
 								}
 								else{
-									echo "<option onclick=\"choosestartup(".$row['id'].")\" class = '" .$row['space']. "' id = '" .$row['id']. "'>".$row['name']."</option>";
+									echo "<option value=\"".$row['id']."\" class = '" .$row['space']. "' id = '" .$row['id']. "'>".$row['name']."</option>";
 								}
 							}
 						?>
@@ -60,38 +60,54 @@
 				<?php
 					$id = @$_GET['id'];
 					if($id>0){
+						$date = date('m-d-Y');
 						$sql = $mysqli->query("SELECT * FROM startups WHERE id='{$id}' LIMIT 1");
-						
-						$row = $sql->fetch_assoc();
-						echo "<br /><b>Startup Name: </b>".$row['name'];						
-						echo "<br /><b>Space: </b>".$row['space'];						
-						echo "<br /><b>Status: </b>".$row['status'];						
-						echo "<br /><b>Joining Date: </b>".$row['joining_date'];						
-						echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-						echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-						echo "<b>Ending Date: </b>".$row['ending_date'];						
-						echo "<br /><b>No. of Employees: </b>".$row['employees'];						
-						echo "<br /><b>Domain: </b>".$row['domain'];						
-						echo "<br /><b>Description: </b>".$row['description'];						
-						echo "<br /><b>Web Address: </b>".$row['web_address'];	
-						$p1_id = $row['p1_id'];
-						$p2_id = $row['p2_id'];
-						echo "<br /><br /><b>Primary Contacts - </b><br />";
-						$sql = $mysqli->query("SELECT * FROM startup_members WHERE id='$p1_id' LIMIT 1");
-						$row = $sql->fetch_assoc();
-						echo "<div class='col-md-4'>";
-						echo "<br /><b>Name: </b>".$row['first_name']." ".$row['last_name'];
-						echo "<br /><b>Contact: </b>".$row['contact'];
-						echo "<br /><b>Email: </b>".$row['email'];
-						echo "</div><div class='col-md-8'>";
-						if($p2_id>0){
-							$sql = $mysqli->query("SELECT * FROM startup_members WHERE id='{$p2_id}' LIMIT 1");
+						if($sql->num_rows)
+						{
 							$row = $sql->fetch_assoc();
+							if($row['status'] == "Present")
+							{
+								$mydate = $row['ending_date'];
+								$a = strptime($date, '%m-%d-%Y');
+								$b = strptime($mydate, '%m-%d-%Y');
+								$timestampa = mktime(0, 0, 0, $a['tm_mon']+1, $a['tm_mday'], $a['tm_year']+1900);
+								$timestampb = mktime(0, 0, 0, $b['tm_mon']+1, $b['tm_mday'], $b['tm_year']+1900);
+
+								if($timestampa > $timestampb){
+									$mysqli->query("UPDATE startups SET status = 'Left' WHERE id='{$id}'");
+									$row['status'] = 'Left';
+								}
+							}
+							echo "<br /><b>Startup Name: </b>".$row['name'];						
+							echo "<br /><b>Space: </b>".$row['space'];						
+							echo "<br /><b>Status: </b>".$row['status'];						
+							echo "<br /><b>Joining Date: </b>".$row['joining_date'];						
+							echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+							echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+							echo "<b>Ending Date: </b>".$row['ending_date'];						
+							echo "<br /><b>No. of Employees: </b>".$row['employees'];						
+							echo "<br /><b>Domain: </b>".$row['domain'];						
+							echo "<br /><b>Description: </b>".$row['description'];						
+							echo "<br /><b>Web Address: </b>".$row['web_address'];	
+							$p1_id = $row['p1_id'];
+							$p2_id = $row['p2_id'];
+							echo "<br /><br /><b>Primary Contacts - </b><br />";
+							$sql = $mysqli->query("SELECT * FROM startup_members WHERE id='$p1_id' LIMIT 1");
+							$row = $sql->fetch_assoc();
+							echo "<div class='col-md-4'>";
 							echo "<br /><b>Name: </b>".$row['first_name']." ".$row['last_name'];
 							echo "<br /><b>Contact: </b>".$row['contact'];
-							echo "<br /><b>Email: </b>".$row['email'];	
+							echo "<br /><b>Email: </b>".$row['email'];
+							echo "</div><div class='col-md-8'>";
+							if($p2_id>0){
+								$sql = $mysqli->query("SELECT * FROM startup_members WHERE id='{$p2_id}' LIMIT 1");
+								$row = $sql->fetch_assoc();
+								echo "<br /><b>Name: </b>".$row['first_name']." ".$row['last_name'];
+								echo "<br /><b>Contact: </b>".$row['contact'];
+								echo "<br /><b>Email: </b>".$row['email'];	
+							}
+							echo "</div>";
 						}
-						echo "</div>";
 					}
 				?>
 			</div>
@@ -116,13 +132,8 @@
 	$("#startup_page").addClass("active");
 </script>
 <script>
-	window.onload = function(){
-		var url = window.location.href.split('?');
-		if(url.length == 2){
-			url = url[1].split('=')[1];
-		}
-	};
-	function choosestartup(id){
+	function choosestartup(startups){
+		var id = startups.value;
 		window.location.href = './startup_page.php?id='+id;
 	}
 </script>
