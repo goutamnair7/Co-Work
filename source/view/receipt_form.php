@@ -48,18 +48,6 @@
 				
 				<div class = 'col-md-2'></div>
 				<div class="row col-md-8 col-xs-12">
-			
-				
-				
-<!--				<a data-toggle="modal" href="#adminModal" class="btn btn-primary btn-lg">Admin Register</a>
-
-				<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title">Register New Admin</h4>
-							</div>-->
 							<form action="template/receipt.php" method="post">
 								<br /><br />
 								<div class = 'col-md-12 col-xs-12'><h1>Receipt Invoice</h1></div>
@@ -157,7 +145,7 @@
 								</div>
 
 									<button type="submit" class="btn btn-primary">Generate PDF</button>
-
+									<br><br>
 							</form>	
 						<!--</div> 
 					</div> 
@@ -165,8 +153,8 @@
 				</div>
 			</div>
 			
-			<!--<footer id="footer-bar" class="row">
-			</footer> -->
+			<footer id="footer-bar" class="row">
+			</footer>
 		</div>
 	</div>
 </div>

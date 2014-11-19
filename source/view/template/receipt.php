@@ -3,18 +3,65 @@
 require_once("../../vendor/html2pdf_v4.03/html2pdf.class.php");
 require( dirname(dirname( dirname( __FILE__ ) ) ). DIRECTORY_SEPARATOR . "model" . DIRECTORY_SEPARATOR . "config_sql.php" );
 
-$name = $_POST['name'];
-$designation = $_POST['desig'];
-$company = $_POST['company'];
-$address = $_POST['add'];
-$date_to_store = date("Y-m-d");
-$date = date("F d, Y", strtotime($date_to_store));
-$from = $_POST['from'];
-$sum = $_POST['sum'];
-$start = $_POST['start'];
-$end = $_POST['end'];
-$left_auth = $_POST['leftauth'];
-$right_auth = $_POST['rightauth'];
+if (isset($_POST['ret_action'])) {
+    $ret_action = $_POST['ret_action'];
+} else {
+    $ret_action = "exist";
+}
+
+if ($ret_action == "create") {
+
+    $name = $_POST['name'];
+    $designation = $_POST['desig'];
+    $company = $_POST['company'];
+    $address = $_POST['add'];
+    $date_to_store = date("Y-m-d");
+    $date = date("F d, Y", strtotime($date_to_store));
+    $from = $_POST['from'];
+    $sum = $_POST['sum'];
+    $start_to_store = $_POST['start'];
+    $end_to_store = $_POST['end'];
+    $start = date("F d, Y", strtotime($start_to_store));
+    $end = date("F d, Y", strtotime($end_to_store));
+    $receipt = $_POST['receipt'];
+    $left_auth = $_POST['leftauth'];
+    $right_auth = $_POST['rightauth'];
+
+    $query_new = "INSERT INTO invoice
+        VALUES('', $receipt, 'receipt', '$name', '$designation', '$company', '$address', '$date_to_store', '$left_auth', '$right_auth', '', 0);";
+    $result_new = $mysqli->query($query_new);
+
+    $query_new1 = "INSERT INTO receipt
+        VALUES('', $receipt, '$from', $sum, '$start_to_store', '$end_to_store');";
+    $result_new1 = $mysqli->query($query_new1);
+
+} else {
+
+    $id_invoice = $_GET['id'];
+    $extract_query = "SELECT * FROM invoice WHERE id=$id_invoice";
+    $result_extract = $mysqli->query($extract_query);
+    $rows_extract = mysqli_fetch_array($result_extract);
+    $name = $rows_extract['name'];
+    $designation = $rows_extract['designation'];
+    $company = $rows_extract['company'];
+    $address = $rows_extract['address'];
+    $date_to_store = $rows_extract['date'];
+    $date = date("F d, Y", strtotime($date_to_store));
+    $receipt = $rows_extract['invoice_number'];
+    $left_auth = $rows_extract['left_auth'];
+    $right_auth = $rows_extract['right_auth'];
+
+    $receipt_query = "SELECT * FROM receipt WHERE invoice_number=$receipt";
+    $result_receipt = $mysqli->query($receipt_query);
+    $rows_receipt = mysqli_fetch_array($result_receipt);
+    $from = $rows_receipt['name'];
+    $sum = $rows_receipt['total'];
+    $start_to_store = $rows_receipt['from_date'];
+    $end_to_store = $rows_receipt['to_date'];
+    $start = date("F d, Y", strtotime($start_to_store));
+    $end = date("F d, Y", strtotime($end_to_store));
+
+}
 
 $leftsign = '';
 $rightsign = '';
