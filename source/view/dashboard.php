@@ -179,7 +179,13 @@ function invoice_confirm(invoice,type){
         data: {"id": invoice, "action":"confirm" },
         success: function(msg){
             $("#msgform").html("<div class='alert alert-success'>"+msg+"</div>");
-            changeajax(type);
+            if(type == 'all')
+            {
+                changeajax("");
+                console.log("type: all");
+            }
+            else
+                changeajax(type);
         }
     });
 };

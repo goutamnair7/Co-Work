@@ -60,24 +60,10 @@
 				<?php
 					$id = @$_GET['id'];
 					if($id>0){
-						$date = date('m-d-Y');
 						$sql = $mysqli->query("SELECT * FROM startups WHERE id='{$id}' LIMIT 1");
 						if($sql->num_rows)
 						{
 							$row = $sql->fetch_assoc();
-							if($row['status'] == "Present")
-							{
-								$mydate = $row['ending_date'];
-								$a = strptime($date, '%m-%d-%Y');
-								$b = strptime($mydate, '%m-%d-%Y');
-								$timestampa = mktime(0, 0, 0, $a['tm_mon']+1, $a['tm_mday'], $a['tm_year']+1900);
-								$timestampb = mktime(0, 0, 0, $b['tm_mon']+1, $b['tm_mday'], $b['tm_year']+1900);
-
-								if($timestampa > $timestampb){
-									$mysqli->query("UPDATE startups SET status = 'Left' WHERE id='{$id}'");
-									$row['status'] = 'Left';
-								}
-							}
 							echo "<br /><b>Startup Name: </b>".$row['name'];						
 							echo "<br /><b>Space: </b>".$row['space'];						
 							echo "<br /><b>Status: </b>".$row['status'];						

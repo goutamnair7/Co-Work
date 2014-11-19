@@ -30,71 +30,71 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		?>
 
 		<div id="content-wrapper">
-        <div class="main-box clearfix" style="min-height: 820px;">
-			<div class="row" id="main">
-				<br />
-				<div class='row'>
-					<div class = 'col-md-6' style="text-align:center;">
-						<h1>View Space </h1> 
-					</div>
+			<div class="main-box clearfix" style="min-height: 820px;">
+				<div class="row" id="main">
+					<br />
+					<div class='row'>
+						<div class = 'col-md-6' style="text-align:center;">
+							<h1>View Space </h1> 
+						</div>
 
-					<div class = 'col-md-5' style="text-align:right;"> 
-						<a href="add_new_space.php"><button class="btn btn-primary">Add Space</button></a>
-					</div>
+						<div class = 'col-md-5' style="text-align:right;"> 
+							<a href="add_new_space.php"><button class="btn btn-primary">Add Space</button></a>
+						</div>
 
-					<div class = 'col-md-1'></div>
-				</div>
-				<br />
-				<div class="col-md-6 form-group">
-					<label>Space</label>
-					<select class="form-control" id = 'spacename' name="space" required>
-						<option id='0' class='useless' value = "0"> - </option>
-					<?php
-						require_once("../model/config_sql.php" );
-						$sql = $mysqli->query("SELECT * FROM spaces");
-						while($row = $sql->fetch_assoc())
-							echo "<option class = '" .$row['type']. "' id = '" .$row['name']. "'>".$row['name']."</option>";
-					?>
-					</select>
-					<br/>
-
-					<div id = "monthandyear" style="display:none;">
-						<label>Month</label>
-						<select class="form-control" id = 'month' name="month" required>
-							<option value="0"> - </option>
-							<option value="1">January</option>
-							<option value="2">February</option>
-							<option value="3">March</option>
-							<option value="4">April</option>
-							<option value="5">May</option>
-							<option value="6">June</option>
-							<option value="7">July</option>
-							<option value="8">August</option>
-							<option value="9">September</option>
-							<option value="10">October</option>
-							<option value="11">November</option>
-							<option value="12">December</option>
-						</select><br />
-						<label>Year</label>
-						<select class="form-control" id = 'year' name="year" required>
-						</select><br />
+						<div class = 'col-md-1'></div>
 					</div>
 					<br />
-					<div id='display_space' class='col-md-6'>
-					</div>
-					<div id='startup_details'>
-						<div id='display_cowork' class='col-md-6'>
-						</div>
-						<div id='display_room_details' class='col-md-6'>
-						</div>
-					</div>
+					<div class="col-md-6 form-group" style='margin-left:10px;'>
+						<label>Space</label>
+						<select class="form-control" id = 'spacename' name="space" required>
+							<option id='0' class='useless' value = "0"> - </option>
+						<?php
+							require_once("../model/config_sql.php" );
+							$sql = $mysqli->query("SELECT * FROM spaces");
+							while($row = $sql->fetch_assoc())
+								echo "<option class = '" .$row['type']. "' id = '" .$row['name']. "'>".$row['name']."</option>";
+						?>
+						</select>
+						<br/>
 
-				</div>
-			<!--<footer id="footer-bar" class="row">
-			</footer> -->
+						<div id = "monthandyear" style="display:none;">
+							<label>Month</label>
+							<select class="form-control" id = 'month' name="month" required>
+								<option value="0"> - </option>
+								<option value="1">January</option>
+								<option value="2">February</option>
+								<option value="3">March</option>
+								<option value="4">April</option>
+								<option value="5">May</option>
+								<option value="6">June</option>
+								<option value="7">July</option>
+								<option value="8">August</option>
+								<option value="9">September</option>
+								<option value="10">October</option>
+								<option value="11">November</option>
+								<option value="12">December</option>
+							</select><br />
+							<label>Year</label>
+							<select class="form-control" id = 'year' name="year" required>
+							</select><br />
+						</div>
+						<br />
+						<div id='display_space' class='col-md-6'>
+						</div>
+						<div id='startup_details'>
+							<div id='display_cowork' class='col-md-6'>
+							</div>
+							<div id='display_room_details' class='col-md-6'>
+							</div>
+						</div>
+
+					</div>
+				<!--<footer id="footer-bar" class="row">
+				</footer> -->
+			</div>
 		</div>
 	</div>
-    </div>
 </div>
 
 <!--Common js-->
@@ -286,13 +286,23 @@ function display_rooms()
 				for (var j = 0; j < obj[i].length; j++) {
 					//obj[i][j] = obj[i][j].startup_id;
 					if(obj[i][j].startup_id==0){
-						str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						if(spacename == ''){
+							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
+						else{
+							str+= "<img onclick='show_details("+obj[i][j].desk_id+", 0)' src='../asset/img/not_selected.png' id='" + i + "-" + j + "' />";
+						}
 					}
 					else if(obj[i][j].startup_id==-1){
 					//	str+= "<img src='../asset/img/not_available.png' id='" + i + "-" + j + "' />";
 					}
 					else {
-						str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
+						if(spacename == ''){
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
+						}
+						else{
+							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details("+obj[i][j].desk_id+","+obj[i][j].startup_id+")' />";
+						}
 					}
 				};
 				str+="<br />";
