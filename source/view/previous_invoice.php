@@ -39,12 +39,12 @@
 					    <br />
 				    	<div class="modal-body">
 					    	<label>Select Invoice Type</label>
-						    	<select class="form-control" name='invoice_type' id="selected">
+						    	<select class="form-control" onchange='show(this.value)' name='invoice_type' id="selected">
 									    <option value="nil" default> - </option>
-									    <option onclick="show('1')" value="invoice_form"> General Invoice </option>
-										<option onclick="show('2')" value="receipt_form"> Receipt Invoice </option>
-										<option onclick="show('3')" value="purchase_order_form"> Purchase Order Invoice </option>
-										<option onclick="show('4')" value="reimbursement_form"> Reimbursement </option>
+									    <option value="1"> General Invoice </option>
+										<option value="2"> Receipt Invoice </option>
+										<option value="3"> Purchase Order Invoice </option>
+										<!--<option value="4"> Reimbursement </option>-->
 									</select>
 						</div><br><br>	
 			    <div class="" style='margin-left:30px'>
