@@ -428,9 +428,6 @@ function display_desks()
 			document.getElementById('desk_selection').innerHTML=str;
 		//	document.getElementById('display_room').innerHTML='';
 		},
-		error: function(){
-			alert("Connection Error");
-		}
 	});
 
 }

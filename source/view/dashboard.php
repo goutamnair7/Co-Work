@@ -100,7 +100,7 @@
 				<!--<footer id="footer-bar" class="row">
 				</footer> -->
 			</div>
-			<div class='col-md-4'>
+			<div class='col-md-4' style='margin-top:-32px;'>
 				<h2>Pending Invoice</h2>
 				<div id='msgform'>
 				</div>

@@ -45,7 +45,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 					<div class = 'col-md-1'></div>
 				</div>
 				<br />
-				<div class="col-md-6 form-group">
+				<div class="col-md-6 form-group" style='margin-left:20px;'>
 					<label>Space</label>
 					<select class="form-control" id = 'spacename' name="space" required>
 						<option id='0' class='useless' value = "0"> - </option>
@@ -90,6 +90,12 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 					</div>
 
 				</div>
+				<div class='col-md-5'>
+					<br />
+					<div class='col-md-3'></div>
+					<div class='col-md-6' id='startupinfo'></div>
+					<div class='col-md-3'></div>
+				</div>
 			<!--<footer id="footer-bar" class="row">
 			</footer> -->
 		</div>
@@ -106,6 +112,19 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 <script src="../asset/js/jquery.nanoscroller.min.js"></script> 
 <script src="../asset/js/jquery.maskedinput.min.js"></script>
 <!--Page specific js-->
+
+<script type='text/javascript'>
+	<?php
+	$query = 'SELECT * FROM startups';
+	$result = $mysqli->query($query);
+	$names = array();
+	while($row=$result->fetch_assoc()){
+		$names['row_'.$row['id']]=$row['name'];
+	}
+	?>
+	var names = <?php echo json_encode($names);?>;
+//	console.log(names);
+</script>
 
 <script type="text/javascript">
 var space = document.getElementById('spacename');
@@ -136,9 +155,11 @@ function show(){
 	}
 
 	if(document.getElementById(space.value).className == 'Co-Working'){
+		document.getElementById("startupinfo").innerHTML = "";
 		display_desks();
 	}
 	else{
+		document.getElementById("startupinfo").innerHTML = "";
 		display_rooms();
 	}
 }
@@ -164,10 +185,12 @@ function display_desks()
 		processData:false,
 
 		success: function(msg){
-			console.log(msg);
+			//console.log(msg);
 			var obj = JSON.parse(msg);
 			var length = obj.length;
 			var str='';
+			var info = "";
+			document.getElementById('startupinfo').innerHTML = "";
 			str = "<table style='font-size: 0.8em; text-align: center'>";
 			for (var i = 0; i < length; i++) {
 				str += "<tr>";
@@ -183,11 +206,29 @@ function display_desks()
 							str+= "<img src='../asset/img/booked.png' id='" + i + "-" + j + "' onclick='show_details(0, "+obj[i][j].startup_id+")' /><br />"+obj[i][j].label;
 					}
 					str += "</td><td>&nbsp;&nbsp;</td>";
+					info += "<b>"+obj[i][j].label+"</b>";
+
+					if(names['row_'+obj[i][j].startup_id] != undefined){
+						info += ': ' + "<a href='startup_page.php?id="+obj[i][j].startup_id+"'>" + names['row_'+obj[i][j].startup_id] + "</a>";
+					}
+					else{
+						info += ': Not Booked';
+					}
+					info += "<br />";
 				};
 				str+="</tr>";
 
+
 			};
 			str += "</table>";
+
+			if(month.value!='0' && year.value != '0'){
+				document.getElementById('startupinfo').innerHTML = "<h1>Desk Details</h1><br />";
+				document.getElementById('startupinfo').innerHTML += info;
+			}
+			else {
+				document.getElementById("startupinfo").innerHTML = "";
+			}
 			document.getElementById('display_space').innerHTML=str;
 			document.getElementById('display_cowork').innerHTML='';
 			document.getElementById('display_room_details').innerHTML='';
@@ -212,10 +253,10 @@ function show_details(id, startup_id){
 
 			success: function(msg){
 				var obj = JSON.parse(msg);
-				console.log(obj);
+				//console.log(obj);
 				if(obj['status']) {
 					var startup = obj['row'];
-					console.log(startup);
+				//	console.log(startup);
 					document.getElementById('display_cowork').innerHTML = "<b>Startup Name : </b><a href='startup_page.php?id="+startup['id']+"'>" + startup['name']+"</a>";
 				//	console.log(obj);
 				}
@@ -246,7 +287,7 @@ function show_details(id, startup_id){
 				var obj = JSON.parse(msg);
 			//	if(obj['status']) {
 					var roomdetails = obj['row'];
-					console.log(roomdetails);
+				//	console.log(roomdetails);
 					str = "<b>Room id: </b>"+roomdetails['id']+"<br />";
 					str += "<b>Area: </b>"+roomdetails['area']+"<br />";
 					str += "<b>Desks: </b>"+roomdetails['desks']+"<br />";
@@ -278,7 +319,7 @@ function display_rooms()
 		processData:false,
 
 		success: function(msg){
-			console.log(msg);
+		//	console.log(msg);
 			var obj = JSON.parse(msg);
 			var length = obj.length;
 			var str='';
