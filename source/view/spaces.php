@@ -30,6 +30,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 		?>
 
 		<div id="content-wrapper">
+        <div class="main-box clearfix" style="min-height: 820px;">
 			<div class="row" id="main">
 				<br />
 				<div class='row'>
@@ -93,6 +94,7 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . "navbar.php" );
 			</footer> -->
 		</div>
 	</div>
+    </div>
 </div>
 
 <!--Common js-->
