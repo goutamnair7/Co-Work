@@ -13,7 +13,7 @@ $tbl_name8 = "spaces"; //tablename 8.
 $tbl_name9 = "sign_auth"; //tablename 9.
 $tbl_name10 = "invoice"; //tablename 10.
 $tbl_name11 = "purchase_order"; //tablename 11.
-$tbl_name12 = "reciept"; //tablename 12.
+$tbl_name12 = "receipt"; //tablename 12.
 $tbl_name13 = "general"; //tablename 13.
 //$tbl_name14 = "reimbursement_invoice"; //tablename 14.
 
@@ -170,7 +170,7 @@ $sql_tbl_12 = "CREATE TABLE `$tbl_name12` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_number` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
-  `total_word` varchar(150) NOT NULL,
+  `total` int(11) NOT NULL,
   `from_date` DATE NOT NULL,
   `to_date` DATE NOT NULL,
    PRIMARY KEY (`id`)

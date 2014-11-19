@@ -13,7 +13,7 @@ $tbl_name8 = "spaces"; //tablename 8.
 $tbl_name9 = "sign_auth"; //tablename 9.
 $tbl_name10 = "invoice"; //tablename 10.
 $tbl_name11 = "purchase_order"; //tablename 11.
-$tbl_name12 = "reciept"; //tablename 12.
+$tbl_name12 = "receipt"; //tablename 12.
 $tbl_name13 = "general"; //tablename 13.
 //$tbl_name14 = "reimbursement_invoice"; //tablename 14.
 
