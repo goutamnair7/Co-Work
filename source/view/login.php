@@ -59,7 +59,7 @@
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="col-md-3 col-xs-3">	</div>
-											<button type="submit" class="btn btn-success col-xs-6 col-md-6">Login</button>
+											<button id='submit_button' type="submit" class="btn btn-success col-xs-6 col-md-6">Login</button>
 											<div class="col-md-3 col-xs-3"></div>
 										</div>
 									</div>

@@ -1,0 +1,4 @@
+SuperAdmin
+Seatwise details for startups
+Edit Startup, Archive startup - change ending date to current date.
+Integrate booked-scheduler as a tab.

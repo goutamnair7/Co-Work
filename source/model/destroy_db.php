@@ -15,7 +15,7 @@ $tbl_name10 = "invoice"; //tablename 10.
 $tbl_name11 = "purchase_order"; //tablename 11.
 $tbl_name12 = "receipt"; //tablename 12.
 $tbl_name13 = "general"; //tablename 13.
-//$tbl_name14 = "reimbursement_invoice"; //tablename 14.
+$tbl_name14 = "reimbursement"; //tablename 14.
 
 // Delete table "admins"
 $sql_tbl_1 = "DROP TABLE `$tbl_name1`";
@@ -62,6 +62,9 @@ $result_tbl_12 = $mysqli->query( $sql_tbl_12 );
 
 $sql_tbl_13 = "DROP TABLE `$tbl_name13`";
 $result_tbl_13 = $mysqli->query( $sql_tbl_13 );
+
+$sql_tbl_14 = "DROP TABLE `$tbl_name14`";
+$result_tbl_14 = $mysqli->query( $sql_tbl_14 );
 
 if ($result_tbl_1) {
 	echo "Table $tbl_name1 succesfully deleted. \r\n";
@@ -139,6 +142,12 @@ if ($result_tbl_13) {
 	echo "Table $tbl_name13 succesfully deleted. \r\n";
 } else {
 	echo "Table $tbl_name13 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
+}
+
+if ($result_tbl_14) {
+	echo "Table $tbl_name14 succesfully deleted. \r\n";
+} else {
+	echo "Table $tbl_name14 couldnt be deleted. Check the hostname,username,password,database_name. Maybe table of the same name doesnt exist. \r\n";
 }
 
 ?>

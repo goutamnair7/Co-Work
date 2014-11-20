@@ -15,7 +15,7 @@ $tbl_name10 = "invoice"; //tablename 10.
 $tbl_name11 = "purchase_order"; //tablename 11.
 $tbl_name12 = "receipt"; //tablename 12.
 $tbl_name13 = "general"; //tablename 13.
-//$tbl_name14 = "reimbursement_invoice"; //tablename 14.
+$tbl_name14 = "reimbursement"; //tablename 14.
 
 //Creating table "admins".
 $sql_tbl_1 = "CREATE TABLE `$tbl_name1` (
@@ -138,15 +138,15 @@ $mysqli->query("INSERT INTO $tbl_name9 values ('', 'Manikiran', 'Manager', 'Bany
 
 //Creating table "invoice".
 $sql_tbl_10 = "CREATE TABLE `$tbl_name10` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `invoice_number` int(11) NOT NULL,
-  `type` varchar(40) NOT NULL,
-  `name` varchar(40) NOT NULL,
-  `designation` varchar(30),
-  `company` varchar(50) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,  
+  `invoice_number` int(11) NOT NULL,  
+  `type` varchar(40) NOT NULL, 
+  `name` varchar(40) NOT NULL, 
+  `designation` varchar(30), 
+  `company` varchar(50) NOT NULL, 
   `address` varchar(100) NOT NULL,
-  `date` DATE NOT NULL,
-  `left_auth` varchar(60) NOT NULL,
+  `date` DATE NOT NULL, 
+  `left_auth` varchar(60) NOT NULL, 
   `right_auth` varchar(60) NOT NULL,
   `checkto` varchar(200),
   `status` int(11),
@@ -187,6 +187,21 @@ $sql_tbl_13 = "CREATE TABLE `$tbl_name13` (
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_13 = $mysqli->query( $sql_tbl_13 );
+
+//Creating table "reimbursement".
+$sql_tbl_14 = "CREATE TABLE `$tbl_name14` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_number` int(11) NOT NULL,
+  `reason` varchar(200) NOT NULL,
+  `account` varchar(200) NOT NULL,
+  `enclosure` varchar(200) NOT NULL,
+  `date` DATE NOT NULL,
+  `cheque` int(11) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `amount` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+$result_tbl_14 = $mysqli->query( $sql_tbl_14 );
 
 if ($result_tbl_1) {
 	echo "Table $tbl_name1 succesfully created. \r\n";
@@ -264,5 +279,11 @@ if ($result_tbl_13) {
   echo "Table $tbl_name13 succesfully created. \r\n";
 } else {
   echo "Table $tbl_name13 couldnt be created. Check the hostname,username,password,database_name. Maybe another table of the same name already exists \r\n";
+}
+
+if ($result_tbl_14) {
+  echo "Table $tbl_name14 succesfully created. \r\n";
+} else {
+  echo "Table $tbl_name14 couldnt be created. Check the hostname,username,password,database_name. Maybe another table of the same name already exists \r\n";
 }
 ?>

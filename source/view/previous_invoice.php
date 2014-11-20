@@ -39,71 +39,16 @@
 					    <br />
 				    	<div class="modal-body">
 					    	<label>Select Invoice Type</label>
-						    	<select class="form-control" name='invoice_type' id="selected">
+						    	<select class="form-control" onchange='show(this.value)' name='invoice_type' id="selected">
 									    <option value="nil" default> - </option>
-									    <option onclick="show('1')" value="invoice_form"> General Invoice </option>
-										<option onclick="show('2')" value="receipt_form"> Receipt Invoice </option>
-										<option onclick="show('3')" value="purchase_order_form"> Purchase Order Invoice </option>
-										<option onclick="show('4')" value="reimbursement_form"> Reimbursement </option>
+									    <option value="1"> General Invoice </option>
+										<option value="2"> Receipt Invoice </option>
+										<option value="3"> Purchase Order Invoice </option>
+										<option value="4"> Reimbursement </option>
 									</select>
 						</div><br><br>	
-			    <div class="" style='margin-left:30px'>
-                <?php
-                   $id = @$_GET['id'];
-                   if($id > 0)
-                   {
-                        echo "<table class=\"table table-hover\">";
-                        echo "<tr>
-                                <th>Invoice Numbers</th>
-                                <th>Confirm Invoice</th>
-                                <th>Pending Invoice</th>
-                                <th>Invoice Status</th>
-                              </tr>";
-                        $query1 = "SELECT DISTINCT I.id, I.status FROM invoice I INNER JOIN ";
-                        $query2 = "SELECT DISTINCT invoice_number FROM ";
-                        if($id == 1)
-                        {
-                            $query1 .= "general G ON I.type=\"general\" WHERE G.invoice_number=I.invoice_number;";
-                            $query2 .= "general;";
-                            $table = "invoice";
-                        }
-                        else if($id == 2)
-                        {
-                            $query1 .= "receipt R ON I.type=\"receipt\" WHERE R.invoice_number=I.invoice_number;";
-                            $query2 .= "receipt;";
-                            $table = "receipt";
-                        }
-                        else if($id == 3)
-                        {
-                            $query1 .= "purchase_order P ON I.type=\"purchase_order\" WHERE P.invoice_number=I.invoice_number;";
-                            $query2 .= "purchase_order;";
-                            $table = "purchase_order";
-                        }
-                        else if($id == 4)
-                        {
-                            $query1 .= "reimbursement R ON I.type=\"reimbursement\" WHERE G.invoice_number=R.invoice_number;";
-                            $query2 .= "reimbursement;";
-                            $table = "reimbursement";
-                        }
-                        $rows = $mysqli->query($query1);
-                        $rows2 = $mysqli->query($query2);
-                        while($row = $rows->fetch_assoc() and $row2 = $rows2->fetch_assoc())
-                        {
-                            $inv_id = $row['id'];
-                            echo "<tr>
-                                    <td><a href=template/$table.php?id=".$row['id'].">".$row2['invoice_number']."</a></td>
-                                    <td><a class=\"btn btn-success\" onclick=\"invoice_confirm($inv_id, $id)\">Confirm</a></td>
-                                    <td><a class=\"btn btn-danger\" onclick=\"pending($inv_id, $id)\">Pending</a></td>";
-                                    if($row['status'] == 0)
-                                        echo "<td>Pending</td>";
-                                    else
-                                        echo "<td>Confirmed</td>";
-                                  echo "</tr>";
-                        }
-                        echo "</table>";
-                   }
-                ?>
-                </div>
+			        <div style='margin-left:30px' id="resultdiv">
+                    </div>
 				</div>
 			</div>
 			<!--<footer id="footer-bar" class="row">
@@ -131,44 +76,58 @@
 
 <script>
     function show(id){
-        window.location.href = 'previous_invoice.php?id='+id;
+        $.ajax({
+            url: "../controller/previous_invoice.php",
+            type: 'GET',
+            data: {"id": id},
+
+            success: function(result){
+                $("#resultdiv").html(result);
+                console.log("Done");
+            }
+        });
     }
     function invoice_confirm(invoice, id){
+        if(id == "purchase_order")
+            id = 3;
+        else if(id == "receipt")
+            id = 2;
+        else if(id == "general")
+            id = 1;
+        else if(id == "reimbursement")
+            id = 4;
+        
         $.ajax({
-            url: "../controller/change_status?id="+invoice+"&action=confirm&table="+id,
+            url: "../controller/change_status.php",
             type: 'GET',
-            contentType: false,
-            cache: false,
-            processData: false,
-
+            data: {"id": invoice, "action":"confirm" },
             success: function(msg){
-                        window.location.href = "previous_invoice.php?id="+id;
                         console.log(msg);
                         console.log("Status changed");
-            },
-            error: function(msg){
-                        console.log(msg);
-                        console.log("Error occured");
+                        show(id);
             }
         });
     }
     
     function pending(invoice, id){
-        $.ajax({
-            url: "../controller/change_status?id="+invoice+"&action=pending&table="+id,
-            type: 'GET',
-            contentType: false,
-            cache: false,
-            processData: false,
+        if(id == "purchase_order")
+            id = 3;
+        else if(id == "receipt")
+            id = 2;
+        else if(id == "general")
+            id = 1;
+        else if(id == "reimbursement")
+            id = 4;
+        
 
+        $.ajax({
+            url: "../controller/change_status.php",
+            type: 'GET',
+            data: {"id": invoice, "action": "pending"},
             success: function(msg){
-                        window.location.href = "previous_invoice.php?id="+id;
                         console.log(msg);
                         console.log("Status changed");
-            },
-            error: function(msg){
-                        console.log(msg);
-                        console.log("Error occured");
+                        show(id);
             }
         });
     }

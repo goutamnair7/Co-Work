@@ -1,0 +1,39 @@
+*** Settings ***
+Documentation     	Test cases for Auth Module
+...               	Run using "pybot testsuites/AuthModule" from source/tests folder
+
+Resource          	../../resources/main.txt
+
+*** Variables ***
+
+${LoginEmail}			admin@example.com
+${LoginPassword}		password
+${LoginWrongPassword}	password1
+${ChangePassword}		root
+${LoginPageError}		p#status
+${LoginError}			Invalid Email ID or Password
+${LoginTitle}   		Co-Work :: Login
+
+*** Test Cases ***
+Login Fail Test
+	Login If Not Logged In  ${LoginEmail}  ${LoginWrongPassword}
+	Page Should Be Open  ${LoginTitle}
+	Should Show Message  ${LoginError}  ${LoginPageError}
+
+Login Test
+	Login If Not Logged In  ${LoginEmail}  ${LoginPassword}
+	Page Should Be Open  ${DashBoardTitle}
+
+Password Change Test
+	Login If Not Logged In  ${LoginEmail}  ${LoginWrongPassword}
+	Click Link  change_password_btn
+	Page Should Be Open  Co-Work :: Reset Password
+	Input Into Field  reset_email  ${LoginEmail}
+	Input Into Field  reset_old_password  ${LoginPassword}
+	Input Into Field  reset_new_password  ${ChangePassword}
+	Input Into Field  reset_confirm_password  ${ChangePassword}
+	Click Button  passwd_change_btn
+	Should Show Message  Successfully changed  ${LoginPageError}
+	Click Link  ${logoutButton}
+	Login To CoWork  ${LoginEmail}  ${ChangePassword}
+	Page Should Be Open  ${DashBoardTitle}
