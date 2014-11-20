@@ -188,7 +188,7 @@ $sql_tbl_13 = "CREATE TABLE `$tbl_name13` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 $result_tbl_13 = $mysqli->query( $sql_tbl_13 );
 
-//Creating table "general_invoice".
+//Creating table "reimbursement".
 $sql_tbl_14 = "CREATE TABLE `$tbl_name14` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_number` int(11) NOT NULL,

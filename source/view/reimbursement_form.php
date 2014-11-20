@@ -54,10 +54,14 @@
 											<p id="status" class="alert fade in" style="padding:3px;"></p>
 										</div>
 									</div>
-										
+									
+									<div class="form-group">
+										<input class="form-control hidden" type="text" name="ret_action" value="create" required>
+									</div>	
+                                    
                                     <div class="form-group">
 										<label>Invoice Number</label>
-										<input class="form-control" type="text" placeholder="Invoice Number" name="inum" required>
+										<input class="form-control" type="number" placeholder="Invoice Number" name="inum" required>
 									</div>
 
 									<div class="form-group">

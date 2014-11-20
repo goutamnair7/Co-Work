@@ -1,0 +1,32 @@
+*** Settings ***
+Documentation       A main file with reusable keywords and variables.
+
+Library             Selenium2Library
+
+Resource            config.txt
+Resource            resource.txt
+
+*** Variables ***
+${logoutButton}     logout_btn
+
+*** Keywords ***
+Start Browser With Proxy
+    ${proxy}=  Evaluate  sys.modules['selenium.webdriver'].Proxy()  sys, selenium.webdriver
+    ${proxy.http_proxy}=  Set Variable  ${HTTP_PROXY}
+    ${proxy.no_proxy}=  Set Variable  ${NO_PROXY}
+    Create Webdriver  ${BROWSER}  proxy=${proxy}
+
+Start Browser
+    Create Webdriver  ${BROWSER}
+
+Start Testing
+    [Documentation]  Starts the test
+    Run Keyword If  "${HTTP_PROXY}" != "" and "${BROWSER}" == "Firefox"  Start Browser With Proxy
+    ...  ELSE  Start Browser
+    Maximize Browser Window
+    Set Selenium Speed  ${DELAY}
+
+End Testing
+    [Documentation]  Ends the test
+    Click Link  ${logoutButton}
+    Close Browser

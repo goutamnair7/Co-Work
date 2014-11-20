@@ -1,0 +1,52 @@
+*** Settings ***
+Documentation       A resource file with reusable keywords and variables.
+
+Library             Selenium2Library
+Resource            config.txt
+
+*** Variables ***
+
+${DashBoardTitle}   Co-Work :: DashBoard
+${LoginField}       email
+${PasswordField}    password
+${LoginButton}      submit_button
+
+*** Keywords ***
+Should Show Message
+    [Documentation]  Checks for the confirmation element and the message inside it (if given
+    ...                as an argument) n the page and fails if it is not present.
+    [Arguments]  ${message}  ${CONFIRMATION}
+    Sleep  1s  Wait for message to render
+    Page Should Contain Element  jquery=${CONFIRMATION}  Confirmation message not shown
+    ${msg len} =  Get Length  ${message}
+    Run Keyword if  ${msg len} >= 1  Element Should Contain  jquery=${CONFIRMATION}  ${message}
+
+Login If Not Logged In
+    [Arguments]    ${inputEmail}  ${inputPassword}
+    Go To Page  ${LOGIN URL}
+    ${status}  ${value} =  Run Keyword And Ignore Error  Page Should Be Open  ${DashBoardTitle}
+    Run Keyword if  '${status}' == 'FAIL'  Login To CoWork  ${inputEmail}  ${inputPassword}
+
+Open Browser To Login Page
+    Open Browser    ${LOGIN URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+
+Login To CoWork
+    [Arguments]    ${inputEmail}  ${inputPassword}
+    Go To Page  ${LOGIN URL}
+    Input Into Field  ${LoginField}  ${inputEmail}
+    Input Into Field  ${PasswordField}  ${inputPassword}
+    Click Button  ${LoginButton}
+
+Page Should Be Open
+    [Arguments]    ${titlepage}
+    Title Should Be    ${titlepage}
+
+Go To Page
+    [Arguments]    ${PageUrl}
+    Go To    ${PageUrl}
+
+Input Into Field
+    [Arguments]    ${inputField}  ${inputText}
+    Input Text    ${inputField}    ${inputText}
