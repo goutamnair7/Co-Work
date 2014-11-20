@@ -106,9 +106,9 @@ $leftsign = '';
 $rightsign = '';
 
 if (isset( $left_auth )) {
-	
+
 	if ( $left_auth == 'none') {
-		$leftsign = ""; 
+		$leftsign = "";
 	} else {
 		$lname = $mysqli->query("select * from sign_auth where name='$left_auth';");
 		$rows = mysqli_fetch_array($lname);
@@ -123,7 +123,7 @@ if (isset( $left_auth )) {
 if (isset( $right_auth )) {
 
 	if ( $right_auth == 'none') {
-		$rightsign = ""; 
+		$rightsign = "";
 	} else {
 		$rname = $mysqli->query("select * from sign_auth where name='$right_auth';");
 		$rows = mysqli_fetch_array($rname);

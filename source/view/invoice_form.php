@@ -74,18 +74,27 @@
 									</div>
 										
 									<div class="form-group">
+										<input class="form-control hidden" type="text" name="ret_action" value="create" required>
+									</div>
+
+									<div class="form-group">
 										<label>Name</label>
 										<input class="form-control" type="text" placeholder="Name" name="name" required>
 									</div>
 									
 									<div class="form-group">
+										<label>Designation</label>
+										<input class="form-control" type="text" placeholder="Designation" name="desig" required>
+									</div>
+
+									<div class="form-group">
 										<label>Company</label>
 										<input class="form-control" type="text" placeholder="Company" name="company" required>
 									</div>
-									
-                                    <div class="form-group">
-										<label>Date</label>
-										<input class="form-control" type="date" placeholder="Date" name="date" required>
+
+									<div class="form-group">
+										<label>Address</label>
+										<input class="form-control" type="text" placeholder="Password" name="add" required>
 									</div>
 
 									<div class="form-group">
