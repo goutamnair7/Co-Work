@@ -1,3 +1,8 @@
+<?php include_once '../controller/ensure_login.php';
+	if(!isSuper())
+		header('location: ./');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

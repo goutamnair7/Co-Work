@@ -1,10 +1,13 @@
+<?php include_once '../controller/ensure_login.php';
+	ensureLoggedIn();
+?>
 		<div id="nav-col">
 			<section id="col-left" class="col-left-nano">
 				<div id="col-left-inner" class="col-left-nano-content">
 					<div id="user-left-box" class="clearfix hidden-sm hidden-xs">
 						<div class="user-box">
 							<span class="name" style='margin-left:-8px;'>
-								Welcome <?php require '../controller/ensure_login.php'; echo $_SESSION['name']; ?>
+								Welcome <?php session_start(); echo $_SESSION['name']; ?>
 							</span>
 						</div>
 					</div>
@@ -21,13 +24,23 @@
 								<i class="fa fa-building-o"></i>
 								<span>Register Startup</span>
 							</a>
-							</li>
+			<?php 
+				if(isSuper())
+					echo	"</li>
 							<li id='register_admin'>
-							<a href="register_admin.php">
-								<i class="fa fa-user"></i>
+							<a href='register_admin.php'>
+								<i class='fa fa-user'></i>
 								<span>Register Admin</span>
 							</a>
 							</li>
+							</li>
+							<li id='admin_details'>
+							<a href='admin_details.php'>
+								<i class='fa fa-user'></i>
+								<span>Show Admin</span>
+							</a>
+							</li>";
+			?>
 							<li id='spaces'>
 							<a href="spaces.php">
 								<i class="fa fa-tree"></i>
