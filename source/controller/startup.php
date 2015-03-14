@@ -68,6 +68,31 @@ else if($action=='show')
 	
 	echo json_encode($result);
 }
+else if($action='update')
+{
+	$startup_id = @$_GET['startup_id'];
+	$name = @$_GET['name'];
+	$domain = @$_GET['domain'];
+	$description = @$_GET['description'];
+	$web_address = @$_GET['web_address'];
+	$p1_id = @$_GET['p1_id'];
+	$fname1 = @$_GET['fname1'];
+	$lname1 = @$_GET['lname1'];
+	$contact1 = @$_GET['contact1'];
+	$email1 = @$_GET['email1'];
+	$p2_id = @$_GET['p2_id'];
+	$fname2 = @$_GET['fname2'];
+	$lname2 = @$_GET['lname2'];
+	$contact2 = @$_GET['contact2'];
+	$email2 = @$_GET['email2'];
+
+	$mysqli->query("UPDATE startups SET name='$name', domain='$domain', description='$description', web_address='$web_address' WHERE id='$startup_id'");
+	$mysqli->query("UPDATE startup_members SET first_name='$fname1', last_name='$lname1', email='$email1', contact='$contact1' WHERE id='$p1_id'");
+	if($p2_id != "")
+		$mysqli->query("UPDATE startup_members SET first_name='$fname2', last_name='$lname2', email='$email2', contact='$contact2' WHERE id='$p2_id'");
+
+	header('location: ../view/startup_page.php?id='.$startup_id);
+}
 else
 {
 	$result['action'] = $action;

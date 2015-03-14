@@ -1,7 +1,23 @@
 <?php
 
+function ensureLoggedIn()
+{
+	session_start();
+	if(!isset($_SESSION['is_super']))
+		header("location: ../view");
+}
 
-if(!isset($_SESSION['user_type']) || $_SESSION['user_type']=="")
-	header("location: ../view/login.php");
+function isSuper()
+{
+	session_start();
+	return (isset($_SESSION['is_super']) && $_SESSION['is_super']==1);
+}
+
+function ensureLoggedOut()
+{
+	session_start();
+	if(isset($_SESSION['is_super']))
+		header("location: ../view/dashboard.php");
+}
 
 ?>
